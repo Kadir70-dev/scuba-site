@@ -10,6 +10,11 @@ export function Navbar() {
   const [showNavbar, setShowNavbar] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
 
+  // ✅ NEW: navigation handler
+  const handleNavigation = (path: string) => {
+    window.location.href = path;
+  };
+
   useEffect(() => {
     const handleScroll = () => {
       const currentScroll = window.scrollY;
@@ -18,9 +23,9 @@ export function Navbar() {
         setShowNavbar(true);
       } else {
         if (currentScroll > lastScrollY) {
-          setShowNavbar(false); // scrolling down hide
+          setShowNavbar(false);
         } else {
-          setShowNavbar(true); // scrolling up show
+          setShowNavbar(true);
         }
       }
 
@@ -28,7 +33,6 @@ export function Navbar() {
     };
 
     window.addEventListener("scroll", handleScroll);
-
     return () => window.removeEventListener("scroll", handleScroll);
   }, [lastScrollY]);
 
@@ -63,11 +67,7 @@ export function Navbar() {
             border: navbarHover
               ? "1px solid rgba(165,243,252,0.4)"
               : "1px solid transparent",
-
-            backdropFilter: navbarHover
-              ? "blur(16px)"
-              : "blur(0px)",
-
+            backdropFilter: navbarHover ? "blur(16px)" : "blur(0px)",
             backgroundColor: navbarHover
               ? "rgba(255,255,255,0.05)"
               : "transparent",
@@ -106,13 +106,25 @@ export function Navbar() {
                           className="absolute top-[170%] left-0 min-w-[250px] rounded-2xl p-4 bg-[#082544]"
                         >
                           {item.dropdown.map((sub) => (
-                            <a
-                              key={sub}
-                              href="#"
-                              className="block px-4 py-3 text-white"
-                            >
-                              {sub}
-                            </a>
+                            <div key={sub}>
+                              {sub === "Advanced Open Water" ? (
+                                <button
+                                  onClick={() =>
+                                    handleNavigation("/advanced-open-water")
+                                  }
+                                  className="block w-full text-left px-4 py-3 text-white hover:text-cyan-300"
+                                >
+                                  {sub}
+                                </button>
+                              ) : (
+                                <a
+                                  href="#"
+                                  className="block px-4 py-3 text-white"
+                                >
+                                  {sub}
+                                </a>
+                              )}
+                            </div>
                           ))}
                         </motion.div>
                       )}

@@ -16,156 +16,148 @@ export function Pricing() {
         'Digital Certification Card',
       ],
       popular: false,
-      gradient: 'from-[#0891b2] to-[#0e7490]',
     },
     {
       name: 'Adventurer',
       price: '1,499',
       period: 'per person',
-      description: 'Our most popular package with advanced training and exclusive experiences.',
+      description: 'Advanced training with exclusive experiences.',
       features: [
         'Open Water + Advanced',
         '8 Training Dives',
         'Premium Equipment',
         'Night Dive Experience',
-        'Underwater Photography Session',
+        'Underwater Photography',
         'Dive Log Book',
-        'Resort Transfer',
       ],
       popular: true,
-      gradient: 'from-[#00d4ff] to-[#06b6d4]',
     },
     {
       name: 'Professional',
       price: '2,899',
       period: 'per person',
-      description: 'Complete professional training for aspiring dive masters.',
+      description: 'Complete professional training.',
       features: [
-        'Full Dive Master Course',
-        'Unlimited Training Dives',
-        'Professional Equipment Kit',
-        'Rescue Diver Certification',
+        'Dive Master Course',
+        'Unlimited Training',
+        'Rescue Certification',
         'First Aid Training',
-        'Internship Opportunity',
-        'Job Placement Assistance',
-        'Lifetime Support',
+        'Internship',
+        'Job Assistance',
       ],
       popular: false,
-      gradient: 'from-[#06b6d4] to-[#0891b2]',
     },
   ];
 
   return (
-    <section id="pricing" className="relative py-32 overflow-hidden">
-      <div className="absolute inset-0 bg-[#0f172a]" />
+    <section className="relative py-32 overflow-hidden">
 
-      <div
-        className="absolute inset-0 opacity-20"
-        style={{
-          backgroundImage: `radial-gradient(circle at 50% 0%, rgba(0, 212, 255, 0.15) 0%, transparent 50%)`,
-        }}
-      />
+      {/* 🔥 HARABARA BACKGROUND */}
+      <div className="absolute inset-0 bg-gradient-to-br from-[#18476D] via-[#123a5a] to-[#0b2c45]" />
 
-      <div className="relative max-w-[1600px] mx-auto px-6 lg:px-12">
-        <motion.div
-          className="text-center mb-20"
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-        >
-          <div className="inline-block px-4 py-2 rounded-full bg-white/5 backdrop-blur-sm border border-[#00d4ff]/20 mb-6">
-            <span className="text-[#00d4ff] text-sm font-medium tracking-wider uppercase">
+      {/* Glow */}
+      <div className="absolute top-20 left-20 w-72 h-72 bg-cyan-400/20 blur-[120px] rounded-full" />
+      <div className="absolute bottom-20 right-20 w-72 h-72 bg-blue-500/20 blur-[120px] rounded-full" />
+
+      <div className="relative max-w-[1600px] mx-auto px-6">
+
+        {/* HEADER */}
+        <div className="text-center mb-20">
+          <div className="inline-block px-4 py-2 rounded-full bg-white/10 border border-white/20 mb-6">
+            <span className="text-cyan-300 text-sm uppercase tracking-wider">
               Pricing Plans
             </span>
           </div>
-          <h2 className="text-4xl lg:text-6xl font-bold text-white mb-6">
-            Choose Your <span className="bg-gradient-to-r from-[#00d4ff] to-[#06b6d4] bg-clip-text text-transparent">Adventure</span>
-          </h2>
-          <p className="text-xl text-white/60 max-w-2xl mx-auto">
-            Flexible packages designed to match your diving ambitions and experience level.
-          </p>
-        </motion.div>
 
-        <div className="grid lg:grid-cols-3 gap-8 items-start">
+          <h2 className="text-4xl lg:text-6xl font-bold text-white mb-6">
+            Choose Your <span className="text-cyan-300">Adventure</span>
+          </h2>
+
+          <p className="text-xl text-white/70 max-w-2xl mx-auto">
+            Flexible packages designed for every level of diver.
+          </p>
+        </div>
+
+        {/* CARDS */}
+        <div className="grid lg:grid-cols-3 gap-8">
+
           {packages.map((pkg, index) => (
             <motion.div
               key={index}
+              whileHover={{ y: -10 }}
               className={`relative group ${pkg.popular ? 'lg:scale-105' : ''}`}
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: index * 0.15 }}
-              whileHover={{ y: -8 }}
             >
+
+              {/* MOST POPULAR */}
               {pkg.popular && (
-                <div className="absolute -top-5 left-1/2 -translate-x-1/2 z-10">
-                  <div className="px-6 py-2 rounded-full bg-gradient-to-r from-[#00d4ff] to-[#06b6d4] flex items-center gap-2">
-                    <Sparkles className="w-4 h-4 text-[#0a0e27]" />
-                    <span className="text-[#0a0e27] font-bold text-sm uppercase tracking-wide">Most Popular</span>
+                <div className="absolute -top-5 left-1/2 -translate-x-1/2">
+                  <div className="px-5 py-2 rounded-full bg-cyan-300 text-[#0b2c45] font-bold text-sm flex items-center gap-2">
+                    <Sparkles size={14} />
+                    Most Popular
                   </div>
                 </div>
               )}
 
-              <div className={`relative overflow-hidden rounded-2xl p-8 lg:p-10 backdrop-blur-xl bg-white/5 border-2 ${
-                pkg.popular ? 'border-[#00d4ff]' : 'border-white/10'
-              } group-hover:border-[#00d4ff]/50 transition-all duration-500`}>
-                <div className={`absolute inset-0 bg-gradient-to-br ${pkg.gradient} opacity-0 group-hover:opacity-10 transition-opacity duration-500`} />
+              <div className="
+                rounded-2xl p-8
+                bg-white/10 backdrop-blur-md
+                border border-white/20
+                shadow-[0_20px_60px_rgba(0,0,0,0.5)]
+                transition-all duration-500
+                hover:border-cyan-300
+              ">
 
-                <div className="relative space-y-6">
-                  <div>
-                    <h3 className="text-2xl font-bold text-white mb-2">{pkg.name}</h3>
-                    <p className="text-white/60 text-sm">{pkg.description}</p>
+                <h3 className="text-2xl font-bold text-white mb-2">
+                  {pkg.name}
+                </h3>
+
+                <p className="text-white/60 text-sm mb-6">
+                  {pkg.description}
+                </p>
+
+                {/* PRICE */}
+                <div className="border-y border-white/10 py-6 mb-6">
+                  <div className="flex items-baseline gap-2">
+                    <span className="text-cyan-300 text-lg">$</span>
+                    <span className="text-5xl font-bold text-white">
+                      {pkg.price}
+                    </span>
                   </div>
-
-                  <div className="py-6 border-y border-white/10">
-                    <div className="flex items-baseline gap-2">
-                      <span className="text-[#00d4ff] text-lg font-bold">$</span>
-                      <span className="text-5xl font-bold text-white">{pkg.price}</span>
-                    </div>
-                    <div className="text-white/60 text-sm mt-1">{pkg.period}</div>
-                  </div>
-
-                  <ul className="space-y-4">
-                    {pkg.features.map((feature, i) => (
-                      <li key={i} className="flex items-start gap-3">
-                        <div className="mt-1 p-1 rounded-full bg-[#00d4ff]/20">
-                          <Check className="w-4 h-4 text-[#00d4ff]" />
-                        </div>
-                        <span className="text-white/80">{feature}</span>
-                      </li>
-                    ))}
-                  </ul>
-
-                  <motion.button
-                    className={`w-full py-4 mt-8 rounded-xl font-bold text-lg relative overflow-hidden group/btn ${
-                      pkg.popular
-                        ? 'bg-gradient-to-r from-[#00d4ff] to-[#06b6d4] text-[#0a0e27]'
-                        : 'border-2 border-[#00d4ff]/50 text-white hover:bg-[#00d4ff]/10'
-                    } transition-all duration-300`}
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
-                  >
-                    {pkg.popular && (
-                      <motion.div
-                        className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent"
-                        animate={{
-                          x: ['-200%', '200%'],
-                        }}
-                        transition={{
-                          duration: 2,
-                          repeat: Infinity,
-                          repeatDelay: 1,
-                        }}
-                      />
-                    )}
-                    <span className="relative">Get Started</span>
-                  </motion.button>
+                  <p className="text-white/60 text-sm">{pkg.period}</p>
                 </div>
+
+                {/* FEATURES */}
+                <ul className="space-y-4">
+                  {pkg.features.map((feature, i) => (
+                    <li key={i} className="flex gap-3">
+                      <Check className="text-cyan-300 w-5 h-5 mt-1" />
+                      <span className="text-white/80">{feature}</span>
+                    </li>
+                  ))}
+                </ul>
+
+                {/* BUTTON */}
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  className={`
+                    w-full mt-8 py-4 rounded-xl font-bold
+                    ${
+                      pkg.popular
+                        ? 'bg-cyan-300 text-[#0b2c45]'
+                        : 'border border-cyan-300 text-white hover:bg-cyan-300/10'
+                    }
+                  `}
+                >
+                  Get Started
+                </motion.button>
+
               </div>
+
             </motion.div>
           ))}
+
         </div>
+
       </div>
     </section>
   );

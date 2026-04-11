@@ -25,7 +25,7 @@ export function BookingForm() {
 
   return (
     <section id="booking" className="relative py-32 overflow-hidden">
-      <div className="absolute inset-0 bg-[#0f172a]" />
+     <div className="absolute inset-0 bg-gradient-to-br from-[#18476D] via-[#123a5a] to-[#0b2c45]" />
 
       <div
         className="absolute inset-0"

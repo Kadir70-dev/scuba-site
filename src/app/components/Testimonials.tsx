@@ -10,46 +10,42 @@ export function Testimonials() {
       subtitle: "Region's largest dive tank",
       desc: "4m deep · indoor · temperature controlled · underwater mirror for skill correction",
       other:
-        "Outdoor/public pools and only 1.5–2m shallow limiting for buoyancy and equalisation practice.",
+        "Outdoor/public pools and only 1.5–2m shallow limiting for buoyancy practice.",
     },
     {
       title: "Dive Campus",
       subtitle: "Central Dubai location",
       desc: "20–30 min from most major areas in Dubai",
       other:
-        "Often inside communities — 40–60 min drive each way before you're even in the water.",
+        "Often inside communities — 40–60 min drive each way.",
     },
     {
       title: "Dive Campus",
       subtitle: "East Coast — on the reef in minutes",
       desc: "Just 5–7 min boat ride to prime dive sites",
       other:
-        "30–40 min boat rides — you spend more time on a boat than underwater.",
+        "30–40 min boat rides — more time on boat than underwater.",
     },
   ];
 
   const instructorCards = [
     {
       title: "Dive Campus",
-      subtitle: "Guaranteed 1:2 (or less) instructor ratio",
-      desc:
-        "Maximum 2 students (OR less) per instructor FOR ALL beginner — train the right way in the right time.",
-      other:
-        "“Small Group Size” ranges from 3–8 students per instructor — harder to learn, easier to get lost in the group.",
+      subtitle: "1:2 Instructor Ratio",
+      desc: "Maximum 2 students per instructor for proper learning.",
+      other: "Groups of 3–8 — harder to learn effectively.",
     },
     {
       title: "Dive Campus",
-      subtitle: "Inhouse male & female instructors",
-      desc:
-        "All training is conducted by DiveCampus trained PADI Instructors to ensure quality training.",
-      other:
-        "Limited availability as mostly outsourced to freelancers — often charged as an add-on or not available at all.",
+      subtitle: "Inhouse instructors",
+      desc: "Professionally trained PADI instructors.",
+      other: "Often outsourced freelancers.",
     },
     {
       title: "Dive Campus",
       subtitle: "Multi-lingual team",
-      desc: "English · Arabic · Hindi · Afrikaans · French",
-      other: "Typically 1–2 languages limiting optimal learning.",
+      desc: "English · Arabic · Hindi · French",
+      other: "Limited language support.",
     },
   ];
 
@@ -57,77 +53,98 @@ export function Testimonials() {
     {
       title: "Dive Campus",
       subtitle: "Premium Gear",
-      desc:
-        "All courses includes premium quality gear for you to train at no additional cost.",
-      other:
-        "Old/Low quality Scuba Gear sometimes at additional charges.",
+      desc: "High quality gear included.",
+      other: "Low quality or extra charges.",
     },
     {
       title: "Dive Campus",
-      subtitle: "PADI eLearning/Materials",
+      subtitle: "Learning Material",
       desc: "Included in course fee.",
-      other: "Hidden charges, not included in course.",
+      other: "Hidden charges.",
     },
     {
       title: "Dive Campus",
       subtitle: "Parking",
-      desc: "Free on-site parking.",
-      other: "Paid or Public Parking.",
+      desc: "Free parking available.",
+      other: "Paid parking.",
     },
     {
       title: "Dive Campus",
-      subtitle: "Bring a friend for free",
-      desc:
-        "For every PADI Open Water course booked, get a complimentary try dive in our DiveTank for a friend redeemable anytime during your course duration.",
+      subtitle: "Bring a Friend",
+      desc: "Free try dive included.",
       other: "Not included.",
     },
   ];
 
   const renderCards = (cards: any[]) => (
-    <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-      {cards.map((card, index) => (
-        <motion.div
-          key={index}
-          whileHover={{ y: -10 }}
-          className="bg-white rounded-2xl p-8 shadow-lg border border-gray-200 hover:border-cyan-400 transition-all duration-300"
-        >
-          <h3 className="text-2xl font-bold text-cyan-500 mb-4">
-            {card.title}
-          </h3>
+    <div className="flex justify-center w-full">
 
-          <h4 className="text-xl font-semibold text-[#082544] mb-4">
-            {card.subtitle}
-          </h4>
+      <div
+        className="grid gap-8 justify-center"
+        style={{
+          gridTemplateColumns: `repeat(${cards.length}, minmax(280px, 320px))`,
+        }}
+      >
+        {cards.map((card, index) => (
+          <motion.div
+            key={index}
+            whileHover={{ y: -10 }}
+            className="
+              w-[300px]
+              bg-white/10 backdrop-blur-md
+              border border-white/20
+              rounded-2xl
+              p-8
+              shadow-[0_10px_40px_rgba(0,0,0,0.4)]
+              transition-all duration-300
+              hover:border-cyan-300
+            "
+          >
+            <h3 className="text-2xl font-bold text-cyan-300 mb-4">
+              {card.title}
+            </h3>
 
-          <p className="text-gray-600 leading-7 mb-6">
-            {card.desc}
-          </p>
+            <h4 className="text-xl font-semibold text-white mb-4">
+              {card.subtitle}
+            </h4>
 
-          <div className="w-full h-[2px] bg-cyan-400 mb-6 rounded-full" />
+            <p className="text-white/80 leading-7 mb-6">
+              {card.desc}
+            </p>
 
-          <h5 className="text-lg font-semibold text-[#082544] mb-3">
-            Others
-          </h5>
+            <div className="w-full h-[2px] bg-cyan-300 mb-6 rounded-full" />
 
-          <p className="text-gray-500 leading-7">
-            {card.other}
-          </p>
-        </motion.div>
-      ))}
+            <h5 className="text-lg font-semibold text-white mb-3">
+              Others
+            </h5>
+
+            <p className="text-white/60 leading-7">
+              {card.other}
+            </p>
+          </motion.div>
+        ))}
+      </div>
+
     </div>
   );
 
   return (
-    <section className="py-24 bg-[#f8f8f8]">
-      <div className="max-w-[1500px] mx-auto px-6">
+    <section className="relative py-24 bg-gradient-to-br from-[#18476D] via-[#123a5a] to-[#0b2c45] overflow-hidden">
 
-        <h2 className="text-center text-5xl font-semibold mb-8 text-[#082544]">
-          Training quality <span className="text-cyan-500">RAISED.</span>
+      {/* Glow Effects */}
+      <div className="absolute top-20 left-20 w-72 h-72 bg-cyan-400/20 blur-[120px] rounded-full" />
+      <div className="absolute bottom-20 right-20 w-72 h-72 bg-blue-500/20 blur-[120px] rounded-full" />
+
+      <div className="relative max-w-[1500px] mx-auto px-6">
+
+        {/* HEADING */}
+        <h2 className="text-center text-5xl font-semibold mb-8 text-white">
+          Training quality <span className="text-cyan-300">RAISED.</span>
         </h2>
 
-        <p className="text-center text-xl text-gray-600 max-w-5xl mx-auto mb-16">
+        <p className="text-center text-xl text-white/70 max-w-5xl mx-auto mb-16">
           Don’t fall for “small class size” and “unlimited training” claims.
-          Here’s how we deliver excellence that truly matters to your training.
+          Here’s how we deliver excellence that truly matters.
         </p>
 
         {/* TABS */}
@@ -140,21 +157,21 @@ export function Testimonials() {
             <button
               key={i}
               onMouseEnter={() => setActiveMainTab(item.toLowerCase())}
-              className="relative text-lg font-semibold uppercase tracking-wide text-[#082544]"
+              className="relative text-lg font-semibold uppercase tracking-wide text-white/80 hover:text-white"
             >
               {item}
 
               {activeMainTab === item.toLowerCase() && (
                 <motion.div
                   layoutId="underline"
-                  className="absolute left-0 -bottom-2 w-full h-[3px] bg-cyan-500"
+                  className="absolute left-0 -bottom-2 w-full h-[3px] bg-cyan-300"
                 />
               )}
             </button>
           ))}
         </div>
 
-        {/* CONTENT SWITCH */}
+        {/* CONTENT */}
         {activeMainTab === "training environment" &&
           renderCards(trainingCards)}
 

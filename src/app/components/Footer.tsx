@@ -1,165 +1,155 @@
 import { motion } from 'framer-motion';
-import { Facebook, Instagram, Twitter, Youtube, Mail, Phone, MapPin } from 'lucide-react';
+import {
+  Facebook,
+  Instagram,
+  Twitter,
+  Youtube,
+  Mail,
+  Phone,
+  MapPin,
+} from 'lucide-react';
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
 
-  const links = {
-    courses: [
-      { label: 'Open Water', href: '#courses' },
-      { label: 'Advanced Diving', href: '#courses' },
-      { label: 'Rescue Diver', href: '#courses' },
-      { label: 'Dive Master', href: '#courses' },
-    ],
-    company: [
-      { label: 'About Us', href: '#about' },
-      { label: 'Our Team', href: '#' },
-      { label: 'Careers', href: '#' },
-      { label: 'Contact', href: '#booking' },
-    ],
-    resources: [
-      { label: 'Blog', href: '#' },
-      { label: 'Dive Sites', href: '#experiences' },
-      { label: 'Safety Guide', href: '#' },
-      { label: 'FAQs', href: '#' },
-    ],
-  };
-
   const socials = [
-    { icon: Facebook, href: '#', label: 'Facebook' },
-    { icon: Instagram, href: '#', label: 'Instagram' },
-    { icon: Twitter, href: '#', label: 'Twitter' },
-    { icon: Youtube, href: '#', label: 'YouTube' },
+    { icon: Facebook },
+    { icon: Instagram },
+    { icon: Twitter },
+    { icon: Youtube },
   ];
 
   return (
-    <footer className="relative overflow-hidden bg-[#0a0e27] border-t border-white/10">
-      <div
-        className="absolute inset-0 opacity-5"
-        style={{
-          backgroundImage: `radial-gradient(circle at 50% 0%, rgba(0, 212, 255, 0.2) 0%, transparent 50%)`,
-        }}
-      />
+    <footer className="relative overflow-hidden">
 
-      <div className="relative max-w-[1600px] mx-auto px-6 lg:px-12">
-        <div className="py-16 lg:py-20 grid lg:grid-cols-5 gap-12">
-          <div className="lg:col-span-2 space-y-6">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
+      {/* BACKGROUND */}
+      <div className="absolute inset-0 bg-gradient-to-br from-[#18476D] via-[#123a5a] to-[#0b2c45]" />
+
+      {/* GLOW */}
+      <div className="absolute top-20 left-20 w-72 h-72 bg-cyan-400/20 blur-[120px] rounded-full" />
+      <div className="absolute bottom-20 right-20 w-72 h-72 bg-blue-500/20 blur-[120px] rounded-full" />
+
+      <div className="relative max-w-[1400px] mx-auto px-6 py-20">
+
+        {/* ===== MAIN LAYOUT ===== */}
+        <div className="grid lg:grid-cols-2 gap-16 items-start">
+
+          {/* ===== LEFT SIDE ===== */}
+          <div className="space-y-6">
+
+            <motion.img
+              initial={{ opacity: 0, y: -20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-            >
-              <h3 className="text-4xl font-bold bg-gradient-to-r from-[#00d4ff] via-[#06b6d4] to-[#00d4ff] bg-clip-text text-transparent mb-4">
-                AQUA DIVE
-              </h3>
-              <p className="text-white/60 leading-relaxed max-w-md">
-                Your gateway to extraordinary underwater adventures. Certified training, premium equipment, and unforgettable experiences.
-              </p>
-            </motion.div>
+              src="/logow.svg"
+              className="w-32"
+            />
 
-            <div className="space-y-3">
-              <a href="mailto:info@aquadive.com" className="flex items-center gap-3 text-white/70 hover:text-[#00d4ff] transition-colors group">
-                <div className="p-2 rounded-lg bg-white/5 group-hover:bg-[#00d4ff]/10 transition-colors">
-                  <Mail className="w-4 h-4" />
-                </div>
-                <span>info@aquadive.com</span>
-              </a>
-              <a href="tel:+971501234567" className="flex items-center gap-3 text-white/70 hover:text-[#00d4ff] transition-colors group">
-                <div className="p-2 rounded-lg bg-white/5 group-hover:bg-[#00d4ff]/10 transition-colors">
-                  <Phone className="w-4 h-4" />
-                </div>
-                <span>+971 50 123 4567</span>
-              </a>
-              <div className="flex items-center gap-3 text-white/70">
-                <div className="p-2 rounded-lg bg-white/5">
-                  <MapPin className="w-4 h-4" />
-                </div>
-                <span>Dubai Marina, UAE</span>
+            <p className="text-white/70 max-w-md">
+              Your gateway to extraordinary underwater adventures.
+              Premium training and unforgettable experiences.
+            </p>
+
+            <div className="space-y-3 text-white/70 text-sm">
+              <div className="flex gap-3 items-center">
+                <Mail className="text-cyan-300" size={16} />
+                info@divecampus.com
+              </div>
+
+              <div className="flex gap-3 items-center">
+                <Phone className="text-cyan-300" size={16} />
+                +971 50 770 3483
+              </div>
+
+              <div className="flex gap-3 items-center">
+                <MapPin className="text-cyan-300" size={16} />
+                Dubai, UAE
               </div>
             </div>
 
+            {/* SOCIAL */}
             <div className="flex gap-3">
-              {socials.map((social) => (
-                <motion.a
-                  key={social.label}
-                  href={social.href}
-                  aria-label={social.label}
-                  className="p-3 rounded-xl bg-white/5 border border-white/10 hover:border-[#00d4ff] hover:bg-[#00d4ff]/10 transition-all group"
-                  whileHover={{ y: -4 }}
+              {socials.map((social, i) => (
+                <motion.div
+                  key={i}
+                  whileHover={{ y: -5 }}
+                  className="p-3 rounded-xl bg-white/10 border border-white/20 hover:border-cyan-300"
                 >
-                  <social.icon className="w-5 h-5 text-white/70 group-hover:text-[#00d4ff] transition-colors" />
-                </motion.a>
+                  <social.icon className="text-white w-5 h-5" />
+                </motion.div>
               ))}
             </div>
+
           </div>
 
-          <div>
-            <h4 className="text-white font-bold text-lg mb-6">Courses</h4>
-            <ul className="space-y-3">
-              {links.courses.map((link) => (
-                <li key={link.label}>
-                  <a
-                    href={link.href}
-                    className="text-white/60 hover:text-[#00d4ff] transition-colors inline-block"
-                  >
-                    {link.label}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
+          {/* ===== RIGHT SIDE (VERTICAL MAP CARDS) ===== */}
+          <div className="grid grid-cols-2 gap-6">
 
-          <div>
-            <h4 className="text-white font-bold text-lg mb-6">Company</h4>
-            <ul className="space-y-3">
-              {links.company.map((link) => (
-                <li key={link.label}>
-                  <a
-                    href={link.href}
-                    className="text-white/60 hover:text-[#00d4ff] transition-colors inline-block"
-                  >
-                    {link.label}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
+            {/* CARD 1 */}
+            <motion.div
+              whileHover={{ y: -10 }}
+              className="group rounded-xl overflow-hidden border border-white/10 bg-white/5 backdrop-blur-lg shadow-xl"
+            >
+              {/* HEADER */}
+              <div className="p-3">
+                <h4 className="text-white text-xs font-semibold flex items-center gap-2">
+                  <MapPin className="text-cyan-300" size={14} />
+                  Dubai - Al Quoz
+                </h4>
 
-          <div>
-            <h4 className="text-white font-bold text-lg mb-6">Resources</h4>
-            <ul className="space-y-3">
-              {links.resources.map((link) => (
-                <li key={link.label}>
-                  <a
-                    href={link.href}
-                    className="text-white/60 hover:text-[#00d4ff] transition-colors inline-block"
-                  >
-                    {link.label}
-                  </a>
-                </li>
-              ))}
-            </ul>
+                <p className="text-white/50 text-[11px] mt-1">
+                  Al Quoz 1, Dubai
+                </p>
+              </div>
+
+              {/* MAP (TALL) */}
+              <iframe
+                src="https://www.google.com/maps?q=Al+Quoz+1+Dubai&output=embed"
+                className="w-full h-[320px] grayscale group-hover:grayscale-0 transition duration-500"
+              />
+            </motion.div>
+
+            {/* CARD 2 */}
+            <motion.div
+              whileHover={{ y: -10 }}
+              className="group rounded-xl overflow-hidden border border-white/10 bg-white/5 backdrop-blur-lg shadow-xl"
+            >
+              {/* HEADER */}
+              <div className="p-3">
+                <h4 className="text-white text-xs font-semibold flex items-center gap-2">
+                  <MapPin className="text-cyan-300" size={14} />
+                  Khorfakkan Beach
+                </h4>
+
+                <p className="text-white/50 text-[11px] mt-1">
+                  Khorfakkan, UAE
+                </p>
+              </div>
+
+              {/* MAP (TALL) */}
+              <iframe
+                src="https://www.google.com/maps?q=Khorfakkan+Beach&output=embed"
+                className="w-full h-[320px] grayscale group-hover:grayscale-0 transition duration-500"
+              />
+            </motion.div>
+
           </div>
         </div>
 
-        <div className="py-8 border-t border-white/10">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-            <p className="text-white/50 text-sm">
-              © {currentYear} Aqua Dive. All rights reserved.
-            </p>
-            <div className="flex gap-6 text-sm">
-              <a href="#" className="text-white/50 hover:text-[#00d4ff] transition-colors">
-                Privacy Policy
-              </a>
-              <a href="#" className="text-white/50 hover:text-[#00d4ff] transition-colors">
-                Terms of Service
-              </a>
-              <a href="#" className="text-white/50 hover:text-[#00d4ff] transition-colors">
-                Cookie Policy
-              </a>
-            </div>
+        {/* ===== BOTTOM ===== */}
+        <div className="mt-16 pt-6 border-t border-white/10 flex flex-col md:flex-row justify-between items-center">
+
+          <p className="text-white/50 text-sm">
+            © {currentYear} Dive Campus. All rights reserved.
+          </p>
+
+          <div className="flex gap-6 mt-4 md:mt-0 text-sm">
+            <span className="text-white/50 hover:text-cyan-300 cursor-pointer">Privacy</span>
+            <span className="text-white/50 hover:text-cyan-300 cursor-pointer">Terms</span>
+            <span className="text-white/50 hover:text-cyan-300 cursor-pointer">Cookies</span>
           </div>
+
         </div>
+
       </div>
     </footer>
   );

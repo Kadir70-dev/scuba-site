@@ -49,18 +49,18 @@ export function DivingCourses() {
   ];
 
   return (
-    <section className="py-20 px-4 bg-[#6EA0D0]">
+    <section className="py-20 px-4 bg-[#18476D]">
       <div className="max-w-[1600px] mx-auto">
 
         <h2 className="text-center text-5xl font-bold text-white mb-14 leading-tight">
           Choose your{" "}
-          <span className="text-cyan-400">
+          <span className="text-cyan-300">
             PATH
           </span>
           : <br />
 
-          <span className="text-2xl font-medium text-white/90">
-            Region’s Largest DiveTank | Guaranteed 1:2 (or less) Instructor to Student Ratio | Inhouse Male & Female Instructors
+          <span className="text-2xl font-medium text-white/80">
+            Region’s Largest DiveTank | Guaranteed 1:2 Instructor Ratio | Inhouse Instructors
           </span>
         </h2>
 
@@ -71,10 +71,18 @@ export function DivingCourses() {
               key={index}
               onMouseEnter={() => setActive(index)}
               onMouseLeave={() => setActive(null)}
-              className="w-[260px] h-[620px] rounded-[28px] overflow-hidden bg-[#082544] cursor-pointer"
+              className="
+            w-[260px] h-[620px]
+            rounded-[28px]
+            overflow-hidden
+            bg-[#0f2f4d]
+            cursor-pointer
+            shadow-[0_10px_40px_rgba(0,0,0,0.4)]
+            transition-all duration-300
+          "
             >
 
-              {/* IMAGE SECTION */}
+              {/* IMAGE */}
               <motion.div
                 animate={{
                   height: active === index ? "42%" : "100%",
@@ -84,7 +92,6 @@ export function DivingCourses() {
               >
                 <img
                   src={card.image}
-                  alt={card.title}
                   className="w-full h-full object-cover"
                 />
 
@@ -94,7 +101,6 @@ export function DivingCourses() {
                   {card.age}
                 </div>
 
-                {/* NORMAL MODE */}
                 {active !== index && (
                   <>
                     <div className="absolute bottom-6 left-5">
@@ -102,17 +108,17 @@ export function DivingCourses() {
                         {card.title}
                       </h3>
 
-                      <p className="text-sm text-gray-300 mt-2">
+                      <p className="text-sm text-white/70 mt-2">
                         FROM
                       </p>
 
-                      <p className="text-3xl font-bold text-white">
+                      <p className="text-3xl font-bold text-cyan-300">
                         {card.price}
                       </p>
                     </div>
 
                     <div className="absolute bottom-5 right-5">
-                      <div className="w-14 h-14 rounded-full bg-[#0f2747]/80 flex items-center justify-center">
+                      <div className="w-14 h-14 rounded-full bg-[#18476D]/80 flex items-center justify-center">
                         <ArrowRight className="text-white" />
                       </div>
                     </div>
@@ -120,7 +126,7 @@ export function DivingCourses() {
                 )}
               </motion.div>
 
-              {/* EXPANDED CONTENT */}
+              {/* EXPANDED */}
               {active === index && (
                 <motion.div
                   initial={{ opacity: 0 }}
@@ -138,13 +144,13 @@ export function DivingCourses() {
                   </div>
 
                   <div>
-                    <div className="w-full h-[2px] bg-cyan-400 mb-4 rounded-full" />
+                    <div className="w-full h-[2px] bg-cyan-300 mb-4 rounded-full" />
 
-                    <p className="text-sm text-gray-300">
+                    <p className="text-sm text-white/60">
                       FROM
                     </p>
 
-                    <p className="text-3xl font-bold text-white">
+                    <p className="text-3xl font-bold text-cyan-300">
                       {card.price}
                     </p>
                   </div>
@@ -155,7 +161,6 @@ export function DivingCourses() {
           ))}
 
         </div>
-
       </div>
     </section>
   );

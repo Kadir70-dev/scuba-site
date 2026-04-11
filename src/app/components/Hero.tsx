@@ -32,14 +32,14 @@ export function Hero() {
       <div className="relative z-10 text-center px-6 max-w-5xl">
 
         {/* LOGO */}
-        <motion.img
+        {/* <motion.img
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1 }}
           src="/logow.svg"
           alt="Logo"
           className="mx-auto w-20 md:w-24 mb-5 opacity-95"
-        />
+        /> */}
 
         {/* TOP LABEL */}
         <motion.p
@@ -68,19 +68,51 @@ export function Hero() {
         </motion.h1>
 
         {/* SUBTEXT */}
-        <motion.p
+        <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.5 }}
-          className="mt-8 text-[15px] md:text-lg text-white/75 max-w-2xl mx-auto leading-8 font-light"
+          className="mt-10 text-center"
         >
-          Where Divers{" "}
-          <span className="text-cyan-400 font-medium">
-            LEVEL UP
-          </span>
-          . <br />
-          Only destination in Middle East providing full spectrum dive education and experiences.
-        </motion.p>
+
+          {/* MAIN HOOK */}
+          <h2 className="text-white text-3xl md:text-5xl font-light tracking-wide">
+            Where Divers{" "}
+            <span className="text-cyan-400 font-semibold">
+              LEVEL UP
+            </span>
+          </h2>
+
+          {/* DESCRIPTION */}
+          <p className="
+  mt-6 
+  text-white/90 
+  text-base md:text-xl 
+  max-w-3xl 
+  mx-auto 
+  leading-8 md:leading-9 
+  font-light
+">
+            Only destination in{" "}
+            <span className="text-cyan-300 font-medium">
+              Middle East
+            </span>{" "}
+            providing{" "}
+            <span className="text-cyan-300 font-medium">
+              full spectrum dive education
+            </span>{" "}
+            and{" "}
+            <span className="text-cyan-300 font-medium">
+              immersive experiences
+            </span>.
+          </p>
+
+          {/* LINE */}
+          <div className="mt-6 flex justify-center">
+            <div className="w-40 h-[2px] bg-cyan-400/70 rounded-full" />
+          </div>
+
+        </motion.div>
 
         {/* BUTTONS */}
         <motion.div
