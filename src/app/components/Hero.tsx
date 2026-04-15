@@ -3,171 +3,105 @@ import { ChevronDown, MapPin } from 'lucide-react';
 
 export function Hero() {
   const { scrollY } = useScroll();
-
   const y = useTransform(scrollY, [0, 500], [0, 120]);
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden font-[Montserrat]">
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden font-habara">
 
-      {/* VIDEO BACKGROUND */}
+      {/* BACKGROUND */}
       <motion.div className="absolute inset-0 z-0" style={{ y }}>
-        <video
-          autoPlay
-          muted
-          loop
-          playsInline
-          className="w-full h-full object-cover scale-105"
-        >
+        <video autoPlay muted loop playsInline className="w-full h-full object-cover scale-105">
           <source src="/vid1.mp4" type="video/mp4" />
         </video>
 
-        {/* CINEMATIC OVERLAY */}
-        <div className="absolute inset-0 bg-black/55" />
-
-        {/* SOFT GRADIENT */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/50" />
+        <div className="absolute inset-0 bg-black/70" />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#05263C]/60 via-transparent to-[#18476D]/70" />
       </motion.div>
 
-      {/* MAIN CONTENT */}
+      {/* CONTENT */}
       <div className="relative z-10 text-center px-6 max-w-5xl">
-
-        {/* LOGO */}
-        {/* <motion.img
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1 }}
-          src="/logow.svg"
-          alt="Logo"
-          className="mx-auto w-20 md:w-24 mb-5 opacity-95"
-        /> */}
 
         {/* TOP LABEL */}
         <motion.p
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.3 }}
-          className="uppercase tracking-[7px] text-yellow-300 text-[12px] mb-5 font-light"
+          className="uppercase tracking-[6px] text-cyan-300 text-[12px] mb-5"
         >
           Dive Campus Diving Club
         </motion.p>
 
-        {/* HERO TITLE */}
+        {/* MAIN HEADING */}
         <motion.h1
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1 }}
-          className="text-white leading-none"
+          className="text-white text-4xl md:text-6xl font-semibold leading-tight"
         >
-          {/* <span className="block text-4xl md:text-6xl font-extralight tracking-wide">
-            PADI COURSES
-          </span>
-
-          <span className="block text-5xl md:text-7xl font-light tracking-tight mt-2">
-            & SCUBA DIVING TRIPS
-          </span> */}
+          Where Divers{" "}
+          <span className="text-[#38BDF8]">LEVEL UP</span>
         </motion.h1>
 
-        {/* SUBTEXT */}
-        <motion.div
+        {/* DESCRIPTION */}
+        <motion.p
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.5 }}
-          className="mt-10 text-center"
+          className="mt-6 text-white/85 text-sm md:text-lg max-w-3xl mx-auto leading-7 md:leading-8"
         >
+          Only destination in{" "}
+          <span className="text-[#38BDF8] font-medium">
+            Middle East
+          </span>{" "}
+          providing{" "}
+          <span className="text-[#38BDF8] font-medium">
+            full spectrum dive education
+          </span>{" "}
+          and{" "}
+          <span className="text-[#38BDF8] font-medium">
+            immersive experiences
+          </span>.
+        </motion.p>
 
-          {/* MAIN HOOK */}
-          <h2 className="text-white text-3xl md:text-5xl font-light tracking-wide">
-            Where Divers{" "}
-            <span className="text-cyan-400 font-semibold">
-              LEVEL UP
-            </span>
-          </h2>
-
-          {/* DESCRIPTION */}
-          <p className="
-  mt-6 
-  text-white/90 
-  text-base md:text-xl 
-  max-w-3xl 
-  mx-auto 
-  leading-8 md:leading-9 
-  font-light
-">
-            Only destination in{" "}
-            <span className="text-cyan-300 font-medium">
-              Middle East
-            </span>{" "}
-            providing{" "}
-            <span className="text-cyan-300 font-medium">
-              full spectrum dive education
-            </span>{" "}
-            and{" "}
-            <span className="text-cyan-300 font-medium">
-              immersive experiences
-            </span>.
-          </p>
-
-          {/* LINE */}
-          <div className="mt-6 flex justify-center">
-            <div className="w-40 h-[2px] bg-cyan-400/70 rounded-full" />
-          </div>
-
-        </motion.div>
+        {/* LINE */}
+        <div className="mt-6 flex justify-center">
+          <div className="w-32 h-[2px] bg-[#38BDF8]/70 rounded-full" />
+        </div>
 
         {/* BUTTONS */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.8 }}
-          className="mt-10 flex flex-col sm:flex-row justify-center gap-4"
+          className="mt-10 flex flex-col sm:flex-row justify-center gap-6"
         >
-          <button className="px-10 py-4 bg-cyan-700/80 hover:bg-cyan-600 text-white rounded-md tracking-wider text-sm uppercase font-medium transition-all duration-300 hover:scale-105 shadow-lg">
+          <button className="px-10 py-4 rounded-full bg-[#38BDF8] text-black font-semibold text-sm uppercase tracking-wide hover:scale-105 hover:bg-cyan-300 transition-all duration-300 shadow-[0_8px_25px_rgba(56,189,248,0.4)]">
             Get Certified →
           </button>
 
-          <button className="px-10 py-4 border border-white/20 bg-white/5 backdrop-blur-md hover:bg-white/10 text-white rounded-md tracking-wider text-sm uppercase font-medium transition-all duration-300">
+          <button className="px-10 py-4 rounded-full border border-white/30 bg-white/5 backdrop-blur-md text-white font-medium text-sm uppercase tracking-wide hover:bg-white/10 hover:scale-105 transition-all duration-300">
             Go Diving
           </button>
         </motion.div>
 
         {/* LOCATIONS */}
-        <div className="mt-10 flex flex-wrap justify-center gap-8 text-[12px] uppercase tracking-[4px] text-yellow-300 font-light">
+        <div className="mt-10 flex flex-wrap justify-center gap-6 text-[14px] uppercase tracking-[3px] text-white/80">
 
-          <div className="flex items-center gap-2">
-            <MapPin size={12} />
-            Dubai
-          </div>
-
-          <div className="flex items-center gap-2">
-            <MapPin size={12} />
-            Khor Fakkan
-          </div>
-
-          <div className="flex items-center gap-2">
-            <MapPin size={12} />
-            Deep Dive Dubai
-          </div>
-
-          <div className="flex items-center gap-2">
-            <MapPin size={12} />
-            Aquarium
-          </div>
-
-
+          <div className="flex items-center gap-2"><MapPin size={12}/>Dubai</div>
+          <div className="flex items-center gap-2"><MapPin size={12}/>Khor Fakkan</div>
+          <div className="flex items-center gap-2"><MapPin size={12}/>Deep Dive Dubai</div>
+          <div className="flex items-center gap-2"><MapPin size={12}/>Aquarium</div>
         </div>
       </div>
 
-      {/* SCROLL INDICATOR */}
+      {/* SCROLL */}
       <motion.div
         animate={{ y: [0, 8, 0] }}
         transition={{ repeat: Infinity, duration: 2 }}
-        className="absolute bottom-10 left-1/2 -translate-x-1/2 z-10"
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10"
       >
-        <a
-          href="#courses"
-          className="flex flex-col items-center gap-2 text-white/60"
-        >
-          <span className="text-[11px] uppercase tracking-[4px]">Scroll</span>
+        <a href="#courses" className="flex flex-col items-center gap-2 text-white/60">
+          <span className="text-[10px] uppercase tracking-[3px]">Scroll</span>
           <ChevronDown className="w-5 h-5" />
         </a>
       </motion.div>

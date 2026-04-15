@@ -8,63 +8,65 @@ export function DivingCourses() {
   const cards = [
     {
       title: "SCUBA DIVING",
-      age: "Age 10+",
+      age: "AGE 10+",
       price: "AED 1,200",
       image: "/pool.avif",
       description:
-        "Discover the thrill of scuba diving and explore underwater adventures with expert instructors.",
+        "DISCOVER THE THRILL OF SCUBA DIVING AND EXPLORE UNDERWATER ADVENTURES WITH EXPERT INSTRUCTORS.",
     },
     {
-      title: "Technical Diving",
-      age: "Age 13+",
+      title: "TECHNICAL DIVING",
+      age: "AGE 13+",
       price: "AED 900",
       image: "/1.avif",
       description:
-        "Master your breathing and dive deeper with our professional freediving sessions.",
+        "MASTER YOUR BREATHING AND DIVE DEEPER WITH OUR PROFESSIONAL SESSIONS.",
     },
     {
-      title: "Freediving",
-      age: "Age 6+",
+      title: "FREEDIVING",
+      age: "AGE 6+",
       price: "AED 400",
       image: "/2.webp",
       description:
-        "Enjoy beautiful underwater sights with fun and safe snorkelling adventures.",
+        "EXPERIENCE CALM AND CONTROL WHILE EXPLORING THE UNDERWATER WORLD.",
     },
     {
-      title: "Swimming",
-      age: "Age 6+",
+      title: "SWIMMING",
+      age: "AGE 6+",
       price: "AED 400",
       image: "/pool.avif",
       description:
-        "Safe and exciting diving experiences specially designed for children.",
+        "SAFE AND EXCITING TRAINING DESIGNED FOR BEGINNERS AND KIDS.",
     },
     {
-      title: "Snorkelling",
-      age: "Age 15+",
+      title: "SNORKELLING",
+      age: "AGE 15+",
       price: "AED 1,500",
       image: "/1.avif",
       description:
-        "Advanced professional diving sessions for expert divers and deep water explorers.",
+        "EXPLORE VIBRANT MARINE LIFE IN SHALLOW WATERS WITH GUIDED TOURS.",
     },
   ];
 
   return (
-    <section className="py-20 px-4 bg-[#18476D]">
-      <div className="max-w-[1600px] mx-auto">
+    <section className="py-20 px-4 bg-[#18476D] font-habara">
+      <div className="max-w-[1600px] mx-auto font-habara">
 
-        <h2 className="text-center text-5xl font-bold text-white mb-14 leading-tight">
-          Choose your{" "}
+        {/* HEADING */}
+        <h2 className="text-center text-5xl font-bold text-white mb-14 leading-tight uppercase tracking-wide font-habara">
+          CHOOSE YOUR{" "}
           <span className="text-cyan-300">
             PATH
           </span>
-          : <br />
+          <br />
 
-          <span className="text-2xl font-medium text-white/80">
-            Region’s Largest DiveTank | Guaranteed 1:2 Instructor Ratio | Inhouse Instructors
+          <span className="text-xl font-medium text-white/80 tracking-wide">
+            REGION’S LARGEST DIVETANK | GUARANTEED 1:2 INSTRUCTOR RATIO | INHOUSE INSTRUCTORS
           </span>
         </h2>
 
-        <div className="flex justify-center gap-5 flex-wrap">
+        {/* CARDS */}
+        <div className="flex justify-center gap-5 flex-wrap font-habara">
 
           {cards.map((card, index) => (
             <div
@@ -72,14 +74,15 @@ export function DivingCourses() {
               onMouseEnter={() => setActive(index)}
               onMouseLeave={() => setActive(null)}
               className="
-            w-[260px] h-[620px]
-            rounded-[28px]
-            overflow-hidden
-            bg-[#0f2f4d]
-            cursor-pointer
-            shadow-[0_10px_40px_rgba(0,0,0,0.4)]
-            transition-all duration-300
-          "
+                w-[260px] h-[620px]
+                rounded-[28px]
+                overflow-hidden
+                bg-[#0f2f4d]
+                cursor-pointer
+                shadow-[0_10px_40px_rgba(0,0,0,0.4)]
+                transition-all duration-300
+                font-habara
+              "
             >
 
               {/* IMAGE */}
@@ -97,22 +100,22 @@ export function DivingCourses() {
 
                 <div className="absolute inset-0 bg-gradient-to-t from-black/90 to-transparent" />
 
-                <div className="absolute top-4 left-4 bg-white text-black text-xs px-3 py-1 rounded-full">
+                <div className="absolute top-4 left-4 bg-white text-black text-xs px-3 py-1 rounded-full font-habara uppercase tracking-wide">
                   {card.age}
                 </div>
 
                 {active !== index && (
                   <>
                     <div className="absolute bottom-6 left-5">
-                      <h3 className="text-white text-[22px] font-bold">
+                      <h3 className="text-white text-[22px] font-bold uppercase tracking-wide">
                         {card.title}
                       </h3>
 
-                      <p className="text-sm text-white/70 mt-2">
+                      <p className="text-sm text-white/70 mt-2 uppercase tracking-wide">
                         FROM
                       </p>
 
-                      <p className="text-3xl font-bold text-cyan-300">
+                      <p className="text-3xl font-bold text-cyan-300 uppercase">
                         {card.price}
                       </p>
                     </div>
@@ -131,14 +134,14 @@ export function DivingCourses() {
                 <motion.div
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
-                  className="p-5 h-[58%] flex flex-col justify-between"
+                  className="p-5 h-[58%] flex flex-col justify-between font-habara"
                 >
                   <div>
-                    <h3 className="text-white text-[22px] font-bold mb-4">
+                    <h3 className="text-white text-[22px] font-bold mb-4 uppercase tracking-wide">
                       {card.title}
                     </h3>
 
-                    <p className="text-white/80 text-sm leading-7 mb-5">
+                    <p className="text-white/80 text-sm leading-7 mb-5 uppercase tracking-wide">
                       {card.description}
                     </p>
                   </div>
@@ -146,11 +149,11 @@ export function DivingCourses() {
                   <div>
                     <div className="w-full h-[2px] bg-cyan-300 mb-4 rounded-full" />
 
-                    <p className="text-sm text-white/60">
+                    <p className="text-sm text-white/60 uppercase tracking-wide">
                       FROM
                     </p>
 
-                    <p className="text-3xl font-bold text-cyan-300">
+                    <p className="text-3xl font-bold text-cyan-300 uppercase">
                       {card.price}
                     </p>
                   </div>

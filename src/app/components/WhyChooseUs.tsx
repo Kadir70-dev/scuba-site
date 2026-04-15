@@ -71,13 +71,13 @@ export function WhyChooseUs() {
   );
 
   return (
-    <section className="relative py-32 bg-gradient-to-br from-[#18476D] via-[#123a5a] to-[#0b2c45] overflow-hidden">
+    <section className="relative py-32 bg-gradient-to-br from-[#18476D] via-[#123a5a] to-[#0b2c45] overflow-hidden font-habara">
 
       {/* GLOW EFFECT */}
       <div className="absolute top-20 left-20 w-72 h-72 bg-cyan-400/20 blur-[120px] rounded-full" />
       <div className="absolute bottom-20 right-20 w-72 h-72 bg-blue-500/20 blur-[120px] rounded-full" />
 
-      <div className="relative max-w-[1800px] mx-auto px-6">
+      <div className="relative max-w-[1800px] mx-auto px-6 font-habara">
 
         {/* HEADER */}
         <div className="text-center mb-24">
@@ -104,20 +104,23 @@ export function WhyChooseUs() {
                 key={i}
                 whileHover={{ y: -12 }}
                 className="
-                  group relative
-                  w-[280px] h-[400px]
-                  overflow-hidden
-                  cursor-pointer
-                  shadow-[0_20px_60px_rgba(0,0,0,0.5)]
+  group relative
+  w-[280px] h-[400px]
+  overflow-hidden
+  cursor-pointer
 
-                  rounded-t-[6px]
-                  rounded-bl-[6px]
-                  rounded-br-[40px]
+  rounded-[24px]   /* ✅ proper rounded rectangle */
 
-                  border border-white/10
-                  transition-all duration-500
-                  hover:border-cyan-300
-                "
+  backdrop-blur-xl
+  bg-white/10      /* glass effect */
+  border border-white/20
+
+  shadow-[0_20px_60px_rgba(0,0,0,0.5)]
+  transition-all duration-500
+
+  hover:border-cyan-300
+  hover:bg-white/15
+"
               >
                 {/* IMAGE */}
                 <img
@@ -190,11 +193,10 @@ export function WhyChooseUs() {
               <div
                 key={i}
                 onClick={() => setPage(i)}
-                className={`cursor-pointer ${
-                  page === i
-                    ? 'w-8 h-2 bg-cyan-300 rounded-full'
-                    : 'w-2 h-2 bg-white/40 rounded-full'
-                }`}
+                className={`cursor-pointer ${page === i
+                  ? 'w-8 h-2 bg-cyan-300 rounded-full'
+                  : 'w-2 h-2 bg-white/40 rounded-full'
+                  }`}
               />
             ))}
           </div>

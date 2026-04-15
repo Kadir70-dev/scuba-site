@@ -4,132 +4,121 @@ import { useState } from "react";
 export function Testimonials() {
   const [activeMainTab, setActiveMainTab] = useState("training environment");
 
-  const trainingCards = [
+  // ================= DATA =================
+
+  const trainingData = [
     {
-      title: "Dive Campus",
-      subtitle: "Region's largest dive tank",
-      desc: "4m deep · indoor · temperature controlled · underwater mirror for skill correction",
-      other:
-        "Outdoor/public pools and only 1.5–2m shallow limiting for buoyancy practice.",
+      feature: "Dive Tank",
+      others: "Shallow 1.5–2m outdoor pools",
+      diveCampus:
+        "4m deep indoor tank · temperature controlled · underwater mirror",
     },
     {
-      title: "Dive Campus",
-      subtitle: "Central Dubai location",
-      desc: "20–30 min from most major areas in Dubai",
-      other:
-        "Often inside communities — 40–60 min drive each way.",
+      feature: "Location",
+      others: "40–60 min travel",
+      diveCampus: "Central Dubai · 20–30 min from most areas",
     },
     {
-      title: "Dive Campus",
-      subtitle: "East Coast — on the reef in minutes",
-      desc: "Just 5–7 min boat ride to prime dive sites",
-      other:
-        "30–40 min boat rides — more time on boat than underwater.",
+      feature: "Boat Time",
+      others: "30–40 min ride",
+      diveCampus: "5–7 min to reef",
     },
   ];
 
-  const instructorCards = [
+  const instructorData = [
     {
-      title: "Dive Campus",
-      subtitle: "1:2 Instructor Ratio",
-      desc: "Maximum 2 students per instructor for proper learning.",
-      other: "Groups of 3–8 — harder to learn effectively.",
+      feature: "Student Ratio",
+      others: "3–8 per instructor",
+      diveCampus: "Max 2 students per instructor",
     },
     {
-      title: "Dive Campus",
-      subtitle: "Inhouse instructors",
-      desc: "Professionally trained PADI instructors.",
-      other: "Often outsourced freelancers.",
+      feature: "Instructor Type",
+      others: "Freelancers",
+      diveCampus: "In-house PADI professionals",
     },
     {
-      title: "Dive Campus",
-      subtitle: "Multi-lingual team",
-      desc: "English · Arabic · Hindi · French",
-      other: "Limited language support.",
+      feature: "Languages",
+      others: "Limited",
+      diveCampus: "English · Arabic · Hindi · French",
     },
   ];
 
-  const inclusionCards = [
+  const inclusionData = [
     {
-      title: "Dive Campus",
-      subtitle: "Premium Gear",
-      desc: "High quality gear included.",
-      other: "Low quality or extra charges.",
+      feature: "Gear Quality",
+      others: "Low quality / extra charges",
+      diveCampus: "Premium gear included",
     },
     {
-      title: "Dive Campus",
-      subtitle: "Learning Material",
-      desc: "Included in course fee.",
-      other: "Hidden charges.",
+      feature: "Learning Material",
+      others: "Hidden charges",
+      diveCampus: "Included in fee",
     },
     {
-      title: "Dive Campus",
-      subtitle: "Parking",
-      desc: "Free parking available.",
-      other: "Paid parking.",
+      feature: "Parking",
+      others: "Paid / public",
+      diveCampus: "Free parking",
     },
     {
-      title: "Dive Campus",
-      subtitle: "Bring a Friend",
-      desc: "Free try dive included.",
-      other: "Not included.",
+      feature: "Bring a Friend",
+      others: "Not included",
+      diveCampus: "Free try dive included",
     },
   ];
 
-  const renderCards = (cards: any[]) => (
-    <div className="flex justify-center w-full">
+  // ================= TABLE COMPONENT =================
 
-      <div
-        className="grid gap-8 justify-center"
-        style={{
-          gridTemplateColumns: `repeat(${cards.length}, minmax(280px, 320px))`,
-        }}
-      >
-        {cards.map((card, index) => (
-          <motion.div
-            key={index}
-            whileHover={{ y: -10 }}
-            className="
-              w-[300px]
-              bg-white/10 backdrop-blur-md
-              border border-white/20
-              rounded-2xl
-              p-8
-              shadow-[0_10px_40px_rgba(0,0,0,0.4)]
-              transition-all duration-300
-              hover:border-cyan-300
-            "
-          >
-            <h3 className="text-2xl font-bold text-cyan-300 mb-4">
-              {card.title}
-            </h3>
+  const renderTable = (data: any[]) => {
+    return (
+      <div className="w-full overflow-x-auto flex justify-center font-habara">
+        <table className="w-full max-w-5xl border border-white/10 rounded-xl overflow-hidden backdrop-blur-md bg-white/5">
 
-            <h4 className="text-xl font-semibold text-white mb-4">
-              {card.subtitle}
-            </h4>
+          {/* HEADER */}
+          <thead className="bg-white/5 text-white/70 text-xs uppercase tracking-[2px]">
+            <tr>
+              <th className="p-5 text-left">Feature</th>
+              <th className="p-5 text-center">Others</th>
+              <th className="p-5 text-center text-cyan-300">
+                Dive Campus
+              </th>
+            </tr>
+          </thead>
 
-            <p className="text-white/80 leading-7 mb-6">
-              {card.desc}
-            </p>
+          {/* BODY */}
+          <tbody className="text-white/80 text-sm">
+            {data.map((item, index) => (
+              <tr
+                key={index}
+                className="border-t border-white/10 hover:bg-white/5 transition-all duration-300"
+              >
+                {/* FEATURE */}
+                <td className="p-5 font-medium uppercase tracking-wide">
+                  {item.feature}
+                </td>
 
-            <div className="w-full h-[2px] bg-cyan-300 mb-6 rounded-full" />
+                {/* OTHERS */}
+                <td className="p-5 text-center text-red-400">
+                  ✕ {item.others}
+                </td>
 
-            <h5 className="text-lg font-semibold text-white mb-3">
-              Others
-            </h5>
-
-            <p className="text-white/60 leading-7">
-              {card.other}
-            </p>
-          </motion.div>
-        ))}
+                {/* DIVE CAMPUS */}
+                <td className="p-5 text-center">
+                  <span className="inline-block px-4 py-2 border border-cyan-400/30 rounded-lg text-cyan-300 bg-cyan-400/10">
+                    ✓ {item.diveCampus}
+                  </span>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
+    );
+  };
 
-    </div>
-  );
+  // ================= UI =================
 
   return (
-    <section className="relative py-24 bg-gradient-to-br from-[#18476D] via-[#123a5a] to-[#0b2c45] overflow-hidden">
+    <section className="relative py-24 bg-gradient-to-br from-[#18476D] via-[#123a5a] to-[#0b2c45] overflow-hidden font-habara">
 
       {/* Glow Effects */}
       <div className="absolute top-20 left-20 w-72 h-72 bg-cyan-400/20 blur-[120px] rounded-full" />
@@ -138,13 +127,13 @@ export function Testimonials() {
       <div className="relative max-w-[1500px] mx-auto px-6">
 
         {/* HEADING */}
-        <h2 className="text-center text-5xl font-semibold mb-8 text-white">
-          Training quality <span className="text-cyan-300">RAISED.</span>
+        <h2 className="text-center text-5xl font-semibold mb-8 text-white uppercase tracking-wide">
+          TRAINING QUALITY <span className="text-cyan-300">RAISED.</span>
         </h2>
 
-        <p className="text-center text-xl text-white/70 max-w-5xl mx-auto mb-16">
-          Don’t fall for “small class size” and “unlimited training” claims.
-          Here’s how we deliver excellence that truly matters.
+        <p className="text-center text-lg text-white/70 max-w-5xl mx-auto mb-16 uppercase tracking-wide">
+          DON’T FALL FOR SMALL CLASS SIZE AND UNLIMITED TRAINING CLAIMS.
+          HERE’S HOW WE DELIVER EXCELLENCE THAT TRULY MATTERS.
         </p>
 
         {/* TABS */}
@@ -157,7 +146,7 @@ export function Testimonials() {
             <button
               key={i}
               onMouseEnter={() => setActiveMainTab(item.toLowerCase())}
-              className="relative text-lg font-semibold uppercase tracking-wide text-white/80 hover:text-white"
+              className="relative text-sm font-semibold uppercase tracking-[3px] text-white/80 hover:text-white transition"
             >
               {item}
 
@@ -171,15 +160,15 @@ export function Testimonials() {
           ))}
         </div>
 
-        {/* CONTENT */}
+        {/* TABLE CONTENT */}
         {activeMainTab === "training environment" &&
-          renderCards(trainingCards)}
+          renderTable(trainingData)}
 
         {activeMainTab === "instructor quality" &&
-          renderCards(instructorCards)}
+          renderTable(instructorData)}
 
         {activeMainTab === "inclusions" &&
-          renderCards(inclusionCards)}
+          renderTable(inclusionData)}
 
       </div>
     </section>

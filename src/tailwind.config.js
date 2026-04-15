@@ -10,8 +10,9 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        'serif': ['Playfair Display', 'serif'],
-        'sans': ['Inter', 'sans-serif'],
+        habara: ['Harabara', 'sans-serif'],
+        serif: ['Playfair Display', 'serif'],
+        sans: ['Inter', 'sans-serif'],
       },
       colors: {
         beige: '#f5f1e8',
@@ -24,4 +25,4 @@ export default {
     },
   },
   plugins: [],
-}
+};
