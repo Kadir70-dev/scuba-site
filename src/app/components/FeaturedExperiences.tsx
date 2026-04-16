@@ -22,7 +22,7 @@ export function FeaturedExperiences() {
       <div className="absolute inset-0 bg-black/45" />
 
       {/* TOP BUTTONS */}
-      <div className="absolute top-6 left-6 right-6 flex justify-between z-20">
+      {/* <div className="absolute top-6 left-6 right-6 flex justify-between z-20">
 
         <button
           onClick={() => setActivePopup("dubai")}
@@ -41,7 +41,7 @@ export function FeaturedExperiences() {
         </button>
 
       </div>
-
+ */}
       {/* TEXT */}
       <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-6">
         <p className="text-white/80 text-xl mb-4 uppercase">

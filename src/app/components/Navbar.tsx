@@ -7,8 +7,8 @@ export function Navbar() {
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const [navbarHover, setNavbarHover] = useState(false);
   const [showNavbar, setShowNavbar] = useState(true);
+  const [isHero, setIsHero] = useState(true);
 
-  const scrollTimeoutRef = useRef<any>(null);
   const lastScrollRef = useRef(0);
 
   const navText =
@@ -18,13 +18,28 @@ export function Navbar() {
     window.location.href = path;
   };
 
+  // 🔥 ROUTE MAPPING
+  const routeMap: any = {
+    "Advanced Open Water": "/advanced-open-water",
+    "Specialty Courses": "/specialty-courses",
+    "PADI Divemaster": "/padi-divemaster",
+    "PADI Rescue Diver": "/rescue-diver",
+    "PADI Open Water": "/padi-open-water",
+    "PADI Open Diver": "/padi-open-diver",
+  };
+
   useEffect(() => {
     const handleScroll = () => {
       const currentScroll = window.scrollY;
 
+      if (currentScroll < window.innerHeight * 0.8) {
+        setIsHero(true);
+      } else {
+        setIsHero(false);
+      }
+
       if (currentScroll < 100) {
         setShowNavbar(true);
-        if (scrollTimeoutRef.current) clearTimeout(scrollTimeoutRef.current);
         return;
       }
 
@@ -34,26 +49,16 @@ export function Navbar() {
         setShowNavbar(true);
       }
 
-      if (scrollTimeoutRef.current) clearTimeout(scrollTimeoutRef.current);
-
-      scrollTimeoutRef.current = setTimeout(() => {
-        setShowNavbar(false);
-      }, 3000);
-
       lastScrollRef.current = currentScroll;
     };
 
     window.addEventListener("scroll", handleScroll);
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-      if (scrollTimeoutRef.current) clearTimeout(scrollTimeoutRef.current);
-    };
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   const menuItems = [
     { label: "Try Diving", href: "#try-diving" },
-    { label: "Get Certified", dropdown: ["Scuba Diving", "Free Diving"] },
+    { label: "Get Certified", dropdown: ["PADI Open Water", "PADI Open Diver"] },
     {
       label: "Level Up",
       dropdown: [
@@ -64,7 +69,7 @@ export function Navbar() {
       ],
     },
     { label: "Reactivate", href: "#reactivate" },
-    { label: "About", href: "#about" },
+    { label: "About", href: "/about" },
   ];
 
   return (
@@ -78,20 +83,24 @@ export function Navbar() {
         onMouseEnter={() => setNavbarHover(true)}
         onMouseLeave={() => setNavbarHover(false)}
         animate={{
-          backdropFilter: navbarHover ? "blur(20px)" : "blur(0px)",
-          backgroundColor: navbarHover
-            ? "rgba(5, 38, 60, 0.9)"
-            : "rgba(5, 38, 60, 0)",
+          backgroundColor: isHero
+            ? navbarHover
+              ? "rgba(5, 38, 60, 0.9)"
+              : "rgba(5, 38, 60, 0)"
+            : "rgba(5, 38, 60, 0.9)",
+          backdropFilter: isHero
+            ? navbarHover
+              ? "blur(20px)"
+              : "blur(0px)"
+            : "blur(20px)",
         }}
-        transition={{ duration: 0.3, ease: "easeOut" }}
-        className="flex items-center justify-between px-10 py-4 w-full transition-all duration-300"
+        transition={{ duration: 0.3 }}
+        className="flex items-center justify-between px-10 py-4 w-full"
       >
         {/* LOGO */}
-        <img
-          src="/logow.svg"
-          alt="logo"
-          className="h-10 scale-150 origin-left"
-        />
+        <div className="flex items-center h-[50px]">
+          <img src="/logow.svg" className="h-full object-contain" />
+        </div>
 
         {/* MENU */}
         <div className="hidden lg:flex items-center gap-10">
@@ -104,64 +113,25 @@ export function Navbar() {
             >
               {"dropdown" in item ? (
                 <>
-                  {/* TAB */}
                   <button className={`${navText} relative group`}>
-                    <span
-                      className={`relative z-10 ${
-                        activeDropdown === item.label
-                          ? "text-cyan-300"
-                          : ""
-                      }`}
-                    >
+                    <span className="relative z-10">
                       {item.label.toUpperCase()}
                     </span>
-
-                    {/* UNDERLINE */}
-                    <span
-                      className={`
-                        absolute left-0 bottom-[-6px] h-[2px] w-full
-                        bg-cyan-300
-                        origin-left
-                        scale-x-0 group-hover:scale-x-100
-                        transition-transform duration-300 ease-out
-                        ${
-                          activeDropdown === item.label
-                            ? "scale-x-100"
-                            : ""
-                        }
-                      `}
-                    />
                   </button>
 
-                  {/* DROPDOWN */}
                   <AnimatePresence>
                     {activeDropdown === item.label && (
                       <motion.div
-                        initial={{ opacity: 0, y: 20, scale: 0.95 }}
-                        animate={{ opacity: 1, y: 0, scale: 1 }}
-                        exit={{ opacity: 0, y: 10, scale: 0.95 }}
-                        transition={{ duration: 0.25 }}
-                        className="
-                          absolute top-[170%] left-0 min-w-[250px] rounded-xl p-4
-                          bg-[#082544]/90 backdrop-blur-xl
-                          border border-cyan-400/20
-                          shadow-[0_10px_40px_rgba(0,255,255,0.15)]
-                        "
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: 10 }}
+                        className="absolute top-[170%] left-0 min-w-[250px] rounded-xl p-4 bg-[#082544]/90 backdrop-blur-xl border border-cyan-400/20"
                       >
                         {item.dropdown.map((sub) => (
                           <button
                             key={sub}
-                            className={`
-                              block w-full text-left px-4 py-3 rounded-lg
-                              ${navText}
-                              hover:bg-cyan-400/10
-                              hover:text-cyan-300
-                              transition-all duration-300
-                            `}
-                            onClick={() =>
-                              sub === "Advanced Open Water" &&
-                              handleNavigation("/advanced-open-water")
-                            }
+                            className="block w-full text-left px-4 py-3 rounded-lg text-white hover:text-cyan-300 transition"
+                            onClick={() => handleNavigation(routeMap[sub])}
                           >
                             {sub.toUpperCase()}
                           </button>
@@ -171,20 +141,12 @@ export function Navbar() {
                   </AnimatePresence>
                 </>
               ) : (
-                <a href={item.href} className={`${navText} relative group`}>
-                  <span>{item.label.toUpperCase()}</span>
-
-                  {/* UNDERLINE */}
-                  <span
-                    className="
-                      absolute left-0 bottom-[-6px] h-[2px] w-full
-                      bg-cyan-300
-                      origin-left scale-x-0
-                      group-hover:scale-x-100
-                      transition-transform duration-300
-                    "
-                  />
-                </a>
+                <button
+                  onClick={() => handleNavigation(item.href)}
+                  className={`${navText}`}
+                >
+                  {item.label.toUpperCase()}
+                </button>
               )}
             </div>
           ))}
@@ -194,17 +156,7 @@ export function Navbar() {
         <div className="hidden lg:flex items-center gap-5 text-white">
           <Phone />
           <Mail />
-
-          <button
-            className="
-              px-8 py-3 rounded-full
-              bg-[#38BDF8] text-black
-              font-semibold text-[13px] uppercase tracking-[2px]
-              hover:scale-105 hover:bg-cyan-300
-              transition-all duration-300
-              shadow-[0_6px_20px_rgba(56,189,248,0.4)]
-            "
-          >
+          <button className="px-5 py-2 text-sm rounded-full bg-cyan-300 text-black hover:scale-105 transition">
             BOOK NOW
           </button>
         </div>
