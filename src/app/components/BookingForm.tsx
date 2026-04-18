@@ -25,7 +25,7 @@ export function BookingForm() {
 
   return (
     <section id="booking" className="relative py-32 overflow-hidden">
-     <div className="absolute inset-0 bg-gradient-to-br from-[#18476D] via-[#123a5a] to-[#0b2c45]" />
+      <div className="absolute inset-0 bg-gradient-to-br from-[#18476D] via-[#123a5a] to-[#0b2c45]" />
 
       <div
         className="absolute inset-0"
@@ -99,10 +99,11 @@ export function BookingForm() {
               </div>
             </div>
 
+            {/* IMAGE SECTION */}
             <div className="relative overflow-hidden rounded-2xl aspect-video">
               <img
-                src="https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=800&h=600&fit=crop"
-                alt="Diving location"
+                src="/img1.jpeg"
+                alt="Custom"
                 className="w-full h-full object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-[#0a0e27] to-transparent" />

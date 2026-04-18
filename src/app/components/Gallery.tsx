@@ -8,15 +8,15 @@ export function Gallery() {
   const sliderRef = useRef<HTMLDivElement>(null);
 
   const images = [
-    { url: 'https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=600&h=800&fit=crop' },
-    { url: 'https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=800&h=600&fit=crop' },
-    { url: 'https://images.unsplash.com/photo-1682687220742-aba13b6e50ba?w=600&h=600&fit=crop' },
-    { url: 'https://images.unsplash.com/photo-1583212292454-1fe6229603b7?w=600&h=800&fit=crop' },
-    { url: 'https://images.unsplash.com/photo-1544552866-d3ed42536cfd?w=800&h=600&fit=crop' },
-    { url: 'https://images.unsplash.com/photo-1559825481-12a05cc00344?w=600&h=600&fit=crop' },
-    { url: 'https://images.unsplash.com/photo-1546026423-cc4642628d2b?w=600&h=800&fit=crop' },
-    { url: 'https://images.unsplash.com/photo-1516843359000-80e50b4537fc?w=800&h=600&fit=crop' },
-  ];
+    '/A59I0374.jpg',
+    '/A59I0450.jpg',
+    '/A59I0656.jpg',
+    '/A59I9512.jpg',
+    '/A59I9544.jpg',
+    '/A59I9590.jpg',
+    '/A59I9631.jpg',
+    '/AWEART.jpg',
+  ].map((url) => ({ url }));
 
   const scrollToIndex = (index: number) => {
     if (!sliderRef.current) return;
@@ -147,11 +147,10 @@ export function Gallery() {
               <div
                 key={i}
                 onClick={() => scrollToIndex(i)}
-                className={`cursor-pointer transition-all duration-300 ${
-                  i === currentIndex
+                className={`cursor-pointer transition-all duration-300 ${i === currentIndex
                     ? "w-8 h-2 bg-cyan-300 rounded-full shadow-[0_0_10px_rgba(34,211,238,0.8)]"
                     : "w-2 h-2 bg-white/30 rounded-full"
-                }`}
+                  }`}
               />
             ))}
           </div>

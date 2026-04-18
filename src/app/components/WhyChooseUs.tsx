@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 const cards = [
   {
     title: 'ADVANCE FINNING',
-    image: 'https://images.unsplash.com/photo-1583212292454-1fe6229603b7?q=80&w=1200',
+    image: '/img1.jpeg',
     description: `"Move effortlessly. Breathe less. Disturb nothing."
 
 • Improve movement efficiency  
@@ -12,7 +12,7 @@ const cards = [
   },
   {
     title: 'ADVANCE BUOYANCY',
-    image: 'https://images.unsplash.com/photo-1682686581498-5e85c7228119?q=80&w=1200',
+    image: '/img2.jpeg',
     description: `"Stop fighting the water."
 
 • Hover motionless  
@@ -21,7 +21,7 @@ const cards = [
   },
   {
     title: 'SWITCH TO DIR',
-    image: 'https://images.unsplash.com/photo-1544551763-46a013bb70d5?q=80&w=1200',
+    image: '/img3.jpeg',
     description: `"Dive smarter."
 
 • Streamlined gear  
@@ -29,7 +29,7 @@ const cards = [
   },
   {
     title: 'OVERCOME WATER PHOBIA',
-    image: 'https://images.unsplash.com/photo-1560275619-4662e36fa65c?q=80&w=1200',
+    image: '/img4.jpeg',
     description: `"Build confidence."
 
 • Private sessions  
@@ -137,19 +137,6 @@ export function WhyChooseUs() {
             </motion.div>
           ))}
         </motion.div>
-
-        {/* ❌ PAGINATION REMOVED */}
-        {/*
-        <div className="flex justify-center items-center gap-6 mt-12">
-
-          <button>Prev</button>
-
-          <div>Dots</div>
-
-          <button>Next</button>
-
-        </div>
-        */}
 
       </div>
     </section>
