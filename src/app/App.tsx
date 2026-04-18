@@ -15,7 +15,6 @@ import { Footer } from './components/Footer';
 import Login from './components/Login';
 import { AdvancedOpenWater } from './components/pages/AdvancedOpenWater';
 import { ReviewsPage } from './components/ReviewsPage';
-import { TeamPage } from './components/TeamPage';
 import { AboutDiveCampus } from './components/pages/AboutDiveCampus';
 import { SpecialtyCourses } from './components/pages/SpecialtyCourses';
 import { PadIDivemaster } from './components/pages/PadIDivemaster';
@@ -65,7 +64,6 @@ export default function App() {
               <BookingForm />
               <ReviewsPage />
 
-              <TeamPage />
 
               <WhyChooseUs />
               <Gallery />

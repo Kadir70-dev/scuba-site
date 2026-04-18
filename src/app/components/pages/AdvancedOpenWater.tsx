@@ -1,8 +1,16 @@
+"use client";
+
 import { motion } from "framer-motion";
 
 export function AdvancedOpenWater() {
+
+  // ✅ ALWAYS GO HOME
+  const goBack = () => {
+    window.location.href = "/";
+  };
+
   return (
-    <section className="relative min-h-screen w-full overflow-hidden">
+    <section className="relative min-h-screen w-full overflow-hidden font-habara">
 
       {/* BACKGROUND IMAGE */}
       <div className="absolute inset-0">
@@ -11,9 +19,39 @@ export function AdvancedOpenWater() {
           alt="scuba"
           className="w-full h-full object-cover"
         />
-
-        {/* ✅ FIXED OVERLAY (with opacity) */}
         <div className="absolute inset-0 bg-[#02182b]/60" />
+      </div>
+
+      {/* 🔥 BACK BUTTON */}
+      <div className="absolute top-20 left-8 z-20">
+        <button
+          onClick={goBack}
+          className="
+            group flex items-center justify-center
+            w-12 h-12
+            rounded-full
+            bg-white/10 backdrop-blur-xl
+            border border-white/20
+            shadow-[0_15px_40px_rgba(0,0,0,0.5)]
+            hover:scale-105
+            transition-all duration-300
+          "
+        >
+          {/* SVG ARROW */}
+          <svg
+            className="w-5 h-5 text-white transition-transform duration-300 group-hover:-translate-x-1"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M15 19l-7-7 7-7"
+            />
+          </svg>
+        </button>
       </div>
 
       {/* CONTENT */}
@@ -21,13 +59,10 @@ export function AdvancedOpenWater() {
 
         {/* TOP BADGE */}
         <div className="relative overflow-hidden mb-6 px-5 py-2 text-xs tracking-widest border border-cyan-300/40 rounded-full text-cyan-200">
-
-          {/* TEXT */}
           <span className="relative z-10">
             LEVEL 1 - ADVANCED OPEN WATER COURSE
           </span>
 
-          {/* ✨ CRYSTAL WAVE LINE */}
           <motion.div
             initial={{ x: "-100%" }}
             animate={{ x: "200%" }}
@@ -60,7 +95,6 @@ export function AdvancedOpenWater() {
 
         {/* PRICE CARD */}
         <div className="mt-8 bg-white/10 backdrop-blur-lg border border-white/20 rounded-xl px-8 py-6 shadow-xl">
-
           <p className="text-sm text-white/50 line-through mb-1">
             AED 2,999
           </p>
@@ -76,7 +110,6 @@ export function AdvancedOpenWater() {
 
         {/* BUTTONS */}
         <div className="mt-8 flex gap-4 flex-wrap justify-center">
-          
           <button className="px-8 py-3 bg-cyan-400 text-black font-semibold rounded-lg hover:scale-105 transition duration-300">
             ENROLL NOW →
           </button>

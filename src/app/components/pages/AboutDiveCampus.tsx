@@ -1,144 +1,184 @@
-import { motion } from "framer-motion";
+"use client";
+
+import { useEffect, useRef } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
+
+const team = [
+  { role: "Founder", name: "ISLAM" },
+  { role: "Co-Founder", name: "SNEHA" },
+  { role: "Lead Instructor", name: "Justin" },
+  { role: "Dive Master", name: "Ali Hassan" },
+  { role: "Instructor", name: "Sara Khan" },
+  { role: "Operations", name: "Ahmed Raza" },
+  { role: "Admin", name: "Zaw" },
+];
 
 export function AboutDiveCampus() {
+  const sectionRef = useRef(null);
+  const cardsRef = useRef([]);
+
+  const goBack = () => {
+    window.location.href = "/";
+  };
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+
+      const total = cardsRef.current.length;
+
+      // 🔥 RESPONSIVE RADIUS
+      const getRadius = () => {
+        if (window.innerWidth < 640) return 120;   // mobile
+        if (window.innerWidth < 1024) return 180;  // tablet
+        return 260; // desktop
+      };
+
+      let radius = getRadius();
+
+      const updateOrbit = () => {
+        radius = getRadius();
+      };
+
+      window.addEventListener("resize", updateOrbit);
+
+      // INITIAL POSITIONS
+      cardsRef.current.forEach((card, i) => {
+        const angle = (i / total) * Math.PI * 2;
+
+        gsap.set(card, {
+          x: Math.cos(angle) * radius,
+          y: Math.sin(angle) * radius,
+          opacity: 0.3,
+          scale: 0.7,
+        });
+      });
+
+      let rotation = { value: 0 };
+
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top top",
+          end: "+=4000",
+          scrub: 1.2,
+          pin: true,
+        },
+      });
+
+      tl.to(rotation, {
+        value: Math.PI * 2,
+        ease: "none",
+        onUpdate: () => {
+          cardsRef.current.forEach((card, i) => {
+            const angle = (i / total) * Math.PI * 2 + rotation.value;
+
+            const x = Math.cos(angle) * radius;
+            const y = Math.sin(angle) * radius;
+            const depth = Math.cos(angle);
+
+            gsap.set(card, {
+              x,
+              y,
+              scale: 0.7 + depth * 0.3,
+              opacity: 0.3 + depth * 0.7,
+              filter: `blur(${(1 - depth) * 8}px)`,
+            });
+          });
+        },
+      });
+
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
+
   return (
-    <section className="relative py-28 bg-[#0f2f4d] text-white font-habara overflow-hidden">
-
-      {/* 🔙 BACK BUTTON */}
-      <button
-        onClick={() => (window.location.href = "/")}
-        className="absolute top-8 left-6 z-50 flex items-center gap-2 text-white/70 hover:text-white transition group"
-      >
-        <span className="w-10 h-10 flex items-center justify-center rounded-full 
-          bg-white/10 backdrop-blur-md border border-white/20 
-          group-hover:bg-cyan-300 group-hover:text-black 
-          transition-all duration-300">
-
+    <section
+      ref={sectionRef}
+      className="
+        relative h-screen w-full overflow-hidden
+        bg-gradient-to-br from-[#18476D] via-[#123a5a] to-[#0b2c45]
+        text-white font-habara
+      "
+    >
+      {/* BACK BUTTON */}
+      <div className="absolute top-16 left-6 z-30">
+        <button
+          onClick={goBack}
+          className="
+            group flex items-center justify-center
+            w-10 h-10 sm:w-12 sm:h-12
+            rounded-full
+            bg-white/10 backdrop-blur-xl
+            border border-white/20
+            shadow-lg
+            hover:scale-105
+            transition
+          "
+        >
           <svg
-            width="18"
-            height="18"
+            className="w-4 h-4 sm:w-5 sm:h-5 text-white group-hover:-translate-x-1 transition"
             fill="none"
             stroke="currentColor"
             strokeWidth="2"
+            viewBox="0 0 24 24"
           >
-            <path d="M15 12H5" />
-            <path d="M10 17L5 12L10 7" />
+            <path d="M15 19l-7-7 7-7" />
           </svg>
-        </span>
-
-        <span className="text-sm tracking-wide opacity-0 group-hover:opacity-100 transition duration-300">
-          Back
-        </span>
-      </button>
-
-      <div className="max-w-[1400px] mx-auto px-6">
-
-        {/* HEADER */}
-        <div className="flex justify-between items-center mb-16">
-          <h2 className="text-5xl font-bold">
-            About <span className="text-white/90">DiveCampus</span>
-          </h2>
-
-          <div className="text-right">
-            <p className="text-white/60 tracking-widest">WHY US?</p>
-            <div className="w-20 h-[2px] bg-white/40 mt-2 ml-auto" />
-          </div>
-        </div>
-
-        {/* GRID */}
-        <div className="grid md:grid-cols-2 gap-16">
-
-          {/* LEFT - DUBAI */}
-          <div>
-            <div className="relative group">
-
-              <div className="absolute -top-4 -left-4 w-full h-full border-[6px] border-yellow-400 z-0" />
-
-              <img
-                src="/dubai.jpg"
-                className="relative z-10 w-full h-[320px] object-cover transition duration-500 group-hover:scale-105"
-              />
-
-              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent z-20" />
-
-              {/* ✨ LABEL WITH SHINE */}
-              <div className="absolute bottom-4 left-4 z-30 px-5 py-2 rounded-full 
-                bg-white/10 backdrop-blur-md border border-white/20 
-                text-white text-sm tracking-wide shadow-lg overflow-hidden">
-
-                <span className="relative z-10">Dubai</span>
-
-                <span className="absolute inset-0 overflow-hidden rounded-full">
-                  <span className="shine absolute top-0 left-[-100%] w-[50%] h-full 
-                    bg-gradient-to-r from-transparent via-white/40 to-transparent 
-                    skew-x-[-20deg]" />
-                </span>
-
-              </div>
-            </div>
-
-            <p className="text-white/80 mt-6 leading-7 text-sm">
-              Located in the heart of Dubai, DiveCampus launched in 2023 as the UAE’s first concept store dedicated to ‘everything diving’—and is home to the region’s largest indoor Dive Tank.
-
-              Built using upcycled shipping containers and filled with 220,000 litres of fresh water, the 4-metre-deep tank is a signature space for dive training, try dives, and events.
-
-              At DiveCampus, you can explore scuba for the first time, get certified, advance your diving skills, shop premium dive gear, host private events, or simply grab a specialty coffee at our in-house café.
-            </p>
-          </div>
-
-          {/* RIGHT - KHORFAKKAN */}
-          <div>
-            <div className="relative group">
-
-              <div className="absolute -top-4 -right-4 w-full h-full border-[6px] border-yellow-400 z-0" />
-
-              <img
-                src="/Khorfakkan.jpg"
-                className="relative z-10 w-full h-[320px] object-cover transition duration-500 group-hover:scale-105"
-              />
-
-              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent z-20" />
-
-              {/* ✨ LABEL WITH SHINE */}
-              <div className="absolute bottom-4 left-4 z-30 px-5 py-2 rounded-full 
-                bg-white/10 backdrop-blur-md border border-white/20 
-                text-white text-sm tracking-wide shadow-lg overflow-hidden">
-
-                <span className="relative z-10">Sharjah | Khorfakkan</span>
-
-                <span className="absolute inset-0 overflow-hidden rounded-full">
-                  <span className="shine absolute top-0 left-[-100%] w-[50%] h-full 
-                    bg-gradient-to-r from-transparent via-white/40 to-transparent 
-                    skew-x-[-20deg]" />
-                </span>
-
-              </div>
-            </div>
-
-            <p className="text-white/80 mt-6 leading-7 text-sm">
-              DiveCampus Khorfakkan is a beachfront hub for divers and ocean lovers, centrally located to the UAE’s stunning East Coast dive sites.
-
-              Set against the dramatic backdrop of the Hajar Mountains, Khor Fakkan is one of the country’s most iconic beach destinations — known for rich marine biodiversity.
-
-              Explore coral reefs, turtles, rays, and more. Enjoy scuba, certifications, guided dives, or relax at our beach-facing patio.
-            </p>
-          </div>
-
-        </div>
+        </button>
       </div>
 
-      {/* ✨ SHINE ANIMATION */}
-      <style jsx>{`
-        @keyframes shineMove {
-          0% { left: -100%; }
-          50% { left: 120%; }
-          100% { left: 120%; }
-        }
-        .shine {
-          animation: shineMove 3s infinite;
-        }
-      `}</style>
+      {/* GLOW */}
+      <div className="absolute top-20 left-20 w-72 h-72 bg-cyan-400/20 blur-[120px] rounded-full" />
 
+      {/* TEXT (RESPONSIVE) */}
+      <div className="
+        absolute z-20
+        top-20 left-1/2 -translate-x-1/2 text-center
+        lg:left-10 lg:top-1/2 lg:-translate-y-1/2 lg:translate-x-0 lg:text-left
+        max-w-[280px]
+      ">
+        <h2 className="text-3xl lg:text-5xl font-bold">
+          Meet <span className="text-cyan-300">Our Team</span>
+        </h2>
+        <p className="text-white/60 mt-3 text-sm">
+          Scroll to explore the story
+        </p>
+      </div>
+
+      {/* ORBIT */}
+      <div className="absolute inset-0 flex items-center justify-center">
+
+        {team.map((member, i) => (
+          <div
+            key={i}
+            ref={(el) => (cardsRef.current[i] = el)}
+            className="
+              absolute
+              w-[140px] h-[180px]
+              sm:w-[180px] sm:h-[240px]
+              lg:w-[240px] lg:h-[320px]
+              rounded-xl lg:rounded-2xl
+              bg-white/10 backdrop-blur-xl
+              border border-white/20
+              shadow-xl
+              flex flex-col items-center justify-center
+              text-center
+            "
+          >
+            <h3 className="text-sm sm:text-lg font-bold">
+              {member.name}
+            </h3>
+            <p className="text-cyan-300 text-xs sm:text-sm mt-1">
+              {member.role}
+            </p>
+          </div>
+        ))}
+
+      </div>
     </section>
   );
 }
