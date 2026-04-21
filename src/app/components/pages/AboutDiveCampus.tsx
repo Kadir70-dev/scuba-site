@@ -20,20 +20,19 @@ export function AboutDiveCampus() {
   const sectionRef = useRef(null);
   const cardsRef = useRef([]);
 
-  const goBack = () => {
-    window.location.href = "/";
-  };
+  // const goBack = () => {
+  //   window.location.href = "/";
+  // };
 
   useEffect(() => {
     const ctx = gsap.context(() => {
 
       const total = cardsRef.current.length;
 
-      // 🔥 RESPONSIVE RADIUS
       const getRadius = () => {
-        if (window.innerWidth < 640) return 120;   // mobile
-        if (window.innerWidth < 1024) return 180;  // tablet
-        return 260; // desktop
+        if (window.innerWidth < 640) return 120;
+        if (window.innerWidth < 1024) return 180;
+        return 260;
       };
 
       let radius = getRadius();
@@ -44,7 +43,6 @@ export function AboutDiveCampus() {
 
       window.addEventListener("resize", updateOrbit);
 
-      // INITIAL POSITIONS
       cardsRef.current.forEach((card, i) => {
         const angle = (i / total) * Math.PI * 2;
 
@@ -104,37 +102,20 @@ export function AboutDiveCampus() {
         text-white font-habara
       "
     >
-      {/* BACK BUTTON */}
-      <div className="absolute top-16 left-6 z-30">
-        <button
+      {/* ✅ LOGO AS BACK BUTTON */}
+      {/* <div className="absolute top-16 left-6 z-30 cursor-pointer">
+        <img
+          src="/logow.svg"   // 🔥 yaha apna logo path daal
+          alt="logo"
           onClick={goBack}
-          className="
-            group flex items-center justify-center
-            w-10 h-10 sm:w-12 sm:h-12
-            rounded-full
-            bg-white/10 backdrop-blur-xl
-            border border-white/20
-            shadow-lg
-            hover:scale-105
-            transition
-          "
-        >
-          <svg
-            className="w-4 h-4 sm:w-5 sm:h-5 text-white group-hover:-translate-x-1 transition"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            viewBox="0 0 24 24"
-          >
-            <path d="M15 19l-7-7 7-7" />
-          </svg>
-        </button>
-      </div>
+          className="w-12 sm:w-14 hover:scale-105 transition"
+        />
+      </div> */}
 
       {/* GLOW */}
       <div className="absolute top-20 left-20 w-72 h-72 bg-cyan-400/20 blur-[120px] rounded-full" />
 
-      {/* TEXT (RESPONSIVE) */}
+      {/* TEXT */}
       <div className="
         absolute z-20
         top-20 left-1/2 -translate-x-1/2 text-center
@@ -151,7 +132,6 @@ export function AboutDiveCampus() {
 
       {/* ORBIT */}
       <div className="absolute inset-0 flex items-center justify-center">
-
         {team.map((member, i) => (
           <div
             key={i}
@@ -177,7 +157,6 @@ export function AboutDiveCampus() {
             </p>
           </div>
         ))}
-
       </div>
     </section>
   );

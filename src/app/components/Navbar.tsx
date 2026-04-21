@@ -1,8 +1,9 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, Phone, Mail } from "lucide-react";
 import { useState, useEffect, useRef } from "react";
-
+import { useNavigate } from "react-router-dom";
 export function Navbar() {
+  const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const [navbarHover, setNavbarHover] = useState(false);
@@ -97,8 +98,11 @@ export function Navbar() {
         transition={{ duration: 0.3 }}
         className="flex items-center justify-between px-10 py-4 w-full"
       >
-        {/* LOGO */}
-        <div className="flex items-center h-[50px]">
+        {/* ✅ LOGO = BACK BUTTON */}
+        <div
+          className="flex items-center h-[50px] cursor-pointer"
+          onClick={() => navigate(-1)}
+        >
           <img src="/logow.svg" className="h-full object-contain" />
         </div>
 
@@ -113,10 +117,8 @@ export function Navbar() {
             >
               {"dropdown" in item ? (
                 <>
-                  <button className={`${navText} relative group`}>
-                    <span className="relative z-10">
-                      {item.label.toUpperCase()}
-                    </span>
+                  <button className={`${navText}`}>
+                    {item.label.toUpperCase()}
                   </button>
 
                   <AnimatePresence>
