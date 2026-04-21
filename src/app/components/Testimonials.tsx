@@ -20,7 +20,7 @@ export function Testimonials() {
     },
     {
       feature: "Boat Time",
-      others: "30–40 min ride",
+      others: "30–40 min ride", 
       diveCampus: "5–7 min to reef",
     },
   ];
