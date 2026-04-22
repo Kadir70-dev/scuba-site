@@ -33,7 +33,7 @@ export function EnrollmentSection() {
   ];
 
   return (
-    <section className="py-28 bg-[#f4f7fb] relative">
+   <section className="py-28 bg-[#f8fafc] relative">
 
       {/* HEADER */}
       <div className="max-w-5xl mx-auto text-center mb-20 px-6">
@@ -80,7 +80,7 @@ export function EnrollmentSection() {
           <div className="rounded-2xl overflow-hidden shadow-xl">
             <iframe
               className="w-full h-[260px] md:h-[320px]"
-              src="https://www.youtube.com/embed/8hP9D6kZseM"
+              src="https://www.youtube.com/embed/fWDuCdYZwg4"
               allowFullScreen
             />
           </div>
@@ -111,17 +111,6 @@ export function EnrollmentSection() {
           {/* CTA */}
           <div className="flex items-center gap-4 mt-6 flex-wrap">
 
-            <button className="px-8 py-4 rounded-full bg-gradient-to-r from-cyan-400 to-cyan-500 text-white font-semibold shadow-lg hover:scale-105 transition">
-              BOOK NOW →
-            </button>
-
-            <div className="w-12 h-12 flex items-center justify-center rounded-full bg-green-500 text-white text-xl shadow">
-              💬
-            </div>
-
-            <button className="px-6 py-3 rounded-full border border-gray-300 text-gray-600 text-sm hover:bg-gray-100 transition">
-              READ REAL DIVER REVIEWS
-            </button>
 
           </div>
 
