@@ -29,70 +29,86 @@ export function StepsSection() {
   ];
 
   return (
-    <section className="py-28 bg-[#f3f6f9]">
+    <>
+      <section
+        className="py-28 bg-[#f3f6f9]"
+        style={{ fontFamily: "Harabara, sans-serif" }} // ✅ FORCE FONT
+      >
 
-      {/* HEADER */}
-      <div className="text-center max-w-4xl mx-auto px-6 mb-20">
-        <h2 className="text-3xl md:text-5xl font-bold text-[#0a0e27] leading-tight">
-          Get Certified <br />
-          <span className="text-cyan-500">IN JUST 3-4 DAYS.</span>
-        </h2>
+        {/* HEADER */}
+        <div className="text-center max-w-4xl mx-auto px-6 mb-20">
+          <h2 className="text-3xl md:text-5xl font-bold text-[#0a0e27] leading-tight tracking-tight">
+            Get Certified <br />
+            <span className="text-cyan-500">IN JUST 3-4 DAYS.</span>
+          </h2>
 
-        <p className="text-gray-500 mt-4">
-          Understand the exact sequence of your training. We have engineered a
-          streamlined progression from theoretical coursework to your final ocean dive.
-        </p>
-      </div>
+          <p className="text-gray-500 mt-4">
+            Understand the exact sequence of your training. We have engineered a
+            streamlined progression from theoretical coursework to your final ocean dive.
+          </p>
+        </div>
 
-      {/* STEPS */}
-      <div className="relative max-w-7xl mx-auto px-6 grid md:grid-cols-4 gap-6">
+        {/* STEPS */}
+        <div className="relative max-w-7xl mx-auto px-6 grid md:grid-cols-4 gap-6">
 
-        {steps.map((step, i) => (
-          <div key={i} className="relative">
+          {steps.map((step, i) => (
+            <div key={i} className="relative">
 
-            {/* ARROW BETWEEN CARDS */}
-            {i !== 0 && (
-              <div className="hidden md:block absolute -left-4 top-1/2 -translate-y-1/2 text-cyan-400 text-xl">
-                →
-              </div>
-            )}
-
-            {/* CARD */}
-            <motion.div
-              whileHover={{ y: -5 }}
-              className={`
-                p-6 rounded-2xl border transition shadow-sm
-                ${step.highlight
-                  ? "bg-[#fffdf7] border-yellow-300 shadow-md"
-                  : "bg-white border-gray-200"}
-              `}
-            >
-              {/* BADGE */}
-              {step.highlight && (
-                <div className="absolute top-3 right-3 text-[10px] px-3 py-1 bg-cyan-500 text-white rounded-full">
-                  EXCLUSIVE ACCESS
+              {/* ARROW */}
+              {i !== 0 && (
+                <div className="hidden md:block absolute -left-4 top-1/2 -translate-y-1/2 text-cyan-400 text-xl">
+                  →
                 </div>
               )}
 
-              {/* ICON */}
-              <div className="text-cyan-500 mb-4">
-                {step.icon}
-              </div>
+              {/* CARD */}
+              <motion.div
+                whileHover={{ y: -5 }}
+                className={`
+                  p-6 rounded-2xl border transition shadow-sm
+                  ${step.highlight
+                    ? "bg-[#fffdf7] border-yellow-300 shadow-md"
+                    : "bg-white border-gray-200"}
+                `}
+              >
 
-              {/* TITLE */}
-              <h3 className="font-semibold text-[#0a0e27] mb-2">
-                {step.title}
-              </h3>
+                {/* BADGE */}
+                {step.highlight && (
+                  <div className="absolute top-3 right-3 text-[10px] px-3 py-1 bg-cyan-500 text-white rounded-full">
+                    EXCLUSIVE ACCESS
+                  </div>
+                )}
 
-              {/* DESC */}
-              <p className="text-sm text-gray-500 leading-relaxed">
-                {step.desc}
-              </p>
-            </motion.div>
-          </div>
-        ))}
+                {/* ICON */}
+                <div className="text-cyan-500 mb-4">
+                  {step.icon}
+                </div>
 
-      </div>
-    </section>
+                {/* TITLE */}
+                <h3 className="font-semibold text-[#0a0e27] mb-2">
+                  {step.title}
+                </h3>
+
+                {/* DESC */}
+                <p className="text-sm text-gray-500 leading-relaxed">
+                  {step.desc}
+                </p>
+              </motion.div>
+            </div>
+          ))}
+
+        </div>
+      </section>
+
+      {/* ✅ HARABARA LOAD */}
+      <style jsx global>{`
+        @font-face {
+          font-family: 'Harabara';
+          src: url('/fonts/Harabara.woff') format('woff');
+          font-weight: normal;
+          font-style: normal;
+        }
+      `}</style>
+    </>
   );
 }

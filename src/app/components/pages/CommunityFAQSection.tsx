@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Plus } from "lucide-react";
 
 export function CommunityFAQSection() {
-  const [active, setActive] = useState<number | null>(null);
+  const [active, setActive] = useState<number | null>(0);
 
   const faqs = [
     {
@@ -39,73 +39,93 @@ export function CommunityFAQSection() {
   };
 
   return (
-    <section className="py-32 bg-[#f5f7fa]">
+    <>
+      <section
+        className="py-32 bg-gradient-to-b from-[#f5f7fa] to-[#eef2f6]"
+        style={{ fontFamily: "Harabara, sans-serif" }}
+      >
 
-      {/* HEADER */}
-      <div className="text-center max-w-3xl mx-auto px-6 mb-16">
-        <h2 className="text-3xl md:text-5xl font-bold text-[#0a0e27] mb-4">
-          More Than a Dive Center.
-          <br />
-          <span className="text-cyan-500">
-            A Community of Explorers.
-          </span>
-        </h2>
+        {/* HEADER */}
+        <div className="text-center max-w-3xl mx-auto px-6 mb-16">
+          <h2 className="text-3xl md:text-5xl font-bold text-[#0a0e27] leading-tight">
+            More Than a Dive Center.
+            <br />
+            <span className="bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
+              A Community of Explorers.
+            </span>
+          </h2>
 
-        <p className="text-gray-500 mt-4">
-          Nemo isn't just about the dives; it's about the people you meet between them.
-          Join the UAE’s most active diving community and turn every weekend into an epic story.
-        </p>
-      </div>
+          <p className="text-gray-500 mt-4 text-sm md:text-base">
+            Nemo isn't just about the dives; it's about the people you meet between them.
+            Join the UAE’s most active diving community and turn every weekend into an epic story.
+          </p>
+        </div>
 
-      {/* FAQ TITLE */}
-      <h3 className="text-center text-xl font-semibold text-[#0a0e27] mb-10">
-        Frequently Asked Questions
-      </h3>
+        {/* FAQ TITLE */}
+        <h3 className="text-center text-xl font-semibold text-[#0a0e27] mb-10 tracking-wide">
+          Frequently Asked Questions
+        </h3>
 
-      {/* FAQ LIST */}
-      <div className="max-w-3xl mx-auto px-6 space-y-4">
+        {/* FAQ LIST */}
+        <div className="max-w-3xl mx-auto px-6 space-y-4">
 
-        {faqs.map((item, i) => (
-          <div
-            key={i}
-            className="rounded-xl border border-gray-200 bg-white overflow-hidden"
-          >
-            {/* QUESTION */}
-            <button
-              onClick={() => toggle(i)}
-              className="w-full flex justify-between items-center px-6 py-5 text-left"
+          {faqs.map((item, i) => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ delay: i * 0.05 }}
+              className="rounded-xl border border-white/30 bg-white/70 backdrop-blur-lg shadow-sm overflow-hidden hover:shadow-md transition"
             >
-              <span className="text-[#0a0e27] font-medium">
-                {item.q}
-              </span>
 
-              <motion.div
-                animate={{ rotate: active === i ? 45 : 0 }}
-                className="text-cyan-500"
+              {/* QUESTION */}
+              <button
+                onClick={() => toggle(i)}
+                className="w-full flex justify-between items-center px-6 py-5 text-left"
               >
-                <Plus />
-              </motion.div>
-            </button>
+                <span className="text-[#0a0e27] font-medium text-sm md:text-base">
+                  {item.q}
+                </span>
 
-            {/* ANSWER */}
-            <AnimatePresence>
-              {active === i && (
                 <motion.div
-                  initial={{ height: 0, opacity: 0 }}
-                  animate={{ height: "auto", opacity: 1 }}
-                  exit={{ height: 0, opacity: 0 }}
-                  transition={{ duration: 0.3 }}
-                  className="px-6 pb-5 text-gray-500 text-sm"
+                  animate={{ rotate: active === i ? 45 : 0 }}
+                  transition={{ duration: 0.2 }}
+                  className="text-cyan-500"
                 >
-                  {item.a}
+                  <Plus size={18} />
                 </motion.div>
-              )}
-            </AnimatePresence>
+              </button>
 
-          </div>
-        ))}
+              {/* ANSWER */}
+              <AnimatePresence>
+                {active === i && (
+                  <motion.div
+                    initial={{ height: 0, opacity: 0 }}
+                    animate={{ height: "auto", opacity: 1 }}
+                    exit={{ height: 0, opacity: 0 }}
+                    transition={{ duration: 0.25 }}
+                    className="px-6 pb-5 text-gray-600 text-sm leading-relaxed"
+                  >
+                    {item.a}
+                  </motion.div>
+                )}
+              </AnimatePresence>
 
-      </div>
-    </section>
+            </motion.div>
+          ))}
+
+        </div>
+      </section>
+
+      {/* FONT LOAD */}
+      <style jsx global>{`
+        @font-face {
+          font-family: 'Harabara';
+          src: url('/fonts/Harabara.woff') format('woff');
+          font-weight: normal;
+          font-style: normal;
+        }
+      `}</style>
+    </>
   );
 }

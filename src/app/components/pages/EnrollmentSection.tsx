@@ -33,103 +33,115 @@ export function EnrollmentSection() {
   ];
 
   return (
-   <section className="py-28 bg-[#f8fafc] relative">
+    <>
+      <section
+        className="py-28 bg-[#f8fafc] relative"
+        style={{ fontFamily: "Harabara, sans-serif" }} // ✅ FORCE FONT
+      >
 
-      {/* HEADER */}
-      <div className="max-w-5xl mx-auto text-center mb-20 px-6">
-        <h2 className="text-3xl md:text-5xl font-bold text-[#0a0e27]">
-          Enroll Now &{" "}
-          <span className="text-cyan-500">Complete within 1 YEAR</span>
-        </h2>
+        {/* HEADER */}
+        <div className="max-w-5xl mx-auto text-center mb-20 px-6">
+          <h2 className="text-3xl md:text-5xl font-bold text-[#0a0e27] tracking-tight">
+            Enroll Now &{" "}
+            <span className="text-cyan-500">Complete within 1 YEAR</span>
+          </h2>
 
-        <p className="text-gray-500 mt-4 max-w-2xl mx-auto">
-          You aren't just buying a course; you are securing a lifetime credential.
-          Get certified with zero hidden fees and exclusive dive access.
-        </p>
-      </div>
+          <p className="text-gray-500 mt-4 max-w-2xl mx-auto">
+            You aren't just buying a course; you are securing a lifetime credential.
+            Get certified with zero hidden fees and exclusive dive access.
+          </p>
+        </div>
 
-      {/* GRID */}
-      <div className="max-w-6xl mx-auto grid lg:grid-cols-2 gap-16 px-6 items-center">
+        {/* GRID */}
+        <div className="max-w-6xl mx-auto grid lg:grid-cols-2 gap-16 px-6 items-center">
 
-        {/* LEFT FEATURES */}
-        <div className="space-y-5">
-          {features.map((item, i) => (
-            <motion.div
-              key={i}
-              whileHover={{ scale: 1.02 }}
-              className="flex items-center justify-between px-6 py-5 rounded-xl border border-[#d9e3ea] bg-white shadow-sm transition"
-            >
-              <div className="flex items-center gap-4 text-[#0a0e27]">
-                <div className="text-cyan-500">{item.icon}</div>
-                <span className="text-sm md:text-base font-medium">
-                  {item.title}
+          {/* LEFT FEATURES */}
+          <div className="space-y-5">
+            {features.map((item, i) => (
+              <motion.div
+                key={i}
+                whileHover={{ scale: 1.02 }}
+                className="flex items-center justify-between px-6 py-5 rounded-xl border border-[#d9e3ea] bg-white shadow-sm transition"
+              >
+                <div className="flex items-center gap-4 text-[#0a0e27]">
+                  <div className="text-cyan-500">{item.icon}</div>
+                  <span className="text-sm md:text-base font-medium">
+                    {item.title}
+                  </span>
+                </div>
+
+                <span className="text-cyan-500 text-xs font-semibold">
+                  {item.tag}
                 </span>
+              </motion.div>
+            ))}
+          </div>
+
+          {/* RIGHT SIDE */}
+          <div className="space-y-6">
+
+            {/* VIDEO */}
+            <div className="rounded-2xl overflow-hidden shadow-xl">
+              <iframe
+                className="w-full h-[260px] md:h-[320px]"
+                src="https://www.youtube.com/embed/fWDuCdYZwg4"
+                allowFullScreen
+              />
+            </div>
+
+            {/* RATINGS */}
+            <div className="flex gap-4 flex-wrap">
+
+              <div className="flex-1 bg-white rounded-full px-6 py-4 text-center shadow border border-gray-200">
+                <p className="text-sm font-semibold text-[#0a0e27]">
+                  4.9 ⭐⭐⭐⭐⭐
+                </p>
+                <p className="text-xs text-gray-500">
+                  Based on 1,054+ Reviews
+                </p>
               </div>
 
-              <span className="text-cyan-500 text-xs font-semibold">
-                {item.tag}
-              </span>
-            </motion.div>
-          ))}
-        </div>
+              <div className="flex-1 bg-white rounded-full px-6 py-4 text-center shadow border border-gray-200">
+                <p className="text-sm font-semibold text-[#0a0e27]">
+                  5.0 ⭐⭐⭐⭐⭐
+                </p>
+                <p className="text-xs text-gray-500">
+                  Based on 654+ Reviews
+                </p>
+              </div>
 
-        {/* RIGHT SIDE */}
-        <div className="space-y-6">
-
-          {/* VIDEO */}
-          <div className="rounded-2xl overflow-hidden shadow-xl">
-            <iframe
-              className="w-full h-[260px] md:h-[320px]"
-              src="https://www.youtube.com/embed/fWDuCdYZwg4"
-              allowFullScreen
-            />
-          </div>
-
-          {/* RATINGS */}
-          <div className="flex gap-4 flex-wrap">
-
-            <div className="flex-1 bg-white rounded-full px-6 py-4 text-center shadow border border-gray-200">
-              <p className="text-sm font-semibold text-[#0a0e27]">
-                4.9 ⭐⭐⭐⭐⭐
-              </p>
-              <p className="text-xs text-gray-500">
-                Based on 1,054+ Reviews
-              </p>
             </div>
 
-            <div className="flex-1 bg-white rounded-full px-6 py-4 text-center shadow border border-gray-200">
-              <p className="text-sm font-semibold text-[#0a0e27]">
-                5.0 ⭐⭐⭐⭐⭐
-              </p>
-              <p className="text-xs text-gray-500">
-                Based on 654+ Reviews
-              </p>
-            </div>
+            {/* CTA */}
+            <div className="flex items-center gap-4 mt-6 flex-wrap"></div>
 
           </div>
+        </div>
 
-          {/* CTA */}
-          <div className="flex items-center gap-4 mt-6 flex-wrap">
+        {/* FLOATING CTA */}
+        <div className="fixed bottom-6 left-1/2 -translate-x-1/2 flex items-center gap-4 z-50">
 
+          <button className="px-8 py-4 rounded-full bg-gradient-to-r from-cyan-400 to-cyan-500 text-white font-semibold shadow-xl hover:scale-105 transition">
+            BOOK NOW →
+          </button>
 
+          <div className="w-14 h-14 rounded-full bg-green-500 flex items-center justify-center text-white text-2xl shadow-xl">
+            💬
           </div>
 
         </div>
-      </div>
 
-      {/* FLOATING CTA (BOTTOM LIKE SS) */}
-      <div className="fixed bottom-6 left-1/2 -translate-x-1/2 flex items-center gap-4 z-50">
+      </section>
 
-        <button className="px-8 py-4 rounded-full bg-gradient-to-r from-cyan-400 to-cyan-500 text-white font-semibold shadow-xl">
-          BOOK NOW →
-        </button>
-
-        <div className="w-14 h-14 rounded-full bg-green-500 flex items-center justify-center text-white text-2xl shadow-xl">
-          💬
-        </div>
-
-      </div>
-
-    </section>
+      {/* ✅ HARABARA LOAD (LOCAL FIX) */}
+      <style jsx global>{`
+        @font-face {
+          font-family: 'Harabara';
+          src: url('/fonts/Harabara.woff') format('woff');
+          font-weight: normal;
+          font-style: normal;
+        }
+      `}</style>
+    </>
   );
 }

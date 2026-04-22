@@ -10,7 +10,10 @@ export function HeroSection() {
   return (
     <>
       {/* ================= HERO ================= */}
-      <section className="relative min-h-screen w-full overflow-hidden font-habara">
+      <section
+        className="relative min-h-screen w-full overflow-hidden text-white"
+        style={{ fontFamily: "Harabara, sans-serif" }} // ✅ FORCE FONT
+      >
 
         {/* BACKGROUND */}
         <div className="absolute inset-0">
@@ -52,7 +55,7 @@ export function HeroSection() {
           <motion.h1
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            className="text-4xl md:text-6xl font-bold text-white leading-tight max-w-4xl"
+            className="text-4xl md:text-6xl font-bold leading-tight max-w-4xl tracking-tight"
           >
             START YOUR{" "}
             <span className="bg-gradient-to-r from-cyan-300 to-blue-400 bg-clip-text text-transparent">
@@ -73,12 +76,12 @@ export function HeroSection() {
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="mt-8 bg-white/10 backdrop-blur-xl border border-white/20 rounded-2xl px-8 py-6"
+            className="mt-8 bg-white/10 backdrop-blur-xl border border-white/20 rounded-2xl px-8 py-6 shadow-[0_20px_60px_rgba(0,0,0,0.6)]"
           >
             <p className="text-sm text-white/50 line-through">
               AED 2,499
             </p>
-            <p className="text-4xl font-bold text-white">
+            <p className="text-4xl font-bold">
               1,799 <span className="text-cyan-400 text-lg">AED</span>
             </p>
           </motion.div>
@@ -86,7 +89,7 @@ export function HeroSection() {
           {/* BUTTONS */}
           <div className="mt-8 flex gap-4 flex-wrap justify-center">
 
-            {/* ✅ FIX: ENROLL NOW opens modal */}
+            {/* ENROLL */}
             <button
               onClick={() => setOpen(true)}
               className="px-8 py-3 bg-cyan-400 text-black font-semibold rounded-lg hover:scale-105 transition"
@@ -94,6 +97,7 @@ export function HeroSection() {
               ENROLL NOW →
             </button>
 
+            {/* WHATSAPP */}
             <button className="px-8 py-3 border border-white/30 text-white rounded-lg hover:bg-white/10 transition">
               BOOK VIA WHATSAPP
             </button>
@@ -126,9 +130,19 @@ export function HeroSection() {
 
       {/* ================= MODAL ================= */}
       <BookingModal
-        isOpen={open}   // ✅ FIX (capital O)
+        isOpen={open}
         onClose={() => setOpen(false)}
       />
+
+      {/* ✅ HARABARA FONT LOAD (LOCAL FIX) */}
+      <style jsx global>{`
+        @font-face {
+          font-family: 'Harabara';
+          src: url('/fonts/Harabara.woff') format('woff');
+          font-weight: normal;
+          font-style: normal;
+        }
+      `}</style>
     </>
   );
 }
