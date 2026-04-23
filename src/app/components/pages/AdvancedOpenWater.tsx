@@ -5,7 +5,7 @@ import { AdvancedProtocolSection } from "./AdvancedProtocolSection";
 import { AdvancedTrainingGoldSection } from "./AdvancedTrainingGoldSection";
 import { AOWAdvantageSection } from "./AOWAdvantageSection";
 import { ChooseEnvironmentSection } from "./ChooseEnvironmentSection";
-import { Community } from "./Community";
+// import { Community } from "./Community";
 import { GlobalPassportSection } from "./GlobalPassportSection";
 import { MasteryGapSection } from "./MasteryGapSection";
 import { OpenDiver } from "./OpenDiver";
@@ -22,7 +22,7 @@ export function AdvancedOpenWater() {
      <ChooseEnvironmentSection />
      <AdvancedTrainingGoldSection />
      <MasteryGapSection />
-     <Community /> 
+     {/* <Community />  */}
      <PremiumSec />
     </>
   );

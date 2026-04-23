@@ -8,7 +8,7 @@ import { ComparisonSection } from "./ComparisonSection";
 import { CommunityFAQSection } from "./CommunityFAQSection";
 import { WhyChooseNemoSection } from "./WhyChooseNemoSection";
 import { GoldStandardSection } from "./GoldStandardSection";
-import { CommunityGallerySection } from "./CommunityGallerySection";
+// import { CommunityGallerySection } from "./CommunityGallerySection";
 import { LocationSection } from "./LocationSection";
 import { PremiumFooter } from "./PremiumFooter";
 
@@ -22,7 +22,7 @@ export function PadiOpenWater() {
       <CommunityFAQSection />
       <WhyChooseNemoSection />
       <GoldStandardSection />
-      <CommunityGallerySection />
+      {/* <CommunityGallerySection /> */}
       <LocationSection />
       <PremiumFooter />
     </>
