@@ -1,6 +1,7 @@
 "use client";
 
 import { Shield, Clock, Monitor, Users, Globe } from "lucide-react";
+import { FaWhatsapp } from "react-icons/fa";
 import { motion } from "framer-motion";
 
 export function EnrollmentSection() {
@@ -36,7 +37,7 @@ export function EnrollmentSection() {
     <>
       <section
         className="py-28 bg-[#f8fafc] relative"
-        style={{ fontFamily: "Harabara, sans-serif" }} // ✅ FORCE FONT
+        style={{ fontFamily: "Harabara, sans-serif" }}
       >
 
         {/* HEADER */}
@@ -112,34 +113,36 @@ export function EnrollmentSection() {
 
             </div>
 
-            {/* CTA */}
-            <div className="flex items-center gap-4 mt-6 flex-wrap"></div>
-
           </div>
         </div>
 
         {/* FLOATING CTA */}
         <div className="fixed bottom-6 left-1/2 -translate-x-1/2 flex items-center gap-4 z-50">
 
+          {/* BOOK BUTTON */}
           <button className="px-8 py-4 rounded-full bg-gradient-to-r from-cyan-400 to-cyan-500 text-white font-semibold shadow-xl hover:scale-105 transition">
             BOOK NOW →
           </button>
 
-          <div className="w-14 h-14 rounded-full bg-green-500 flex items-center justify-center text-white text-2xl shadow-xl">
-            💬
-          </div>
+          {/* WHATSAPP BUTTON */}
+          <a
+            href="https://wa.me/971XXXXXXXXX?text=Hi%20I%20want%20to%20book%20Rescue%20Diver%20course"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="w-14 h-14 rounded-full bg-green-500 flex items-center justify-center text-white text-2xl shadow-xl hover:scale-110 hover:shadow-[0_0_25px_rgba(34,197,94,0.6)] transition"
+          >
+            <FaWhatsapp />
+          </a>
 
         </div>
 
       </section>
 
-      {/* ✅ HARABARA LOAD (LOCAL FIX) */}
+      {/* FONT */}
       <style jsx global>{`
         @font-face {
           font-family: 'Harabara';
           src: url('/fonts/Harabara.woff') format('woff');
-          font-weight: normal;
-          font-style: normal;
         }
       `}</style>
     </>

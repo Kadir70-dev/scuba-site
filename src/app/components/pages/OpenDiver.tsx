@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { useState } from "react";
 import { OpenDiverBooking } from "./OpenDiverBooking";
+import { FaWhatsapp } from "react-icons/fa";
 
 export function OpenDiver() {
   const [open, setOpen] = useState(false);
@@ -47,9 +48,10 @@ export function OpenDiver() {
             </h2>
           </div>
 
-          {/* CTA (MAIN BUTTONS) */}
+          {/* CTA */}
           <div className="mt-8 flex flex-col items-center gap-4">
 
+            {/* MAIN BUTTON */}
             <button
               onClick={() => setOpen(true)}
               className="group relative overflow-hidden rounded-xl w-[280px] py-3"
@@ -61,9 +63,17 @@ export function OpenDiver() {
               </div>
             </button>
 
-            <button className="w-[280px] py-3 border border-white/20 rounded-xl text-white/80 hover:bg-white/10 transition">
+            {/* WHATSAPP BUTTON (FIXED) */}
+            <a
+              href="https://wa.me/971XXXXXXXXX?text=Hi%20I%20want%20to%20book%20Advanced%20Open%20Water%20course"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-[280px] py-3 border border-white/20 rounded-xl text-white flex items-center justify-center gap-2 hover:bg-white/10 transition"
+            >
+              <FaWhatsapp className="text-green-400 text-lg" />
               BOOK VIA WHATSAPP
-            </button>
+            </a>
+
           </div>
 
           {/* FEATURES */}
@@ -77,10 +87,10 @@ export function OpenDiver() {
         </div>
       </section>
 
-      {/* ✅ FLOATING CTA (SAME AS ENROLLMENT SECTION) */}
+      {/* FLOATING CTA */}
       <div className="fixed bottom-6 left-1/2 -translate-x-1/2 flex items-center gap-4 z-50">
 
-        {/* BOOK NOW */}
+        {/* BOOK */}
         <button
           onClick={() => setOpen(true)}
           className="px-8 py-4 rounded-full bg-gradient-to-r from-cyan-400 to-cyan-500 text-white font-semibold shadow-xl hover:scale-105 transition"
@@ -88,14 +98,19 @@ export function OpenDiver() {
           ENROLL NOW →
         </button>
 
-        {/* WHATSAPP ICON */}
-        <div className="w-14 h-14 rounded-full bg-green-500 flex items-center justify-center text-white text-2xl shadow-xl cursor-pointer hover:scale-110 transition">
-          💬
-        </div>
+        {/* WHATSAPP FLOAT */}
+        <a
+          href="https://wa.me/971XXXXXXXXX?text=Hi%20I%20want%20to%20book%20Advanced%20Open%20Water%20course"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="w-14 h-14 rounded-full bg-green-500 flex items-center justify-center text-white text-2xl shadow-xl hover:scale-110 hover:shadow-[0_0_25px_rgba(34,197,94,0.6)] transition"
+        >
+          <FaWhatsapp />
+        </a>
 
       </div>
 
-      {/* ✅ MODAL */}
+      {/* MODAL */}
       <OpenDiverBooking
         isOpen={open}
         onClose={() => setOpen(false)}

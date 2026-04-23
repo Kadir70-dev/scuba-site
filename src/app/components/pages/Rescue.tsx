@@ -1,19 +1,23 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { FaWhatsapp } from "react-icons/fa";
+import { useState } from "react";
+import { OpenDiverBooking } from "./OpenDiverBooking";
 
 export function Rescue() {
+  const [open, setOpen] = useState(false);
+
   return (
     <>
       <section
         className="relative min-h-screen w-full overflow-hidden text-white"
         style={{ fontFamily: "Harabara, sans-serif" }}
       >
-
         {/* BACKGROUND */}
         <div className="absolute inset-0">
           <img
-            src="/AWEART.jpg" // 🔥 use proper rescue image
+            src="/AWEART.jpg"
             className="w-full h-full object-cover scale-110"
           />
           <div className="absolute inset-0 bg-[#02131d]/80" />
@@ -23,8 +27,8 @@ export function Rescue() {
         <div className="relative z-10 flex flex-col items-center justify-center text-center min-h-screen px-6">
 
           {/* BADGE */}
-          <div className="relative overflow-hidden mb-6 px-5 py-2 text-[11px] tracking-widest border border-cyan-400/30 rounded-full text-cyan-300 backdrop-blur-md">
-            LEVEL 3 - PADI RESCUE DIVER
+          <div className="relative overflow-hidden mb-6 px-5 py-2 text-[11px] tracking-[1.5px] border border-cyan-400/30 rounded-full text-cyan-300 backdrop-blur-md">
+            LEVEL 3 · PADI RESCUE DIVER
 
             <motion.div
               initial={{ x: "-100%" }}
@@ -34,36 +38,39 @@ export function Rescue() {
             />
           </div>
 
-          {/* SMALL TEXT */}
-          <p className="text-xs tracking-[3px] text-white/50 mb-3">
-            SERIOUS FUN.
+          {/* SUB TEXT */}
+          <p className="text-[11px] tracking-[1.5px] text-white/50 mb-3 uppercase">
+            SERIOUS FUN
           </p>
 
-          {/* MAIN HEADING */}
-          <h1 className="text-4xl md:text-6xl font-bold tracking-tight">
+          {/* TITLE */}
+          <h1 className="text-4xl md:text-6xl font-semibold tracking-[-0.5px] leading-[1.05]">
             SERIOUS{" "}
-            <span className="text-cyan-400">CONFIDENCE.</span>
+            <span className="text-cyan-400">CONFIDENCE</span>
           </h1>
 
           {/* DESC */}
-          <p className="mt-4 text-white/60 max-w-2xl text-sm md:text-base">
-            Become the diver everyone wants as a buddy. Build your confidence at Dubai’s premier
-            training facility with real-life rescue scenarios.
+          <p className="mt-5 text-white/70 max-w-xl text-[15px] leading-[1.6] tracking-[0.2px]">
+            Become the diver everyone wants as a buddy. Train with real rescue
+            scenarios in Dubai and gain total control in critical situations.
           </p>
 
-          {/* PREMIUM GLASS CARD */}
-          <div className="mt-8 backdrop-blur-xl bg-white/10 border border-white/20 rounded-2xl px-10 py-6 shadow-[0_20px_80px_rgba(0,0,0,0.6)] text-center">
+          {/* PRICE CARD */}
+          <div className="mt-10 backdrop-blur-xl bg-white/10 border border-white/20 rounded-2xl px-10 py-7 shadow-xl">
 
-            <p className="text-sm text-white/40 line-through">
+            <p className="text-xs text-white/40 line-through mb-1 tracking-wide">
               AED 2,500
             </p>
 
-            <h2 className="text-5xl font-bold mt-1">
-              1,720 <span className="text-cyan-400 text-lg">AED</span>
+            <h2 className="text-5xl font-semibold tracking-[-0.5px]">
+              1,720{" "}
+              <span className="text-cyan-400 text-lg font-medium">
+                AED
+              </span>
             </h2>
 
             {/* TAGS */}
-            <div className="flex justify-center gap-2 mt-3 flex-wrap text-[10px] text-white/60">
+            <div className="flex justify-center gap-2 mt-4 flex-wrap text-[11px] text-white/60 tracking-[0.5px]">
               <span className="px-3 py-1 border border-white/20 rounded-full">
                 EFR INCLUDED
               </span>
@@ -74,81 +81,80 @@ export function Rescue() {
                 FULL GEAR INCLUDED
               </span>
             </div>
-
           </div>
 
-          {/* CTA BUTTON */}
-          <div className="mt-8">
+          {/* CTA */}
+          <div className="mt-8 flex flex-col items-center gap-4">
 
-            <button className="group relative overflow-hidden rounded-xl px-10 py-3">
-
-              {/* GLOW */}
-              <div className="absolute inset-0 bg-gradient-to-r from-cyan-400 to-blue-500 blur-xl opacity-70 group-hover:opacity-100 transition" />
-
-              {/* BUTTON */}
-              <div className="relative z-10 bg-gradient-to-r from-cyan-400 to-blue-500 text-white font-semibold rounded-xl px-10 py-3 flex items-center justify-center gap-2 shadow-[0_10px_40px_rgba(0,200,255,0.4)]">
-
-                START RESCUE TRAINING
-
-                <span className="group-hover:translate-x-1 transition">
-                  →
-                </span>
-
-                {/* SHINE */}
-                <div className="absolute top-0 left-0 w-[40%] h-full bg-gradient-to-r from-transparent via-white/50 to-transparent blur-md opacity-60 animate-[shine_2.5s_linear_infinite]" />
-              </div>
-
+            <button
+              onClick={() => setOpen(true)}
+              className="px-8 py-3 rounded-xl bg-gradient-to-r from-cyan-400 to-blue-500 font-semibold tracking-[0.5px] shadow-lg hover:scale-105 transition"
+            >
+              START RESCUE →
             </button>
 
-            <p className="text-[11px] text-white/40 mt-2">
+            <p className="text-[11px] text-white/40 tracking-[0.5px]">
               Pay in 4 interest-free payments with tabby
             </p>
-
           </div>
 
         </div>
 
-        {/* BOTTOM INFO BAR */}
+        {/* BOTTOM INFO */}
         <div className="absolute bottom-0 w-full border-t border-white/10 bg-black/40 backdrop-blur-md">
+          <div className="max-w-5xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-6 text-center py-5 px-6">
 
-          <div className="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-4 text-center text-xs text-white/60 py-4">
-
-            <div>
-              <p className="text-white/30 text-[10px]">PREREQUISITE</p>
-              Advanced Open Water
-            </div>
-
-            <div>
-              <p className="text-white/30 text-[10px]">CERTIFICATION</p>
-              PADI Rescue + EFR
-            </div>
-
-            <div>
-              <p className="text-white/30 text-[10px]">TRAINING</p>
-              Pool + Ocean Scenarios
-            </div>
-
-            <div>
-              <p className="text-white/30 text-[10px]">LOCATION</p>
-              Palm Jumeirah & Fujairah
-            </div>
+            {[
+              { label: "PREREQUISITE", value: "Advanced Open Water" },
+              { label: "CERTIFICATION", value: "Rescue + EFR" },
+              { label: "TRAINING", value: "Pool + Ocean" },
+              { label: "LOCATION", value: "Dubai & Fujairah" },
+            ].map((item, i) => (
+              <div key={i} className="space-y-1">
+                <p className="text-[10px] tracking-[1.5px] text-white/30">
+                  {item.label}
+                </p>
+                <p className="text-[13px] text-white/80 font-medium">
+                  {item.value}
+                </p>
+              </div>
+            ))}
 
           </div>
-
         </div>
-
       </section>
 
-      {/* SHINE ANIMATION */}
+      {/* FLOATING CTA */}
+      <div className="fixed bottom-6 left-1/2 -translate-x-1/2 flex items-center gap-4 z-50">
+
+        <button
+          onClick={() => setOpen(true)}
+          className="px-7 py-3 rounded-full bg-gradient-to-r from-cyan-400 to-cyan-500 text-white font-semibold tracking-[0.5px] shadow-xl hover:scale-105 transition"
+        >
+          START RESCUE →
+        </button>
+
+        <a
+          href="https://wa.me/971XXXXXXXXX"
+          target="_blank"
+          className="w-12 h-12 rounded-full bg-green-500 flex items-center justify-center text-white shadow-xl hover:scale-110 transition"
+        >
+          <FaWhatsapp />
+        </a>
+
+      </div>
+
+      {/* MODAL */}
+      <OpenDiverBooking
+        isOpen={open}
+        onClose={() => setOpen(false)}
+      />
+
+      {/* FONT */}
       <style jsx global>{`
         @font-face {
           font-family: 'Harabara';
           src: url('/fonts/Harabara.woff') format('woff');
-        }
-
-        @keyframes shine {
-          0% { transform: translateX(-120%); }
-          100% { transform: translateX(250%); }
         }
       `}</style>
     </>
