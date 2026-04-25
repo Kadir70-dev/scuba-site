@@ -18,7 +18,6 @@ import { AdvancedOpenWater } from './components/pages/AdvancedOpenWater';
 import { ReviewsPage } from './components/ReviewsPage';
 import { AboutDiveCampus } from './components/pages/AboutDiveCampus';
 import { SpecialtyCourses } from './components/pages/SpecialtyCourses';
-import { PadIDivemaster } from './components/pages/PadIDivemaster';
 import { PadiRescueDiver } from './components/pages/PadiRescueDiver';
 import { PadiOpenDiver } from './components/pages/PadiOpenDiver';
 import { PadiOpenWater } from './components/pages/PadiOpenWater';
@@ -29,6 +28,7 @@ import AdminDashboard from './components/admin/AdminDashboard';
 // ✅ NEW IMPORTS
 import PriceLogin from './components/admin/PriceLogin';
 import PriceManager from './components/admin/PriceManager';
+import PadIDivemaster from './divemaster/PadIDivemaster';
 
 export default function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(

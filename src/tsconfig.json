@@ -24,6 +24,6 @@
       "@/components/*": ["./components/*"]
     }
   },
-  "include": ["**/*.ts", "**/*.tsx"],
+  "include": ["**/*.ts", "**/*.tsx", "app/components/pages/PadIDivemaster"],
   "exclude": ["node_modules", "dist"]
 }

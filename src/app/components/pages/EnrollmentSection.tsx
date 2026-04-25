@@ -3,8 +3,12 @@
 import { Shield, Clock, Monitor, Users, Globe } from "lucide-react";
 import { FaWhatsapp } from "react-icons/fa";
 import { motion } from "framer-motion";
+import { useState } from "react";
+import { OpenDiverBooking } from "./OpenDiverBooking";
 
 export function EnrollmentSection() {
+  const [open, setOpen] = useState(false);
+
   const features = [
     {
       icon: <Shield className="w-5 h-5" />,
@@ -36,107 +40,117 @@ export function EnrollmentSection() {
   return (
     <>
       <section
-        className="py-28 bg-[#f8fafc] relative"
+        className="py-24 bg-[#f8fafc] relative"
         style={{ fontFamily: "Harabara, sans-serif" }}
       >
 
         {/* HEADER */}
-        <div className="max-w-5xl mx-auto text-center mb-20 px-6">
+        <div className="max-w-4xl mx-auto text-center mb-16 px-6">
           <h2 className="text-3xl md:text-5xl font-bold text-[#0a0e27] tracking-tight">
             Enroll Now &{" "}
             <span className="text-cyan-500">Complete within 1 YEAR</span>
           </h2>
 
-          <p className="text-gray-500 mt-4 max-w-2xl mx-auto">
+          <p className="text-gray-500 mt-4 max-w-xl mx-auto text-sm">
             You aren't just buying a course; you are securing a lifetime credential.
-            Get certified with zero hidden fees and exclusive dive access.
           </p>
         </div>
 
         {/* GRID */}
-        <div className="max-w-6xl mx-auto grid lg:grid-cols-2 gap-16 px-6 items-center">
+        <div className="max-w-5xl mx-auto grid lg:grid-cols-2 gap-12 px-6 items-start">
 
-          {/* LEFT FEATURES */}
-          <div className="space-y-5">
+          {/* LEFT */}
+          <div className="space-y-4">
             {features.map((item, i) => (
               <motion.div
                 key={i}
                 whileHover={{ scale: 1.02 }}
-                className="flex items-center justify-between px-6 py-5 rounded-xl border border-[#d9e3ea] bg-white shadow-sm transition"
+                className="flex items-center justify-between px-5 py-4 rounded-xl border border-gray-200 bg-white shadow-sm hover:shadow-md transition"
               >
-                <div className="flex items-center gap-4 text-[#0a0e27]">
+                <div className="flex items-center gap-3 text-[#0a0e27]">
                   <div className="text-cyan-500">{item.icon}</div>
-                  <span className="text-sm md:text-base font-medium">
+                  <span className="text-sm font-medium">
                     {item.title}
                   </span>
                 </div>
 
-                <span className="text-cyan-500 text-xs font-semibold">
+                <span className="text-cyan-500 text-[10px] font-semibold whitespace-nowrap">
                   {item.tag}
                 </span>
               </motion.div>
             ))}
           </div>
 
-          {/* RIGHT SIDE */}
-          <div className="space-y-6">
+          {/* RIGHT */}
+          <div className="space-y-5">
 
             {/* VIDEO */}
-            <div className="rounded-2xl overflow-hidden shadow-xl">
+            <div className="rounded-xl overflow-hidden shadow-lg">
               <iframe
-                className="w-full h-[260px] md:h-[320px]"
+                className="w-full h-[260px] md:h-[300px]"
                 src="https://www.youtube.com/embed/fWDuCdYZwg4"
                 allowFullScreen
               />
             </div>
 
             {/* RATINGS */}
-            <div className="flex gap-4 flex-wrap">
-
-              <div className="flex-1 bg-white rounded-full px-6 py-4 text-center shadow border border-gray-200">
+            <div className="flex gap-3">
+              <div className="flex-1 bg-white rounded-full px-4 py-3 text-center shadow border border-gray-200">
                 <p className="text-sm font-semibold text-[#0a0e27]">
                   4.9 ⭐⭐⭐⭐⭐
                 </p>
-                <p className="text-xs text-gray-500">
-                  Based on 1,054+ Reviews
+                <p className="text-[11px] text-gray-500">
+                  1,054+ Reviews
                 </p>
               </div>
 
-              <div className="flex-1 bg-white rounded-full px-6 py-4 text-center shadow border border-gray-200">
+              <div className="flex-1 bg-white rounded-full px-4 py-3 text-center shadow border border-gray-200">
                 <p className="text-sm font-semibold text-[#0a0e27]">
                   5.0 ⭐⭐⭐⭐⭐
                 </p>
-                <p className="text-xs text-gray-500">
-                  Based on 654+ Reviews
+                <p className="text-[11px] text-gray-500">
+                  654+ Reviews
                 </p>
               </div>
-
             </div>
 
           </div>
         </div>
 
-        {/* FLOATING CTA */}
-        <div className="fixed bottom-6 left-1/2 -translate-x-1/2 flex items-center gap-4 z-50">
+        {/* 🔥 FLOATING CTA (PILL STYLE) */}
+        <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50">
 
-          {/* BOOK BUTTON */}
-          <button className="px-8 py-4 rounded-full bg-gradient-to-r from-cyan-400 to-cyan-500 text-white font-semibold shadow-xl hover:scale-105 transition">
-            BOOK NOW →
-          </button>
+          <div className="flex items-center bg-[#1f2a33] p-1.5 rounded-full shadow-[0_10px_40px_rgba(0,0,0,0.6)]">
 
-          {/* WHATSAPP BUTTON */}
-          <a
-            href="https://wa.me/971XXXXXXXXX?text=Hi%20I%20want%20to%20book%20Rescue%20Diver%20course"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="w-14 h-14 rounded-full bg-green-500 flex items-center justify-center text-white text-2xl shadow-xl hover:scale-110 hover:shadow-[0_0_25px_rgba(34,197,94,0.6)] transition"
-          >
-            <FaWhatsapp />
-          </a>
+            {/* MAIN BUTTON */}
+            <button
+              onClick={() => setOpen(true)}
+              className="flex items-center gap-2 px-6 py-3 rounded-full bg-gradient-to-r from-cyan-400 to-cyan-500 text-black font-semibold text-sm hover:scale-105 transition shadow-[0_5px_20px_rgba(0,200,255,0.4)]"
+            >
+              ENROLL NOW →
+            </button>
+
+            {/* WHATSAPP */}
+            <a
+              href="https://wa.me/971XXXXXXXXX"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="ml-2 w-10 h-10 rounded-full bg-green-500 flex items-center justify-center text-white shadow-lg hover:scale-110 transition"
+            >
+              <FaWhatsapp className="text-lg" />
+            </a>
+
+          </div>
 
         </div>
 
       </section>
+
+      {/* MODAL */}
+      <OpenDiverBooking
+        isOpen={open}
+        onClose={() => setOpen(false)}
+      />
 
       {/* FONT */}
       <style jsx global>{`

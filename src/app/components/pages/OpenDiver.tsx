@@ -88,29 +88,32 @@ export function OpenDiver() {
       </section>
 
       {/* FLOATING CTA */}
-      <div className="fixed bottom-6 left-1/2 -translate-x-1/2 flex items-center gap-4 z-50">
+      {/* FLOATING CTA - PILL STYLE */}
+      <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50">
 
-        {/* BOOK */}
-        <button
-          onClick={() => setOpen(true)}
-          className="px-8 py-4 rounded-full bg-gradient-to-r from-cyan-400 to-cyan-500 text-white font-semibold shadow-xl hover:scale-105 transition"
-        >
-          ENROLL NOW →
-        </button>
+        <div className="flex items-center bg-[#1f2a33] p-1.5 rounded-full shadow-[0_10px_40px_rgba(0,0,0,0.6)]">
 
-        {/* WHATSAPP FLOAT */}
-        <a
-          href="https://wa.me/971XXXXXXXXX?text=Hi%20I%20want%20to%20book%20Advanced%20Open%20Water%20course"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="w-14 h-14 rounded-full bg-green-500 flex items-center justify-center text-white text-2xl shadow-xl hover:scale-110 hover:shadow-[0_0_25px_rgba(34,197,94,0.6)] transition"
-        >
-          <FaWhatsapp />
-        </a>
+          {/* MAIN BUTTON */}
+          <button
+            onClick={() => setOpen(true)}
+            className="flex items-center gap-2 px-6 py-3 rounded-full bg-gradient-to-r from-cyan-400 to-cyan-500 text-black font-semibold text-sm tracking-wide hover:scale-105 transition"
+          >
+            ENROLL NOW →
+          </button>
 
-      </div>
+          {/* WHATSAPP BUTTON */}
+          <a
+            href="https://wa.me/971XXXXXXXXX"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="ml-2 w-10 h-10 rounded-full bg-green-500 flex items-center justify-center text-white shadow-md hover:scale-110 transition"
+          >
+            <FaWhatsapp className="text-lg" />
+          </a>
 
-      {/* MODAL */}
+        </div>
+
+      </div>      {/* MODAL */}
       <OpenDiverBooking
         isOpen={open}
         onClose={() => setOpen(false)}
