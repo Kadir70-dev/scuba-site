@@ -7,6 +7,8 @@
     "skipLibCheck": true,
 
     "moduleResolution": "bundler",
+    "types": ["vite/client"],
+
     "allowImportingTsExtensions": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
@@ -18,12 +20,11 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
 
-    /* ✅ REMOVE baseUrl */
     "paths": {
       "@/*": ["./*"],
       "@/components/*": ["./components/*"]
     }
   },
-  "include": ["**/*.ts", "**/*.tsx", "app/components/pages/PadIDivemaster"],
+  "include": ["**/*.ts", "**/*.tsx"],
   "exclude": ["node_modules", "dist"]
 }
