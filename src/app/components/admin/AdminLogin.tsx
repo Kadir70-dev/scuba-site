@@ -1,6 +1,8 @@
 // src/admin/AdminLogin.tsx
 
+import { supabase } from "@/lib/supabaseClient";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function AdminLogin() {
   const navigate = useNavigate();
@@ -118,4 +120,8 @@ export default function AdminLogin() {
       </div>
     </div>
   );
+}
+
+function setLoading(arg0: boolean) {
+  throw new Error("Function not implemented.");
 }
