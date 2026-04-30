@@ -65,6 +65,7 @@ export const updateCourse = async (id: string, payload: any) => {
       price: payload.price,
       old_price: payload.old_price,
       image: payload.image,
+      age:  payload.age,
     })
     .eq("id", id)
     .select()

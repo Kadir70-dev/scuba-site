@@ -6,6 +6,8 @@ import { supabase } from "@/lib/supabaseClient";
 
 import { getHero, updateHero } from "@/services/heroService";
 import CoursesPage from "./CoursesPage";
+import { Gallery } from "./gallerypage";
+import { PricingPage } from "./PricingPage";
 
 export default function AdminDashboard() {
   const navigate = useNavigate();
@@ -220,6 +222,8 @@ export default function AdminDashboard() {
             </button>
           </div>
           <CoursesPage />
+          <Gallery />
+          <PricingPage />
 
         </div>
       </section>

@@ -1,3 +1,5 @@
+"use client";
+
 import { motion, AnimatePresence } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 
@@ -8,14 +10,13 @@ export function Gallery() {
   const sliderRef = useRef<HTMLDivElement>(null);
 
   const images = [
-    '/A59I0374.jpg',
-    '/A59I0450.jpg',
-    '/A59I0656.jpg',
-    '/A59I9512.jpg',
-    '/A59I9544.jpg',
-    '/A59I9590.jpg',
-    '/A59I9631.jpg',
-    '/AWEART.jpg',
+    "/A59I0374.jpg",
+    "/A59I0450.jpg",
+    "/A59I0656.jpg",
+    "/A59I9512.jpg",
+    "/A59I9544.jpg",
+    "/A59I9590.jpg",
+    "/A59I9631.jpg",
   ].map((url) => ({ url }));
 
   const scrollToIndex = (index: number) => {
@@ -76,81 +77,92 @@ export function Gallery() {
       <div className="relative max-w-[1400px] mx-auto px-6">
 
         {/* HEADER */}
-        <div className="text-center mb-16">
-          <h2 className="text-4xl lg:text-6xl font-bold text-white">
-            Underwater <span className="text-cyan-300">Gallery</span>
+        <div className="text-center mb-20">
+          <h2 className="text-5xl lg:text-6xl font-bold text-white tracking-wide">
+            Underwater{" "}
+            <span className="text-cyan-300 drop-shadow-[0_0_12px_rgba(34,211,238,0.8)]">
+              Gallery
+            </span>
           </h2>
         </div>
 
         {/* SLIDER */}
         <div className="relative">
 
-          {/* LEFT ARROW */}
+          {/* LEFT */}
           <motion.button
             onClick={prev}
             whileTap={{ scale: 0.9 }}
-            className="absolute left-4 top-1/2 -translate-y-1/2 z-20 
+            className="absolute left-2 top-1/2 -translate-y-1/2 z-20 
             w-12 h-12 flex items-center justify-center
             rounded-full bg-white/10 backdrop-blur-xl 
             border border-white/20 text-white
-            shadow-lg hover:shadow-cyan-400/30
-            hover:scale-110 transition-all duration-300"
+            hover:bg-cyan-300/20 hover:scale-110 transition"
           >
-            <svg width="20" height="20" stroke="currentColor" strokeWidth="2">
-              <path d="M12 4L6 10L12 16" />
-            </svg>
+            ‹
           </motion.button>
 
-          {/* RIGHT ARROW */}
+          {/* RIGHT */}
           <motion.button
             onClick={next}
             whileTap={{ scale: 0.9 }}
-            className="absolute right-4 top-1/2 -translate-y-1/2 z-20 
+            className="absolute right-2 top-1/2 -translate-y-1/2 z-20 
             w-12 h-12 flex items-center justify-center
             rounded-full bg-white/10 backdrop-blur-xl 
             border border-white/20 text-white
-            shadow-lg hover:shadow-cyan-400/30
-            hover:scale-110 transition-all duration-300"
+            hover:bg-cyan-300/20 hover:scale-110 transition"
           >
-            <svg width="20" height="20" stroke="currentColor" strokeWidth="2">
-              <path d="M8 4L14 10L8 16" />
-            </svg>
+            ›
           </motion.button>
 
-          {/* IMAGE ROW */}
+          {/* IMAGES */}
           <div
             ref={sliderRef}
-            className="flex gap-6 overflow-x-auto scroll-smooth snap-x snap-mandatory px-14 no-scrollbar"
+            className="flex gap-8 overflow-x-auto px-16 snap-x snap-mandatory scroll-smooth no-scrollbar"
           >
-            {images.map((image, index) => (
-              <motion.div
-                key={index}
-                className="snap-center flex-shrink-0 min-w-[280px] md:min-w-[360px] rounded-xl overflow-hidden cursor-pointer"
-                animate={{
-                  scale: index === currentIndex ? 1 : 0.85,
-                  opacity: index === currentIndex ? 1 : 0.5,
-                }}
-                transition={{ duration: 0.4 }}
-                onClick={() => setSelectedIndex(index)}
-              >
-                <img
-                  src={image.url}
-                  className="w-full h-[420px] object-cover rounded-xl"
-                />
-              </motion.div>
-            ))}
+            {images.map((image, index) => {
+              const isActive = index === currentIndex;
+
+              return (
+                <motion.div
+                  key={index}
+                  className="snap-center flex-shrink-0 min-w-[280px] md:min-w-[360px] cursor-pointer"
+                  animate={{
+                    scale: isActive ? 1 : 0.85,
+                    opacity: isActive ? 1 : 0.5,
+                    y: isActive ? 0 : 20,
+                  }}
+                  transition={{ duration: 0.4 }}
+                  onClick={() => setSelectedIndex(index)}
+                >
+                  <div className="relative rounded-xl overflow-hidden">
+
+                    <img
+                      src={image.url}
+                      className="w-full h-[420px] object-cover rounded-xl"
+                    />
+
+                    {/* GLOW */}
+                    {isActive && (
+                      <div className="absolute inset-0 rounded-xl border border-cyan-300/40 shadow-[0_0_25px_rgba(34,211,238,0.4)]" />
+                    )}
+                  </div>
+                </motion.div>
+              );
+            })}
           </div>
 
-          {/* DOT PAGINATION ONLY */}
-          <div className="flex justify-center gap-2 mt-4">
+          {/* DOTS */}
+          <div className="flex justify-center gap-3 mt-6">
             {images.map((_, i) => (
               <div
                 key={i}
                 onClick={() => scrollToIndex(i)}
-                className={`cursor-pointer transition-all duration-300 ${i === currentIndex
-                    ? "w-8 h-2 bg-cyan-300 rounded-full shadow-[0_0_10px_rgba(34,211,238,0.8)]"
+                className={`cursor-pointer transition-all ${
+                  i === currentIndex
+                    ? "w-8 h-2 bg-cyan-300 rounded-full shadow-[0_0_12px_rgba(34,211,238,0.8)]"
                     : "w-2 h-2 bg-white/30 rounded-full"
-                  }`}
+                }`}
               />
             ))}
           </div>
@@ -158,7 +170,7 @@ export function Gallery() {
         </div>
       </div>
 
-      {/* FULL VIEW */}
+      {/* FULL SCREEN */}
       <AnimatePresence>
         {selectedIndex !== null && (
           <motion.div
@@ -174,7 +186,7 @@ export function Gallery() {
 
             <button
               onClick={() => setSelectedIndex(null)}
-              className="absolute top-6 right-6 text-white text-3xl"
+              className="absolute top-6 right-6 text-white text-3xl hover:scale-110 transition"
             >
               ✕
             </button>
@@ -182,13 +194,12 @@ export function Gallery() {
         )}
       </AnimatePresence>
 
-      {/* 🔥 SCROLLBAR FULL REMOVE */}
+      {/* REMOVE SCROLLBAR */}
       <style jsx>{`
         .no-scrollbar::-webkit-scrollbar {
           display: none;
         }
         .no-scrollbar {
-          -ms-overflow-style: none;
           scrollbar-width: none;
         }
       `}</style>

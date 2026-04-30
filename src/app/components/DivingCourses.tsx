@@ -18,12 +18,7 @@ export function DivingCourses() {
   }, []);
 
   const fetchCourses = async () => {
-    console.log("📡 Fetching...");
-    const { data, error } = await getCourses();
-
-    console.log("🔥 DATA:", data);
-    console.log("❌ ERROR:", error);
-
+    const { data } = await getCourses();
     setCourses(data || []);
     setLoading(false);
   };
@@ -53,15 +48,13 @@ export function DivingCourses() {
   }
 
   return (
-    <section className="py-20 px-4 bg-[#18476D]">
+    <section className="py-20 px-4 bg-[#18476D] font-habara">
       <div className="max-w-[1600px] mx-auto">
 
-        {/* HEADING */}
         <h2 className="text-center text-5xl font-bold text-white mb-14 uppercase">
           CHOOSE YOUR <span className="text-cyan-300">PATH</span>
         </h2>
 
-        {/* CARDS */}
         <div className="flex justify-center gap-5 flex-wrap">
 
           {courses.map((course, index) => {
@@ -72,9 +65,18 @@ export function DivingCourses() {
                 key={course.id}
                 onMouseEnter={() => setActive(index)}
                 onMouseLeave={() => setActive(null)}
-                onClick={() => setEditingId(course.id)}
-                className="w-[260px] h-[620px] rounded-[28px] overflow-hidden bg-[#0f2f4d] cursor-pointer"
+                className="w-[260px] h-[620px] rounded-[28px] overflow-hidden bg-[#0f2f4d] shadow-[0_10px_40px_rgba(0,0,0,0.4)]"
               >
+
+                {/* CLICK TO EDIT BUTTON */}
+                <button
+                  onClick={() =>
+                    setEditingId(isEditing ? null : course.id)
+                  }
+                  className="absolute z-10 top-3 right-3 bg-white text-black text-xs px-2 py-1 rounded"
+                >
+                  {isEditing ? "Close" : "Edit"}
+                </button>
 
                 {/* IMAGE */}
                 <motion.div
@@ -86,78 +88,73 @@ export function DivingCourses() {
                 >
                   <img
                     src={course.image ?? "/1.avif"}
-                    onError={(e) => {
-                      (e.target as HTMLImageElement).src = "/1.avif";
-                    }}
                     className="w-full h-full object-cover"
                   />
 
-                  {/* 🔥 IMAGE EDIT INPUT */}
+                  {/* IMAGE INPUT */}
                   {isEditing && (
                     <input
                       value={course.image ?? ""}
+                      onClick={(e) => e.stopPropagation()}
                       onChange={(e) =>
                         handleChange(course.id, "image", e.target.value)
                       }
-                      placeholder="Paste image URL"
-                      className="absolute top-2 left-2 w-[90%] text-xs p-1 rounded text-black bg-white border"
+                      className="absolute top-2 left-2 w-[90%] text-xs p-1 rounded text-black bg-white"
                     />
                   )}
 
                   <div className="absolute inset-0 bg-gradient-to-t from-black/90 to-transparent" />
 
-                  {/* AGE */}
+                  {/* 🔥 AGE FIXED */}
                   {isEditing ? (
-                    <input
-                      value={course.age ?? ""}
-                      onChange={(e) =>
-                        handleChange(course.id, "age", e.target.value)
-                      }
-                      className="absolute top-4 left-4 text-xs px-2 py-1 text-black rounded"
-                    />
+                    <div
+                      className="absolute top-4 left-4 flex gap-1"
+                      onClick={(e) => e.stopPropagation()}
+                    >
+                      <select
+                        value={course.age ?? ""}
+                        onChange={(e) =>
+                          handleChange(course.id, "age", e.target.value)
+                        }
+                        className="text-xs px-2 py-1 rounded bg-white text-black"
+                      >
+                        <option value="">Age</option>
+                        <option value="8+">8+</option>
+                        <option value="10+">10+</option>
+                        <option value="12+">12+</option>
+                        <option value="18+">18+</option>
+                      </select>
+
+                      <input
+                        placeholder="Custom"
+                        value={course.age ?? ""}
+                        onChange={(e) =>
+                          handleChange(course.id, "age", e.target.value)
+                        }
+                        className="text-xs px-2 py-1 rounded bg-white text-black w-[60px]"
+                      />
+                    </div>
                   ) : (
-                    <div className="absolute top-4 left-4 bg-white text-black text-xs px-3 py-1 rounded-full">
+                    <div className="absolute top-4 left-4 bg-white text-black text-xs px-3 py-1 rounded-full uppercase">
                       {course.age || "AGE"}
                     </div>
                   )}
 
-                  {/* COLLAPSED VIEW */}
+                  {/* COLLAPSED */}
                   {active !== index && (
                     <>
                       <div className="absolute bottom-6 left-5">
-
-                        {isEditing ? (
-                          <input
-                            value={course.title ?? ""}
-                            onChange={(e) =>
-                              handleChange(course.id, "title", e.target.value)
-                            }
-                            className="text-black px-1 rounded"
-                          />
-                        ) : (
-                          <h3 className="text-white text-[22px] font-bold uppercase">
-                            {course.title}
-                          </h3>
-                        )}
+                        <h3 className="text-white text-[22px] font-bold uppercase">
+                          {course.title}
+                        </h3>
 
                         <p className="text-sm text-white/70 mt-2 uppercase">
                           FROM
                         </p>
 
-                        {isEditing ? (
-                          <input
-                            type="number"
-                            value={course.price ?? 0}
-                            onChange={(e) =>
-                              handleChange(course.id, "price", Number(e.target.value))
-                            }
-                            className="text-black px-1 rounded"
-                          />
-                        ) : (
-                          <p className="text-3xl font-bold text-cyan-300 uppercase">
-                            AED {course.price}
-                          </p>
-                        )}
+                        <p className="text-3xl font-bold text-cyan-300 uppercase">
+                          AED {course.price}
+                        </p>
                       </div>
 
                       <div className="absolute bottom-5 right-5">
@@ -169,43 +166,43 @@ export function DivingCourses() {
                   )}
                 </motion.div>
 
-                {/* EXPANDED VIEW */}
+                {/* EXPANDED */}
                 {active === index && (
                   <motion.div
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     className="p-5 h-[58%] flex flex-col justify-between"
                   >
-
                     <div>
-                      {isEditing ? (
-                        <textarea
-                          value={course.description ?? ""}
-                          onChange={(e) =>
-                            handleChange(course.id, "description", e.target.value)
-                          }
-                          className="w-full text-black rounded p-1"
-                        />
-                      ) : (
-                        <p className="text-white/80 text-sm uppercase">
-                          {course.description}
-                        </p>
-                      )}
+                      <h3 className="text-white text-[22px] font-bold mb-4 uppercase">
+                        {course.title}
+                      </h3>
+
+                      <p className="text-white/80 text-sm uppercase">
+                        {course.description}
+                      </p>
                     </div>
 
-                    {/* SAVE BUTTON */}
+                    <div>
+                      <div className="w-full h-[2px] bg-cyan-300 mb-4" />
+                      <p className="text-sm text-white/60 uppercase">FROM</p>
+                      <p className="text-3xl font-bold text-cyan-300 uppercase">
+                        AED {course.price}
+                      </p>
+                    </div>
+
+                    {/* SAVE */}
                     {isEditing && (
                       <button
                         onClick={(e) => {
                           e.stopPropagation();
                           handleSave(course);
                         }}
-                        className="bg-green-400 text-black px-3 py-1 rounded"
+                        className="bg-green-400 text-black px-3 py-1 rounded mt-2"
                       >
                         {saving ? "Saving..." : "Save"}
                       </button>
                     )}
-
                   </motion.div>
                 )}
 
