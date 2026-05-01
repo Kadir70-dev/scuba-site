@@ -25,21 +25,43 @@ export function Footer() {
   const [locations, setLocations] = useState<any[]>([]);
 
   useEffect(() => {
+    console.log("🚀 Footer Component Mounted");
+
+    // 🔥 ENV DEBUG
+    console.log("🌍 SUPABASE URL:", import.meta.env.VITE_SUPABASE_URL);
+
     load();
   }, []);
 
   const load = async () => {
-    const f = await getFooter();
-    const s = await getSocials();
-    const l = await getLocations();
+    console.log("📡 Loading footer data...");
 
-    console.log("FOOTER:", f.data);
-    console.log("SOCIALS:", s.data);
-    console.log("LOCATIONS:", l.data);
+    try {
+      const f = await getFooter();
+      const s = await getSocials();
+      const l = await getLocations();
 
-    setFooter(f.data);
-    setSocials(s.data || []);
-    setLocations(l.data || []);
+      // 🔥 FULL RESPONSE LOG
+      console.log("📦 FOOTER RESPONSE:", f);
+      console.log("📦 SOCIAL RESPONSE:", s);
+      console.log("📦 LOCATION RESPONSE:", l);
+
+      // 🔥 ERROR LOG
+      console.log("❌ FOOTER ERROR:", f.error);
+      console.log("❌ SOCIAL ERROR:", s.error);
+      console.log("❌ LOCATION ERROR:", l.error);
+
+      // 🔥 DATA LOG
+      console.log("✅ FOOTER DATA:", f.data);
+      console.log("✅ SOCIAL DATA:", s.data);
+      console.log("✅ LOCATION DATA:", l.data);
+
+      setFooter(f.data);
+      setSocials(s.data || []);
+      setLocations(l.data || []);
+    } catch (err) {
+      console.error("🔥 FETCH CRASH:", err);
+    }
   };
 
   // 🔥 ICON MAP
@@ -50,7 +72,15 @@ export function Footer() {
     youtube: Youtube,
   };
 
-  if (!footer) return null;
+  // 🔥 LOADING DEBUG
+  if (!footer) {
+    console.log("⏳ Footer not loaded yet...");
+    return (
+      <div className="text-white text-center py-20">
+        Loading Footer...
+      </div>
+    );
+  }
 
   return (
     <footer className="relative overflow-hidden">
@@ -68,36 +98,42 @@ export function Footer() {
             <img src="/logow.svg" className="w-32" />
 
             <p className="text-white/70 max-w-md">
-              {footer.description}
+              {footer.description || "No description"}
             </p>
 
             <div className="space-y-3 text-white/70 text-sm">
 
               <div className="flex gap-3 items-center">
                 <Mail className="text-cyan-300" size={16} />
-                {footer.email}
+                {footer.email || "No email"}
               </div>
 
               <div className="flex gap-3 items-center">
                 <Phone className="text-cyan-300" size={16} />
-                {footer.phone}
+                {footer.phone || "No phone"}
               </div>
 
               <div className="flex gap-3 items-center">
                 <MapPin className="text-cyan-300" size={16} />
-                {footer.location}
+                {footer.location || "No location"}
               </div>
 
             </div>
 
-            {/* 🔥 SOCIAL DYNAMIC */}
+            {/* 🔥 SOCIAL */}
             <div className="flex gap-3">
 
               {socials
-                .filter((s) => s.url && s.url !== "#") // clean
+                .filter((s) => s.url && s.url !== "#")
                 .map((s, i) => {
                   const Icon = iconMap[s.platform?.toLowerCase()];
-                  if (!Icon) return null;
+
+                  if (!Icon) {
+                    console.warn("⚠️ Unknown platform:", s.platform);
+                    return null;
+                  }
+
+                  console.log("🔗 Rendering social:", s);
 
                   return (
                     <motion.a
@@ -119,31 +155,35 @@ export function Footer() {
           {/* RIGHT MAPS */}
           <div className="grid grid-cols-2 gap-6">
 
-            {locations.map((loc, i) => (
-              <motion.div
-                key={i}
-                whileHover={{ y: -10 }}
-                className="group rounded-xl overflow-hidden border border-white/10 bg-white/5 backdrop-blur-lg shadow-xl"
-              >
+            {locations.map((loc, i) => {
+              console.log("🗺️ Rendering location:", loc);
 
-                <div className="p-3">
-                  <h4 className="text-white text-xs font-semibold flex items-center gap-2">
-                    <MapPin className="text-cyan-300" size={14} />
-                    {loc.title}
-                  </h4>
+              return (
+                <motion.div
+                  key={i}
+                  whileHover={{ y: -10 }}
+                  className="group rounded-xl overflow-hidden border border-white/10 bg-white/5 backdrop-blur-lg shadow-xl"
+                >
 
-                  <p className="text-white/50 text-[11px] mt-1">
-                    {loc.address}
-                  </p>
-                </div>
+                  <div className="p-3">
+                    <h4 className="text-white text-xs font-semibold flex items-center gap-2">
+                      <MapPin className="text-cyan-300" size={14} />
+                      {loc.title}
+                    </h4>
 
-                <iframe
-                  src={loc.map_url}
-                  className="w-full h-[320px] grayscale group-hover:grayscale-0 transition duration-500"
-                />
+                    <p className="text-white/50 text-[11px] mt-1">
+                      {loc.address}
+                    </p>
+                  </div>
 
-              </motion.div>
-            ))}
+                  <iframe
+                    src={loc.map_url}
+                    className="w-full h-[320px] grayscale group-hover:grayscale-0 transition duration-500"
+                  />
+
+                </motion.div>
+              );
+            })}
 
           </div>
         </div>

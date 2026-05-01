@@ -7,7 +7,8 @@ export const getFooter = async () => {
   return await supabase
     .from("footer_content")
     .select("*")
-    .single();
+    .limit(1)
+    .maybeSingle();
 };
 
 // SOCIALS
