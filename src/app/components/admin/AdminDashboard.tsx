@@ -1,10 +1,10 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
 import { supabase } from "@/lib/supabaseClient";
-
 import { getHero, updateHero } from "@/services/heroService";
+
 import CoursesPage from "./CoursesPage";
 import { Gallery } from "./gallerypage";
 import { PricingPage } from "./PricingPage";
@@ -15,8 +15,6 @@ import { WhyAdmin } from "./WhyAdmin";
 import { FooterAdmin } from "./FooterAdmin";
 
 export default function AdminDashboard() {
-  const navigate = useNavigate();
-
   const [hero, setHero] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
@@ -24,165 +22,146 @@ export default function AdminDashboard() {
 
   useEffect(() => {
     const init = async () => {
-      try {
-        setLoading(true);
-
-        // 🔐 CHECK USER
-        const { data: { user } } = await supabase.auth.getUser();
-        console.log("USER:", user);
-
-        if (!user) {
-          navigate("/admin");
-          return;
-        }
-
-        // 🔎 CHECK ROLE
-        const { data: profile, error } = await supabase
-          .from("profiles")
-          .select("role")
-          .eq("id", user.id)
-          .single();
-
-        console.log("PROFILE:", profile, error);
-
-        if (!profile || profile.role !== "admin") {
-          navigate("/admin");
-          return;
-        }
-
-        // 📦 FETCH HERO
-        const { data } = await getHero();
-        console.log("HERO:", data);
-
-        setHero(data);
-
-      } catch (err) {
-        console.error("❌ DASHBOARD ERROR:", err);
-      } finally {
-        setLoading(false); // 🔥 IMPORTANT
-      }
+      setLoading(true);
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) return;
+      const { data } = await getHero();
+      setHero(data);
+      setLoading(false);
     };
-
     init();
   }, []);
 
   const handleSave = async () => {
     setSaving(true);
-
-    const { error } = await updateHero(hero);
-
-    if (error) alert("❌ Update failed");
-    else alert("✅ Updated successfully");
-
+    await updateHero(hero);
+    const { data } = await getHero();
+    setHero(data);
     setSaving(false);
   };
 
-  // 🔥 LOADING STATE
   if (loading) {
     return (
-      <div className="h-screen flex items-center justify-center bg-black text-white">
+      <div className="min-h-screen flex items-center justify-center bg-black text-white">
         Loading...
       </div>
     );
   }
 
-  // 🔥 NO DATA STATE
   if (!hero) {
     return (
-      <div className="text-white text-center mt-20">
-        No hero data found
+      <div className="min-h-screen flex items-center justify-center text-white">
+        No data
       </div>
     );
   }
 
   return (
-    <div className="bg-[#020617] text-white min-h-screen">
+    <div className="bg-[#020617] text-white min-h-screen px-4 py-6">
+      <div className="
+        w-full
+        max-w-md
+        sm:max-w-xl
+        md:max-w-3xl
+        lg:max-w-5xl
+        xl:max-w-6xl
+        mx-auto
+        space-y-10
+      ">
 
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden font-habara">
+        <motion.section
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="
+            rounded-2xl 
+            p-5 
+            sm:p-6 
+            md:p-8 
+            bg-white/5 
+            backdrop-blur 
+            shadow-lg 
+            text-center
+          "
+        >
 
-        {/* BACKGROUND */}
-        <div className="absolute inset-0 z-0">
-          <div className="absolute inset-0 bg-[#02182b]/50" />
-          <div className="absolute inset-0 bg-gradient-to-b from-[#0ea5e9]/20 via-transparent to-[#1e3a8a]/30" />
-        </div>
-
-        {/* CONTENT */}
-        <div className="relative z-10 text-center px-6 max-w-5xl">
-
-          {/* TOP TEXT */}
           {editingField === "top_text" ? (
             <input
               value={hero.top_text || ""}
               onChange={(e) => setHero({ ...hero, top_text: e.target.value })}
               onBlur={() => setEditingField(null)}
               autoFocus
-              className="uppercase tracking-[6px] text-cyan-300 text-[12px] mb-5 bg-black/40 px-3 py-1 rounded text-center"
+              className="w-full text-[11px] tracking-widest uppercase text-cyan-300 bg-transparent outline-none text-center"
             />
           ) : (
             <p
               onClick={() => setEditingField("top_text")}
-              className="uppercase tracking-[6px] text-cyan-300 text-[12px] mb-5 cursor-pointer"
+              className="text-[11px] tracking-widest uppercase text-cyan-300 cursor-pointer"
             >
-              {hero.top_text || "Dive Campus Diving Club"}
+              {hero.top_text || "Click to edit"}
             </p>
           )}
 
-          {/* TITLE */}
-          <h1 className="text-white text-4xl md:text-6xl font-semibold">
-
+          <h1 className="
+            mt-3 
+            text-2xl 
+            sm:text-3xl 
+            md:text-4xl 
+            font-semibold 
+            leading-tight
+          ">
             {editingField === "title" ? (
               <input
-                value={hero.title}
+                value={hero.title || ""}
                 onChange={(e) => setHero({ ...hero, title: e.target.value })}
                 onBlur={() => setEditingField(null)}
-                className="bg-black/40 px-2 rounded"
+                className="w-full bg-transparent outline-none text-center"
               />
             ) : (
               <span onClick={() => setEditingField("title")} className="cursor-pointer">
-                {hero.title}
+                {hero.title || "Click to edit"}
               </span>
             )}
-
             {" "}
-
             {editingField === "subtitle" ? (
               <input
-                value={hero.subtitle}
+                value={hero.subtitle || ""}
                 onChange={(e) => setHero({ ...hero, subtitle: e.target.value })}
                 onBlur={() => setEditingField(null)}
-                className="bg-black/40 px-2 rounded text-cyan-400"
+                className="w-full bg-transparent outline-none text-cyan-400 text-center"
               />
             ) : (
               <span
                 onClick={() => setEditingField("subtitle")}
                 className="text-cyan-400 cursor-pointer"
               >
-                {hero.subtitle}
+                {hero.subtitle || ""}
               </span>
             )}
           </h1>
 
-          {/* DESCRIPTION */}
-          {editingField === "description" ? (
-            <textarea
-              value={hero.description}
-              onChange={(e) => setHero({ ...hero, description: e.target.value })}
-              onBlur={() => setEditingField(null)}
-              className="mt-6 bg-black/40 p-2 rounded w-full text-center"
-            />
-          ) : (
-            <p
-              onClick={() => setEditingField("description")}
-              className="mt-6 text-white/85 cursor-pointer"
-            >
-              {hero.description}
-            </p>
-          )}
+          <div className="mt-4 text-sm sm:text-base md:text-lg text-white/80">
+            {editingField === "description" ? (
+              <textarea
+                value={hero.description || ""}
+                onChange={(e) =>
+                  setHero({ ...hero, description: e.target.value })
+                }
+                onBlur={() => setEditingField(null)}
+                autoFocus
+                className="w-full bg-transparent outline-none text-center"
+              />
+            ) : (
+              <p
+                onClick={() => setEditingField("description")}
+                className="cursor-pointer w-full"
+              >
+                {hero.description || "Click to edit description"}
+              </p>
+            )}
+          </div>
 
-          {/* PRICE */}
-          <div className="mt-6">
+          <div className="mt-6 space-y-1">
 
-            {/* OLD PRICE */}
             {editingField === "old_price" ? (
               <input
                 type="number"
@@ -191,19 +170,18 @@ export default function AdminDashboard() {
                   setHero({ ...hero, old_price: Number(e.target.value) })
                 }
                 onBlur={() => setEditingField(null)}
-                className="bg-black/40 px-2 rounded text-white/50 line-through text-center"
                 autoFocus
+                className="w-full text-center bg-transparent outline-none text-white/50 line-through"
               />
             ) : (
               <p
                 onClick={() => setEditingField("old_price")}
-                className="text-white/50 line-through cursor-pointer"
+                className="text-white/50 line-through text-sm sm:text-base cursor-pointer"
               >
-                AED {hero.old_price}
+                AED {hero.old_price || 0}
               </p>
             )}
 
-            {/* NEW PRICE */}
             {editingField === "price" ? (
               <input
                 type="number"
@@ -212,38 +190,42 @@ export default function AdminDashboard() {
                   setHero({ ...hero, price: Number(e.target.value) })
                 }
                 onBlur={() => setEditingField(null)}
-                className="bg-black/40 px-2 rounded text-cyan-400 text-3xl text-center"
+                className="w-full text-center bg-transparent outline-none text-cyan-400 text-xl sm:text-2xl md:text-3xl font-bold"
               />
             ) : (
               <p
                 onClick={() => setEditingField("price")}
-                className="text-3xl font-bold text-cyan-400 cursor-pointer"
+                className="text-cyan-400 text-xl sm:text-2xl md:text-3xl font-bold cursor-pointer"
               >
-                AED {hero.price}
+                AED {hero.price || 0}
               </p>
             )}
 
-          </div>          {/* CTA */}
-          <div className="mt-10">
-            <button
-              onClick={() => setEditingField("cta_text")}
-              className="px-10 py-4 bg-cyan-400 text-black rounded-full"
-            >
-              {hero.cta_text || "Get Certified →"}
-            </button>
           </div>
 
-          {/* SAVE */}
-          <div className="mt-12">
-            <button
-              onClick={handleSave}
-              className="px-8 py-3 bg-green-400 text-black rounded-full"
-            >
-              {saving ? "Saving..." : "Save Changes"}
-            </button>
-          </div>
+          <motion.button
+            whileTap={{ scale: 0.95 }}
+            className="mt-6 w-full h-[48px] sm:h-[52px] rounded-2xl bg-cyan-400 text-black font-medium"
+          >
+            {hero.cta_text || "Get Started"}
+          </motion.button>
 
-          {/* OTHER SECTIONS */}
+          <motion.button
+            whileTap={{ scale: 0.95 }}
+            onClick={handleSave}
+            className="mt-4 w-full h-[48px] sm:h-[52px] rounded-2xl bg-green-400 text-black font-medium"
+          >
+            {saving ? "Saving..." : "Save Changes"}
+          </motion.button>
+
+        </motion.section>
+
+        <div className="
+          grid 
+          grid-cols-1 
+          md:grid-cols-2 
+          gap-8
+        ">
           <CoursesPage />
           <FeaturedAdmin />
           <Gallery />
@@ -252,9 +234,9 @@ export default function AdminDashboard() {
           <WhyAdmin />
           <FaqAdmin />
           <FooterAdmin />
-
         </div>
-      </section>
+
+      </div>
     </div>
   );
 }
