@@ -11,10 +11,12 @@ import { GoldStandardSection } from "./GoldStandardSection";
 // import { CommunityGallerySection } from "./CommunityGallerySection";
 import { LocationSection } from "./LocationSection";
 import { PremiumFooter } from "./PremiumFooter";
+import { Navbar } from "../Navbar";
 
 export function PadiOpenWater() {
   return (
     <>
+      <Navbar />
       <HeroSection />
       <EnrollmentSection />
       <StepsSection />

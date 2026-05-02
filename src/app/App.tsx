@@ -17,10 +17,10 @@ import AdminLogin from "./components/admin/AdminLogin";
 import AdminDashboard from "./components/admin/AdminDashboard";
 import { AdvancedOpenWater } from "./components/pages/AdvancedOpenWater";
 import { SpecialtyCourses } from "./components/pages/SpecialtyCourses";
-import { PadIDivemasterHero } from "./components/pages/PadIDivemasterHero";
-import { PadiOpenDiver } from "./components/pages/PadiOpenDiver";
-import { HeroSection } from "./components/pages/HeroSection";
 import { PadiRescueDiver } from "./components/pages/PadiRescueDiver";
+import { PadiOpenWater } from "./components/pages/PadiOpenWater";
+import DivemasterPage from "./divemaster/PadIDivemaster";
+import AboutDive from "./About/AboutDive";
 
 function Home() {
   const isLoggedIn = localStorage.getItem("auth") === "true";
@@ -62,10 +62,11 @@ export default function App() {
       />
       <Route path="/advanced-open-water" element={<AdvancedOpenWater />} />
       <Route path="/specialty-courses" element={<SpecialtyCourses/>}/>
-      <Route path="/padi-divemaster" element={<PadIDivemasterHero />} />
+      <Route path="/padi-divemaster" element={<DivemasterPage />} />
       <Route path="/padi-rescue-diver" element={<PadiRescueDiver />} />
-      <Route path="/padi-open-water" element={<HeroSection />} /> 
-      <Route path="/padi-open-diver" element={<PadiOpenDiver />} />
+      <Route path="/padi-open-water" element={<PadiOpenWater />} /> 
+      <Route path="/padi-open-diver" element={<PadiOpenWater />} />
+      <Route path="/about" element={<AboutDive />} />
 
     </Routes>
   );

@@ -1,5 +1,6 @@
 "use client";
 
+import { Navbar } from "../components/Navbar";
 import { CareerPathSection } from "../components/pages/CareerPathSection";
 import { CommandOceanSection } from "../components/pages/CommandOceanSection";
 import { ComparisonDive } from "../components/pages/ComparisonDive";
@@ -13,8 +14,8 @@ import { ProfessionalStatusSection } from "../components/pages/ProfessionalStatu
 export default function DivemasterPage() {
   return (
     <>
-      
-      <PadIDivemasterHero />
+      <Navbar />
+      <PadIDivemasterHero />  
       <CommandOceanSection />
       <ComparisonDive />
       <ProfessionalStatusSection />
