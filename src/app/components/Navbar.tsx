@@ -33,10 +33,11 @@ export function Navbar() {
     "PADI Rescue Diver": "/padi-rescue-diver",
     "PADI Open Water": "/padi-open-water",
     "PADI Open Diver": "/padi-open-diver",
+
   };
 
   const menuItems = [
-    { label: "Try Diving", href: "#try-diving" },
+    { label: "Try Dive", href: "/try-dive" },
     { label: "Get Certified", dropdown: ["PADI Open Water", "PADI Open Diver"] },
     {
       label: "Level Up",

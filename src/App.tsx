@@ -1,4 +1,3 @@
-import React from 'react';
 import { Layout } from './components/Layout';
 import { KPICard } from './components/KPICard';
 import { ChartCard } from './components/ChartCard';
