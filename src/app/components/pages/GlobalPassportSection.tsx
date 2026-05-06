@@ -18,120 +18,196 @@ export function GlobalPassportSection() {
 
   return (
     <section
-      className="py-28 bg-[#f5f7fa]"
+      className="py-32 bg-[#f5f7fa]"
       style={{ fontFamily: "Harabara, sans-serif" }}
     >
       <div className="max-w-7xl mx-auto px-6">
 
         {/* ================= HEADER ================= */}
-        <div className="text-center mb-20 max-w-3xl mx-auto">
-          <h2 className="text-3xl md:text-5xl font-bold text-[#0a0e27]">
+        <div className="text-center mb-24 max-w-4xl mx-auto">
+
+          {/* HEADING */}
+          <h2 className="text-3xl md:text-5xl font-bold leading-[1.2] tracking-[1px] text-[#0a0e27]">
+
             More Than a License.
+
             <br />
-            <span className="text-cyan-500">A Global Passport.</span>
+
+            <span className="text-cyan-500">
+              A Global Passport.
+            </span>
+
           </h2>
 
-          <p className="text-gray-500 mt-4 text-sm">
-            The Advanced Open Water isn’t just about diving deeper; it's your key to the Global Expedition Network.
-            When you certify with us, you join the UAE's most active travel team.
+          {/* DESCRIPTION */}
+          <p className="text-gray-500 mt-8 text-[15px] md:text-[16px] leading-[1.95] tracking-[0.45px] max-w-3xl mx-auto">
+
+            The Advanced Open Water isn’t just about diving deeper;
+            it's your key to the Global Expedition Network.
+            When you certify with us, you become part of the UAE's
+            most active underwater travel community.
+
           </p>
         </div>
 
         {/* ================= GRID ================= */}
-        <div className="grid lg:grid-cols-2 gap-16">
+        <div className="grid lg:grid-cols-2 gap-20">
 
-          {/* ================= LEFT (TESTIMONIALS) ================= */}
+          {/* ================= LEFT ================= */}
           <div>
 
             {/* MAIN CARD */}
-            <div className="bg-white border border-gray-200 rounded-2xl p-8 shadow-sm text-center">
+            <div className="bg-white border border-gray-200 rounded-3xl p-10 shadow-sm text-center">
 
-              <h3 className="text-xl font-semibold text-[#0a0e27]">
-                Don't Take Our <br />
-                <span className="font-bold">Word For It.</span>
+              {/* TITLE */}
+              <h3 className="text-2xl font-semibold tracking-[0.8px] leading-[1.45] text-[#0a0e27]">
+
+                Don't Take Our
+
+                <br />
+
+                <span className="font-bold">
+                  Word For It.
+                </span>
+
               </h3>
 
-              <p className="text-gray-500 text-sm mt-3">
-                Real stories from divers who pushed their limits with the Nemo Advanced Team.
+              {/* DESCRIPTION */}
+              <p className="text-gray-500 text-[14px] leading-[1.9] tracking-[0.35px] mt-5 max-w-md mx-auto">
+
+                Real stories from divers who pushed their
+                limits with the Nemo Advanced Team.
+
               </p>
 
               {/* RATING BADGE */}
-              <div className="mt-6 inline-flex items-center gap-3 px-5 py-3 bg-gray-50 border rounded-full text-sm">
-                ⭐⭐⭐⭐⭐
+              <div className="mt-8 inline-flex items-center gap-3 px-6 py-3.5 bg-gray-50 border rounded-full text-sm tracking-[0.5px]">
+
+                <span className="tracking-[2px]">
+                  ⭐⭐⭐⭐⭐
+                </span>
+
                 <span className="font-semibold text-[#0a0e27]">
                   Excellent
                 </span>
-                <span className="text-gray-400 text-xs">
+
+                <span className="text-gray-400 text-xs tracking-[0.5px]">
                   1,054 Reviews
                 </span>
+
               </div>
             </div>
 
             {/* SMALL REVIEWS */}
-            <div className="grid grid-cols-2 gap-4 mt-6">
+            <div className="grid grid-cols-2 gap-5 mt-7">
 
-              <div className="bg-white border rounded-xl p-4 text-xs text-gray-500 shadow-sm">
-                <p className="font-semibold text-[#0a0e27] mb-1">
+              {/* REVIEW 1 */}
+              <div className="bg-white border rounded-2xl p-5 text-gray-500 shadow-sm">
+
+                <p className="font-semibold text-[#0a0e27] text-[13px] tracking-[0.6px] mb-3">
                   Alex M.
                 </p>
-                First dive in Fujairah was intense, but the instructor made it easy.
+
+                <p className="text-[12px] leading-[1.9] tracking-[0.3px]">
+                  First dive in Fujairah was intense,
+                  but the instructor made it feel
+                  smooth and controlled.
+                </p>
+
               </div>
 
-              <div className="bg-white border rounded-xl p-4 text-xs text-gray-500 shadow-sm">
-                <p className="font-semibold text-[#0a0e27] mb-1">
+              {/* REVIEW 2 */}
+              <div className="bg-white border rounded-2xl p-5 text-gray-500 shadow-sm">
+
+                <p className="font-semibold text-[#0a0e27] text-[13px] tracking-[0.6px] mb-3">
                   Sarah J.
                 </p>
-                Navigation drills on Palm wreck were actually fun. Highly recommended.
+
+                <p className="text-[12px] leading-[1.9] tracking-[0.3px]">
+                  Navigation drills on Palm wreck
+                  were actually fun. Highly
+                  recommended experience.
+                </p>
+
               </div>
 
             </div>
 
           </div>
 
-          {/* ================= RIGHT (FAQ) ================= */}
+          {/* ================= RIGHT ================= */}
           <div>
 
-            <h3 className="text-lg font-semibold text-[#0a0e27] mb-6">
+            {/* TITLE */}
+            <h3 className="text-[20px] font-semibold tracking-[0.8px] leading-[1.5] text-[#0a0e27] mb-8">
+
               Tactical Briefing
+
             </h3>
 
-            <div className="space-y-4">
+            {/* FAQ */}
+            <div className="space-y-5">
 
               {faqs.map((q, i) => (
                 <div
                   key={i}
-                  className="bg-white border border-gray-200 rounded-xl overflow-hidden"
+                  className="bg-white border border-gray-200 rounded-2xl overflow-hidden shadow-sm"
                 >
 
                   {/* QUESTION */}
                   <button
-                    onClick={() => setActive(active === i ? null : i)}
-                    className="w-full flex justify-between items-center px-5 py-4 text-left"
+                    onClick={() =>
+                      setActive(active === i ? null : i)
+                    }
+                    className="w-full flex justify-between items-center px-6 py-5 text-left"
                   >
-                    <span className="text-sm text-[#0a0e27]">
+
+                    <span className="text-[14px] tracking-[0.45px] leading-[1.7] text-[#0a0e27]">
+
                       {q}
+
                     </span>
 
                     <motion.div
-                      animate={{ rotate: active === i ? 45 : 0 }}
+                      animate={{
+                        rotate: active === i ? 45 : 0,
+                      }}
+                      transition={{ duration: 0.25 }}
                       className="text-cyan-500"
                     >
-                      <Plus size={16} />
+                      <Plus size={17} />
                     </motion.div>
+
                   </button>
 
                   {/* ANSWER */}
                   <AnimatePresence>
+
                     {active === i && (
                       <motion.div
-                        initial={{ height: 0, opacity: 0 }}
-                        animate={{ height: "auto", opacity: 1 }}
-                        exit={{ height: 0, opacity: 0 }}
-                        className="px-5 pb-4 text-xs text-gray-500"
+                        initial={{
+                          height: 0,
+                          opacity: 0,
+                        }}
+                        animate={{
+                          height: "auto",
+                          opacity: 1,
+                        }}
+                        exit={{
+                          height: 0,
+                          opacity: 0,
+                        }}
+                        transition={{ duration: 0.3 }}
+                        className="px-6 pb-5 text-[13px] text-gray-500 leading-[1.95] tracking-[0.3px]"
                       >
-                        This will be explained during your training session in detail by our instructors.
+
+                        This will be explained during
+                        your training session in detail
+                        by our instructors.
+
                       </motion.div>
                     )}
+
                   </AnimatePresence>
 
                 </div>

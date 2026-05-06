@@ -23,8 +23,11 @@ export function AboutDiveCampus() {
   useLayoutEffect(() => {
     if (!sectionRef.current) return;
 
-    // 🔥 Prevent scroll memory bugs
-    ScrollTrigger.clearScrollMemory();
+    // ✅ SMOOTH SCROLL
+    document.documentElement.style.scrollBehavior = "smooth";
+
+    // ✅ HIDE SCROLLBAR GLOBALLY
+    document.body.classList.add("hide-scrollbar");
 
     const ctx = gsap.context(() => {
       const total = cardsRef.current.length;
@@ -44,7 +47,7 @@ export function AboutDiveCampus() {
 
       window.addEventListener("resize", updateOrbit);
 
-      // Initial positions
+      // INITIAL POSITION
       cardsRef.current.forEach((card, i) => {
         const angle = (i / total) * Math.PI * 2;
 
@@ -90,49 +93,62 @@ export function AboutDiveCampus() {
         },
       });
 
-      // Cleanup resize listener
       return () => {
         window.removeEventListener("resize", updateOrbit);
       };
     }, sectionRef);
 
-    // ✅ CLEANUP (SAFE + CORRECT)
     return () => {
-      ctx.revert(); // removes pin, spacer, inline styles
+      ctx.revert();
 
-      ScrollTrigger.killAll(false, true); // kill only triggers safely
-
-      // reset scroll behavior
-      document.body.style.overflow = "";
-      document.documentElement.style.overflow = "";
-
-      window.scrollTo({ top: 0, behavior: "auto" });
-
-      requestAnimationFrame(() => {
-        ScrollTrigger.refresh();
-      });
+      // ✅ REMOVE ONLY THIS COMPONENT EFFECTS
+      document.body.classList.remove("hide-scrollbar");
     };
   }, []);
 
   return (
-    <section
-      ref={sectionRef}
-      className="relative h-screen w-full overflow-hidden bg-gradient-to-br from-[#18476D] via-[#123a5a] to-[#0b2c45] text-white"
-    >
-      <div className="absolute inset-0 flex items-center justify-center">
-        {team.map((member, i) => (
-          <div
-            key={i}
-            ref={(el) => {
-              if (el) cardsRef.current[i] = el;
-            }}
-            className="absolute w-[160px] h-[200px] rounded-xl bg-white/10 backdrop-blur border border-white/20 flex flex-col items-center justify-center"
-          >
-            <h3 className="font-bold">{member.name}</h3>
-            <p className="text-cyan-300 text-sm">{member.role}</p>
-          </div>
-        ))}
-      </div>
-    </section>
+    <>
+      <section
+        ref={sectionRef}
+        className="relative h-screen w-full overflow-hidden bg-gradient-to-br from-[#18476D] via-[#123a5a] to-[#0b2c45] text-white"
+      >
+        <div className="absolute inset-0 flex items-center justify-center">
+          {team.map((member, i) => (
+            <div
+              key={i}
+              ref={(el) => {
+                if (el) cardsRef.current[i] = el;
+              }}
+              className="absolute w-[160px] h-[200px] rounded-xl bg-white/10 backdrop-blur border border-white/20 flex flex-col items-center justify-center"
+            >
+              <h3 className="font-bold">{member.name}</h3>
+
+              <p className="text-cyan-300 text-sm">
+                {member.role}
+              </p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* ✅ GLOBAL SCROLLBAR HIDE */}
+      <style jsx global>{`
+        .hide-scrollbar {
+          scrollbar-width: none;
+          -ms-overflow-style: none;
+        }
+
+        .hide-scrollbar::-webkit-scrollbar {
+          display: none;
+          width: 0;
+          height: 0;
+        }
+
+        html,
+        body {
+          overflow-x: hidden;
+        }
+      `}</style>
+    </>
   );
 }

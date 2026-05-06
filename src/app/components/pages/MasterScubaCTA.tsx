@@ -6,37 +6,55 @@ import { motion } from "framer-motion";
 export function MasterScubaCTA() {
   return (
     <section
-      className="py-20 bg-gradient-to-r from-[#081c2c] to-[#0d2f45] text-white"
+      className="relative py-28 overflow-hidden bg-gradient-to-r from-[#081c2c] to-[#0d2f45] text-white"
       style={{ fontFamily: "Harabara, sans-serif" }}
     >
+
+      {/* BACKGROUND GLOW */}
+      <div className="absolute top-0 left-0 w-72 h-72 bg-cyan-400/10 blur-[120px] rounded-full" />
+
+      <div className="absolute bottom-0 right-0 w-72 h-72 bg-blue-500/10 blur-[120px] rounded-full" />
+
+      {/* CONTENT */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
-        className="max-w-[700px] mx-auto text-center px-4"
+        transition={{ duration: 0.5 }}
+        className="relative z-10 max-w-[760px] mx-auto text-center px-6"
       >
 
         {/* SMALL TITLE */}
-        <p className="text-[13px] text-white/60 tracking-wide">
-          The "Black Belt" of Diving:
+        <p className="text-[11px] md:text-[12px] text-white/55 tracking-[3px] uppercase">
+
+          The "Black Belt" of Diving
+
         </p>
 
         {/* MAIN TITLE */}
-        <h2 className="text-2xl md:text-3xl font-semibold mt-1">
+        <h2 className="text-3xl md:text-5xl font-semibold mt-6 leading-[1.18] tracking-[1px]">
+
           Master Scuba Diver
+
         </h2>
 
         {/* DESCRIPTION */}
-        <p className="text-[12px] text-white/60 mt-3 leading-relaxed max-w-[520px] mx-auto">
-          Rescue Diver is the final core step. You are now just 5 specialty courses
-          away from earning the highest non-professional rating in recreational diving.
+        <p className="text-[15px] md:text-[16px] text-white/60 mt-8 leading-[2] tracking-[0.45px] max-w-[620px] mx-auto">
+
+          Rescue Diver is the final core milestone.
+          You are now just five specialty certifications
+          away from earning the highest non-professional
+          distinction in recreational diving.
+
         </p>
 
         {/* BUTTONS */}
-        <div className="mt-6 flex items-center justify-center gap-3 flex-wrap">
+        <div className="mt-12 flex items-center justify-center gap-4 flex-wrap">
 
           {/* PRIMARY BUTTON */}
-          <button className="px-5 py-2.5 text-[12px] rounded-lg bg-white text-[#0a0e27] font-medium hover:scale-105 transition">
+          <button className="px-7 py-3.5 text-[12px] tracking-[1px] rounded-2xl bg-white text-[#0a0e27] font-medium hover:scale-[1.03] transition duration-300 shadow-lg">
+
             START YOUR JOURNEY
+
           </button>
 
           {/* WHATSAPP BUTTON */}
@@ -44,13 +62,17 @@ export function MasterScubaCTA() {
             href="https://wa.me/971XXXXXXXXX?text=Hi%20I%20want%20to%20plan%20my%20diving%20roadmap"
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-2 px-5 py-2.5 text-[12px] rounded-lg border border-green-400 text-green-400 hover:bg-green-400 hover:text-white transition"
+            className="flex items-center gap-2 px-7 py-3.5 text-[12px] tracking-[1px] rounded-2xl border border-green-400 text-green-400 hover:bg-green-400 hover:text-white transition duration-300"
           >
+
             <FaWhatsapp className="text-sm" />
+
             PLAN YOUR ROADMAP
+
           </a>
 
         </div>
+
       </motion.div>
 
       {/* FONT */}
@@ -60,6 +82,7 @@ export function MasterScubaCTA() {
           src: url('/fonts/Harabara.woff') format('woff');
         }
       `}</style>
+
     </section>
   );
 }

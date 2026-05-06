@@ -1,6 +1,13 @@
 "use client";
 
-import { Shield, HeartPulse, Activity, Monitor, Settings } from "lucide-react";
+import {
+  Shield,
+  HeartPulse,
+  Activity,
+  Monitor,
+  Settings,
+} from "lucide-react";
+
 import { motion } from "framer-motion";
 
 export function RescueCapabilities() {
@@ -40,54 +47,84 @@ export function RescueCapabilities() {
   return (
     <>
       <section
-        className="py-28 bg-[#f4f7fb] relative overflow-hidden"
+        className="py-32 bg-[#f4f7fb] relative overflow-hidden"
         style={{ fontFamily: "Harabara, sans-serif" }}
       >
 
         {/* BACKGROUND GLOW */}
         <div className="absolute top-20 left-10 w-72 h-72 bg-cyan-400/10 blur-[120px] rounded-full" />
+
         <div className="absolute bottom-10 right-10 w-72 h-72 bg-blue-500/10 blur-[120px] rounded-full" />
 
         {/* HEADER */}
-        <div className="text-center mb-16 px-6 relative z-10">
-          <h2 className="text-3xl md:text-5xl font-semibold tracking-[-0.5px] leading-[1.1] text-[#0a0e27]">
-            Master 5 Critical <br />
-            <span className="text-cyan-500">Rescue Capabilities</span>
+        <div className="text-center mb-20 px-6 relative z-10">
+
+          {/* TITLE */}
+          <h2 className="text-3xl md:text-5xl font-semibold leading-[1.18] tracking-[1px] text-[#0a0e27]">
+
+            Master 5 Critical
+
+            <br />
+
+            <span className="text-cyan-500">
+              Rescue Capabilities
+            </span>
+
           </h2>
+
+          {/* DESCRIPTION */}
+          <p className="mt-8 max-w-3xl mx-auto text-[15px] md:text-[16px] text-gray-500 leading-[2] tracking-[0.45px]">
+
+            Develop the confidence, leadership,
+            and emergency response skills required
+            to protect divers and manage real-world
+            underwater rescue situations professionally.
+
+          </p>
+
         </div>
 
         {/* GRID */}
-        <div className="max-w-6xl mx-auto grid md:grid-cols-3 gap-6 px-6 relative z-10">
+        <div className="max-w-6xl mx-auto grid md:grid-cols-3 gap-7 px-6 relative z-10">
 
           {/* CARDS */}
           {cards.map((item, i) => (
             <motion.div
               key={i}
               whileHover={{ y: -8, scale: 1.02 }}
-              className="relative bg-white/80 backdrop-blur-md border border-gray-200 rounded-2xl p-6 shadow-sm hover:shadow-xl transition overflow-hidden"
+              transition={{ duration: 0.25 }}
+              className="relative bg-white/80 backdrop-blur-md border border-gray-200 rounded-3xl p-7 shadow-sm hover:shadow-xl transition overflow-hidden"
             >
 
               {/* HOVER GLOW */}
-              <div className="absolute inset-0 opacity-0 hover:opacity-100 transition bg-gradient-to-r from-cyan-400/10 to-blue-500/10" />
+              <div className="absolute inset-0 opacity-0 hover:opacity-100 transition duration-300 bg-gradient-to-r from-cyan-400/10 to-blue-500/10" />
 
               {/* TAG */}
-              <span className="absolute top-4 right-4 text-[10px] px-3 py-1 bg-cyan-100 text-cyan-600 rounded-full tracking-[0.5px]">
+              <span className="absolute top-5 right-5 text-[10px] px-3 py-1.5 bg-cyan-100 text-cyan-600 rounded-full tracking-[1px]">
+
                 {item.tag}
+
               </span>
 
               {/* ICON */}
-              <div className="w-12 h-12 flex items-center justify-center rounded-xl bg-cyan-100 text-cyan-500 mb-4">
+              <div className="w-14 h-14 flex items-center justify-center rounded-2xl bg-cyan-100 text-cyan-500 mb-6">
+
                 {item.icon}
+
               </div>
 
               {/* TITLE */}
-              <h3 className="font-semibold text-[#0a0e27] mb-2 tracking-[-0.2px]">
+              <h3 className="font-semibold text-[#0a0e27] text-[18px] tracking-[0.6px] leading-[1.5] mb-4">
+
                 {item.title}
+
               </h3>
 
               {/* DESC */}
-              <p className="text-sm text-gray-500 leading-[1.6] tracking-[0.2px]">
+              <p className="text-[14px] text-gray-500 leading-[2] tracking-[0.35px]">
+
                 {item.desc}
+
               </p>
 
             </motion.div>
@@ -96,39 +133,59 @@ export function RescueCapabilities() {
           {/* PREMIUM CARD */}
           <motion.div
             whileHover={{ scale: 1.03 }}
-            className="relative bg-[#02131d] text-white rounded-2xl p-6 shadow-[0_20px_80px_rgba(0,0,0,0.5)] flex flex-col justify-between overflow-hidden"
+            transition={{ duration: 0.25 }}
+            className="relative bg-[#02131d] text-white rounded-3xl p-8 shadow-[0_20px_80px_rgba(0,0,0,0.5)] flex flex-col justify-between overflow-hidden"
           >
 
             {/* GLOW */}
             <div className="absolute -top-10 -right-10 w-40 h-40 bg-cyan-400/20 blur-[100px] rounded-full" />
 
             <div>
-              <span className="text-[10px] px-3 py-1 bg-cyan-500/20 text-cyan-400 rounded-full tracking-[0.5px]">
+
+              {/* BADGE */}
+              <span className="text-[10px] px-3 py-1.5 bg-cyan-500/20 text-cyan-400 rounded-full tracking-[1px]">
+
                 BEST VALUE
+
               </span>
 
-              <h3 className="mt-4 font-semibold text-lg tracking-[-0.2px]">
+              {/* TITLE */}
+              <h3 className="mt-6 font-semibold text-2xl tracking-[0.8px] leading-[1.45]">
+
                 Rescue Diver Course
+
               </h3>
 
-              <p className="text-white/60 text-sm mt-2 leading-[1.6] tracking-[0.2px]">
-                Complete certification including PADI eLearning and practical sessions.
+              {/* DESCRIPTION */}
+              <p className="text-white/60 text-[14px] mt-5 leading-[2] tracking-[0.35px]">
+
+                Complete certification including
+                PADI eLearning, rescue scenarios,
+                emergency response drills,
+                and practical training sessions.
+
               </p>
 
-              <h2 className="text-3xl font-semibold text-cyan-400 mt-6 tracking-[-0.5px]">
+              {/* PRICE */}
+              <h2 className="text-4xl font-semibold text-cyan-400 mt-8 tracking-[0.8px]">
+
                 AED 1,720
+
               </h2>
+
             </div>
 
             {/* BUTTON */}
-            <button className="mt-6 relative overflow-hidden rounded-xl py-3 font-semibold tracking-[0.5px] group">
+            <button className="mt-8 relative overflow-hidden rounded-2xl py-3.5 font-semibold tracking-[1px] group">
 
               {/* GLOW */}
-              <div className="absolute inset-0 bg-gradient-to-r from-cyan-400 to-blue-500 blur-xl opacity-70 group-hover:opacity-100 transition" />
+              <div className="absolute inset-0 bg-gradient-to-r from-cyan-400 to-blue-500 blur-xl opacity-70 group-hover:opacity-100 transition duration-300" />
 
               {/* CONTENT */}
-              <div className="relative z-10 bg-gradient-to-r from-cyan-400 to-blue-500 text-white py-3 rounded-xl flex items-center justify-center gap-2">
+              <div className="relative z-10 bg-gradient-to-r from-cyan-400 to-blue-500 text-white py-3.5 rounded-2xl flex items-center justify-center gap-2 text-[13px]">
+
                 CHAT ON WHATSAPP →
+
               </div>
 
             </button>

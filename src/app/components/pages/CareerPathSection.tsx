@@ -8,11 +8,26 @@ export function CareerPathSection() {
   const [active, setActive] = useState(0);
 
   const benefits = [
-    { title: "Full Internship Included", tag: "REAL EXPERIENCE" },
-    { title: "Flexible Schedule", tag: "WEEKENDS / EVENINGS" },
-    { title: "PADI Divemaster Crewpak", tag: "INCLUDED" },
-    { title: "Job Placement Assistance", tag: "NETWORK ACCESS" },
-    { title: "Unlimited Diving During Course", tag: "LOG DIVES" },
+    {
+      title: "Full Internship Included",
+      tag: "REAL EXPERIENCE",
+    },
+    {
+      title: "Flexible Schedule",
+      tag: "WEEKENDS / EVENINGS",
+    },
+    {
+      title: "PADI Divemaster Crewpak",
+      tag: "INCLUDED",
+    },
+    {
+      title: "Job Placement Assistance",
+      tag: "NETWORK ACCESS",
+    },
+    {
+      title: "Unlimited Diving During Course",
+      tag: "LOG DIVES",
+    },
   ];
 
   const faqs = [
@@ -44,74 +59,114 @@ export function CareerPathSection() {
 
   return (
     <section
-      className="py-16 bg-[#f4f7fb]"
+      className="py-28 bg-[#f4f7fb]"
       style={{ fontFamily: "Harabara, sans-serif" }}
     >
+
       {/* HEADER */}
-      <div className="text-center max-w-[550px] mx-auto px-4">
-        <h2 className="text-2xl md:text-3xl font-semibold text-[#0a0e27]">
+      <div className="text-center max-w-[720px] mx-auto px-4">
+
+        {/* TITLE */}
+        <h2 className="text-3xl md:text-4xl font-semibold text-[#0a0e27] leading-[1.22] tracking-[1px]">
+
           More Than a License.
+
           <br />
-          <span className="text-cyan-500">A Career Path.</span>
+
+          <span className="text-cyan-500">
+            A Career Path.
+          </span>
+
         </h2>
 
-        <p className="text-[12px] text-gray-500 mt-3">
-          Join a professional network and turn your passion into a global career.
+        {/* DESCRIPTION */}
+        <p className="text-[15px] md:text-[16px] text-gray-500 mt-7 leading-[1.95] tracking-[0.45px] max-w-2xl mx-auto">
+
+          Join a professional diving network and transform
+          your passion into a long-term international
+          career opportunity across the global diving industry.
+
         </p>
+
       </div>
 
       {/* GRID */}
-      <div className="max-w-[850px] mx-auto grid md:grid-cols-2 gap-8 mt-10 px-4 items-start">
+      <div className="max-w-[950px] mx-auto grid md:grid-cols-2 gap-10 mt-16 px-4 items-start">
 
         {/* LEFT BENEFITS */}
-        <div className="space-y-3">
+        <div className="space-y-4">
+
           {benefits.map((item, i) => (
             <motion.div
               key={i}
-              initial={{ opacity: 0, y: 8 }}
+              initial={{ opacity: 0, y: 10 }}
               whileInView={{ opacity: 1, y: 0 }}
-              className="flex items-center justify-between gap-4 px-4 py-3 rounded-xl border border-gray-200 bg-white hover:shadow-sm transition"
+              transition={{ delay: i * 0.05 }}
+              className="flex items-center justify-between gap-4 px-5 py-4 rounded-2xl border border-gray-200 bg-white hover:shadow-sm transition duration-300"
             >
+
               {/* LEFT */}
-              <div className="flex items-center gap-3 min-w-0">
-                <div className="w-6 h-6 flex items-center justify-center rounded-full bg-cyan-100 shrink-0">
+              <div className="flex items-center gap-4 min-w-0">
+
+                {/* ICON */}
+                <div className="w-7 h-7 flex items-center justify-center rounded-full bg-cyan-100 shrink-0">
+
                   <Check className="w-3.5 h-3.5 text-cyan-500" />
+
                 </div>
 
-                <p className="text-sm text-[#0a0e27] font-medium truncate">
+                {/* TITLE */}
+                <p className="text-[14px] tracking-[0.45px] leading-[1.8] text-[#0a0e27] font-medium truncate">
+
                   {item.title}
+
                 </p>
+
               </div>
 
-              {/* RIGHT TAG */}
-              <span className="text-[10px] text-cyan-500 font-semibold whitespace-nowrap">
+              {/* TAG */}
+              <span className="text-[10px] tracking-[1.2px] text-cyan-500 font-semibold whitespace-nowrap">
+
                 {item.tag}
+
               </span>
+
             </motion.div>
           ))}
+
         </div>
 
         {/* RIGHT FAQ */}
         <div className="w-full">
-          <h3 className="text-sm font-semibold text-[#0a0e27] mb-3">
+
+          {/* FAQ TITLE */}
+          <h3 className="text-[15px] font-semibold tracking-[0.8px] leading-[1.7] text-[#0a0e27] mb-5">
+
             Professional FAQ
+
           </h3>
 
-          <div className="space-y-2">
+          {/* FAQ LIST */}
+          <div className="space-y-3">
+
             {faqs.map((item, i) => (
               <div
                 key={i}
                 onClick={() => setActive(active === i ? -1 : i)}
-                className={`rounded-xl border px-4 py-3 cursor-pointer transition ${
+                className={`rounded-2xl border px-5 py-4 cursor-pointer transition duration-300 ${
                   active === i
                     ? "border-cyan-400 bg-white shadow-sm"
                     : "border-gray-200 bg-white hover:shadow-sm"
                 }`}
               >
+
                 {/* QUESTION */}
-                <div className="flex justify-between items-center gap-3">
-                  <p className="text-[13px] font-medium text-[#0a0e27]">
+                <div className="flex justify-between items-center gap-4">
+
+                  <p className="text-[14px] font-medium tracking-[0.45px] leading-[1.8] text-[#0a0e27]">
+
                     {item.q}
+
                   </p>
 
                   {active === i ? (
@@ -119,20 +174,27 @@ export function CareerPathSection() {
                   ) : (
                     <Plus className="w-4 h-4 text-gray-400 shrink-0" />
                   )}
+
                 </div>
 
                 {/* ANSWER */}
                 {active === i && (
-                  <p className="text-[12px] text-gray-500 mt-2 leading-relaxed">
+                  <p className="text-[13px] text-gray-500 mt-4 leading-[1.95] tracking-[0.35px] pr-5">
+
                     {item.a}
+
                   </p>
                 )}
+
               </div>
             ))}
+
           </div>
+
         </div>
 
       </div>
+
     </section>
   );
 }
