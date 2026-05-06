@@ -24,7 +24,7 @@ const team = [
   { role: "Dive Master", name: "BRICE" },
   { role: "Dive Operations", name: "ABDULLAH" },
   { role: "Customer Service", name: "AYE" },
-  { roel: "Dive Operation", name:"Sorie"}
+  { role: "Dive Operation", name:"Sorie"}
 ];
 
 export function AboutDiveCampus() {
@@ -50,72 +50,122 @@ export function AboutDiveCampus() {
     };
   }, []);
 
-  useLayoutEffect(() => {
-    if (!sectionRef.current) return;
+useLayoutEffect(() => {
+  if (!sectionRef.current) return;
 
-    document.documentElement.style.scrollBehavior =
-      "smooth";
+  document.documentElement.style.scrollBehavior =
+    "smooth";
 
-    document.body.classList.add("hide-scrollbar");
+  document.body.classList.add(
+    "hide-scrollbar"
+  );
 
-    const ctx = gsap.context(() => {
-      const total = cardsRef.current.length;
+  // ✅ FIX LIVE SCROLL BUG
+  document.body.style.overflow = "auto";
+  document.documentElement.style.overflow =
+    "auto";
 
-      const getRadius = () => {
-        if (window.innerWidth < 640) return 120;
-        if (window.innerWidth < 1024) return 180;
-        return 260;
-      };
+  const ctx = gsap.context(() => {
+    const total = cardsRef.current.length;
 
-      let radius = getRadius();
+    const getRadius = () => {
+      if (window.innerWidth < 480)
+        return 95;
 
-      const updateOrbit = () => {
-        radius = getRadius();
-        ScrollTrigger.refresh();
-      };
+      if (window.innerWidth < 640)
+        return 120;
 
-      window.addEventListener("resize", updateOrbit);
+      if (window.innerWidth < 1024)
+        return 180;
 
-      // INITIAL POSITION
-      cardsRef.current.forEach((card, i) => {
+      return 260;
+    };
+
+    let radius = getRadius();
+
+    const updateOrbit = () => {
+      radius = getRadius();
+
+      ScrollTrigger.refresh();
+    };
+
+    window.addEventListener(
+      "resize",
+      updateOrbit
+    );
+
+    // INITIAL POSITION
+    cardsRef.current.forEach(
+      (card, i) => {
         const angle =
-          (i / total) * Math.PI * 2;
+          (i / total) *
+          Math.PI *
+          2;
 
         gsap.set(card, {
-          x: Math.cos(angle) * radius,
-          y: Math.sin(angle) * radius,
+          x:
+            Math.cos(angle) *
+            radius,
+
+          y:
+            Math.sin(angle) *
+            radius,
+
           opacity: 0.3,
           scale: 0.7,
         });
-      });
+      }
+    );
 
-      let rotation = { value: 0 };
+    let rotation = {
+      value: 0,
+    };
 
-      gsap.timeline({
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: "top top",
-          end: "+=4000",
-          scrub: 1.2,
-          pin: true,
-          pinSpacing: true,
-          invalidateOnRefresh: true,
-        },
-      }).to(rotation, {
-        value: Math.PI * 2,
-        ease: "none",
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: sectionRef.current,
 
-        onUpdate: () => {
-          cardsRef.current.forEach((card, i) => {
+        start: "top top",
+
+        end: "+=4000",
+
+        scrub: 1.2,
+
+        pin: true,
+
+        pinSpacing: true,
+
+        invalidateOnRefresh: true,
+
+        // ✅ IMPORTANT
+        anticipatePin: 1,
+
+        // ✅ IMPORTANT
+        fastScrollEnd: true,
+      },
+    });
+
+    tl.to(rotation, {
+      value: Math.PI * 2,
+
+      ease: "none",
+
+      onUpdate: () => {
+        cardsRef.current.forEach(
+          (card, i) => {
             const angle =
-              (i / total) * Math.PI * 2 +
+              (i / total) *
+                Math.PI *
+                2 +
               rotation.value;
 
             const x =
-              Math.cos(angle) * radius;
+              Math.cos(angle) *
+              radius;
 
             const y =
-              Math.sin(angle) * radius;
+              Math.sin(angle) *
+              radius;
 
             const depth =
               Math.cos(angle);
@@ -123,34 +173,91 @@ export function AboutDiveCampus() {
             gsap.set(card, {
               x,
               y,
+
               scale:
-                0.7 + depth * 0.3,
+                0.7 +
+                depth * 0.3,
+
               opacity:
-                0.3 + depth * 0.7,
+                0.3 +
+                depth * 0.7,
+
               filter: `blur(${
                 (1 - depth) * 8
               }px)`,
             });
-          });
-        },
-      });
-
-      return () => {
-        window.removeEventListener(
-          "resize",
-          updateOrbit
+          }
         );
-      };
-    }, sectionRef);
+      },
+    });
 
     return () => {
-      ctx.revert();
-
-      document.body.classList.remove(
-        "hide-scrollbar"
+      window.removeEventListener(
+        "resize",
+        updateOrbit
       );
+
+      tl.kill();
     };
-  }, []);
+  }, sectionRef);
+
+  // ✅ CLEANUP
+  return () => {
+    ctx.revert();
+
+    // ✅ KILL ALL TRIGGERS
+    ScrollTrigger.getAll().forEach(
+      (trigger) => trigger.kill()
+    );
+
+    // ✅ REMOVE PIN SPACERS
+    document
+      .querySelectorAll(".pin-spacer")
+      .forEach((el) => {
+        const parent =
+          el.parentNode;
+
+        if (parent) {
+          while (el.firstChild) {
+            parent.insertBefore(
+              el.firstChild,
+              el
+            );
+          }
+
+          parent.removeChild(el);
+        }
+      });
+
+    // ✅ FORCE RESET
+    gsap.set("body", {
+      clearProps: "all",
+    });
+
+    gsap.set("html", {
+      clearProps: "all",
+    });
+
+    document.body.style.overflow =
+      "auto";
+
+    document.documentElement.style.overflow =
+      "auto";
+
+    document.body.style.position =
+      "relative";
+
+    document.documentElement.style.position =
+      "relative";
+
+    document.body.classList.remove(
+      "hide-scrollbar"
+    );
+
+    // ✅ FORCE REFRESH
+    ScrollTrigger.refresh();
+  };
+}, []);
 
   return (
     <>
@@ -223,7 +330,7 @@ export function AboutDiveCampus() {
                       : member.name === "ABDULLAH"
                       ? "/Abdullah.webp"
                       : member.name === "Sorie"
-                      ? "/Suriep"
+                      ? "/Surie.webp"
                       : "/placeholder.jpg"
                   }
                   alt={member.name}
