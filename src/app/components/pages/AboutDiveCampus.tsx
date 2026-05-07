@@ -53,62 +53,18 @@ export function AboutDiveCampus() {
 useLayoutEffect(() => {
   if (!sectionRef.current) return;
 
-  console.log("🚀 COMPONENT MOUNTED");
-
-  console.log("📍 Current URL:", window.location.href);
-
-  console.log(
-    "📏 Screen Size:",
-    window.innerWidth,
-    "x",
-    window.innerHeight
-  );
-
-  console.log(
-    "📦 Total Orbit Cards:",
-    cardsRef.current.length
-  );
-
-  console.log(
-    "📜 Initial Scroll Height:",
-    document.body.scrollHeight
-  );
-
-  console.log(
-    "🧠 GSAP Version:",
-    gsap.version
-  );
-
-  console.log(
-    "🎯 ScrollTrigger Loaded:",
-    ScrollTrigger
-  );
-
-  document.documentElement.style.scrollBehavior = "smooth";
+  // ✅ FIX 1: Remove smooth scroll - causes production lag
+  // document.documentElement.style.scrollBehavior = "smooth";
 
   document.body.classList.add("hide-scrollbar");
 
-  // FIX LIVE BUG
-  document.body.style.overflow = "auto";
-  document.documentElement.style.overflow = "auto";
-
-  console.log(
-    "✅ Body Overflow:",
-    document.body.style.overflow
-  );
-
-  console.log(
-    "✅ HTML Overflow:",
-    document.documentElement.style.overflow
-  );
+  // ✅ FIX 2: Don't override overflow - let browser handle it naturally in production
+  // document.body.style.overflow = "auto";
+  // document.documentElement.style.overflow = "auto";
 
   const ctx = gsap.context(() => {
 
     const total = cardsRef.current.length;
-
-    console.log(
-      "🌀 Creating Orbit Animation"
-    );
 
     const getRadius = () => {
       if (window.innerWidth < 480) return 95;
@@ -120,16 +76,8 @@ useLayoutEffect(() => {
 
     let radius = getRadius();
 
-    console.log("📡 Orbit Radius:", radius);
-
     const updateOrbit = () => {
       radius = getRadius();
-
-      console.log(
-        "🔄 Resize Triggered | New Radius:",
-        radius
-      );
-
       ScrollTrigger.refresh();
     };
 
@@ -143,11 +91,6 @@ useLayoutEffect(() => {
       const angle =
         (i / total) * Math.PI * 2;
 
-      console.log(
-        `🧭 Card ${i} Initial Angle:`,
-        angle
-      );
-
       gsap.set(card, {
         x: Math.cos(angle) * radius,
         y: Math.sin(angle) * radius,
@@ -160,64 +103,24 @@ useLayoutEffect(() => {
       value: 0,
     };
 
+    // ✅ FIX 3: Use pinType "fixed" for production stability
+    // ✅ FIX 4: Remove invalidateOnRefresh - causes pin freeze in production
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: sectionRef.current,
-
         start: "top top",
-
         end: "+=4000",
-
         scrub: 1.2,
-
         pin: true,
-
         pinSpacing: true,
-
-        invalidateOnRefresh: true,
-
+        // ✅ CRITICAL: Use "fixed" instead of default for production
+        pinType: "fixed",
+        // ✅ REMOVED: invalidateOnRefresh causes production hang
         anticipatePin: 1,
-
         fastScrollEnd: true,
-
         markers: false,
-
-        onEnter: () => {
-          console.log(
-            "✅ ScrollTrigger ENTERED"
-          );
-        },
-
-        onUpdate: (self) => {
-          console.log(
-            "📜 Scroll Progress:",
-            self.progress.toFixed(3)
-          );
-        },
-
-        onLeave: () => {
-          console.log(
-            "🚪 ScrollTrigger LEFT"
-          );
-        },
-
-        onRefresh: () => {
-          console.log(
-            "♻️ ScrollTrigger REFRESHED"
-          );
-        },
-
-        onRefreshInit: () => {
-          console.log(
-            "⚡ ScrollTrigger REFRESH INIT"
-          );
-        },
       },
     });
-
-    console.log(
-      "🎬 Timeline Created Successfully"
-    );
 
     tl.to(rotation, {
       value: Math.PI * 2,
@@ -225,11 +128,6 @@ useLayoutEffect(() => {
       ease: "none",
 
       onUpdate: () => {
-
-        console.log(
-          "🌀 Orbit Rotation:",
-          rotation.value.toFixed(2)
-        );
 
         cardsRef.current.forEach(
           (card, i) => {
@@ -269,58 +167,33 @@ useLayoutEffect(() => {
       },
     });
 
-    // VERY IMPORTANT
+    // ✅ FIX 5: Longer delay for production render time, safer than aggressive refresh
     setTimeout(() => {
-      console.log(
-        "⏳ Delayed ScrollTrigger Refresh"
-      );
-
       ScrollTrigger.refresh();
-
-      console.log(
-        "📏 After Refresh Height:",
-        document.body.scrollHeight
-      );
-    }, 1000);
+    }, 1500);
 
     return () => {
-      console.log("🧹 CLEANUP STARTED");
-
       window.removeEventListener(
         "resize",
         updateOrbit
       );
 
       tl.kill();
-
-      console.log(
-        "❌ Timeline Killed"
-      );
     };
   }, sectionRef);
 
   return () => {
-    console.log("🛑 COMPONENT UNMOUNT");
-
     ctx.revert();
 
     ScrollTrigger.getAll().forEach(
-      (trigger, i) => {
-        console.log(
-          `🔥 Killing Trigger ${i}`
-        );
-
+      (trigger) => {
         trigger.kill();
       }
     );
 
     document
       .querySelectorAll(".pin-spacer")
-      .forEach((el, i) => {
-
-        console.log(
-          `🧱 Removing Pin Spacer ${i}`
-        );
+      .forEach((el) => {
 
         const parent = el.parentNode;
 
@@ -344,17 +217,11 @@ useLayoutEffect(() => {
       clearProps: "all",
     });
 
-    document.body.style.overflow =
-      "auto";
-
-    document.documentElement.style.overflow =
-      "auto";
+    // ✅ FIX 6: Don't force overflow - let browser restore naturally
+    // document.body.style.overflow = "auto";
+    // document.documentElement.style.overflow = "auto";
 
     ScrollTrigger.refresh();
-
-    console.log(
-      "✅ FINAL CLEANUP DONE"
-    );
   };
 }, []);
 
