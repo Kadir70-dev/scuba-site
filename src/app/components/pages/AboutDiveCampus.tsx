@@ -267,7 +267,7 @@ useLayoutEffect(() => {
     <>
       <section
         ref={sectionRef}
-        className="relative h-screen w-full overflow-hidden bg-gradient-to-br from-[#18476D] via-[#123a5a] to-[#0b2c45] text-white"
+       className="relative min-h-[100svh] w-full overflow-hidden bg-gradient-to-br from-[#18476D] via-[#123a5a] to-[#0b2c45] text-white isolate"
         style={{
           fontFamily: "Harabara, sans-serif",
         }}
