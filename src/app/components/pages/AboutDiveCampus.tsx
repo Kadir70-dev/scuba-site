@@ -53,14 +53,25 @@ export function AboutDiveCampus() {
 useLayoutEffect(() => {
   if (!sectionRef.current) return;
 
-  // ✅ FIX 1: Remove smooth scroll - causes production lag
-  // document.documentElement.style.scrollBehavior = "smooth";
-
   document.body.classList.add("hide-scrollbar");
 
-  // ✅ FIX 2: Don't override overflow - let browser handle it naturally in production
-  // document.body.style.overflow = "auto";
-  // document.documentElement.style.overflow = "auto";
+  // ✅ FIX: Detect mobile/touch device
+  const isMobileDevice = () => {
+    return (
+      /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+        navigator.userAgent
+      ) || window.innerWidth < 1024
+    );
+  };
+
+  const isTouch = () => {
+    return (
+      window.matchMedia("(hover: none) and (pointer: coarse)").matches ||
+      navigator.maxTouchPoints > 0
+    );
+  };
+
+  const isMobile = isMobileDevice() || isTouch();
 
   const ctx = gsap.context(() => {
 
@@ -103,8 +114,9 @@ useLayoutEffect(() => {
       value: 0,
     };
 
-    // ✅ FIX 3: Use pinType "fixed" for production stability
-    // ✅ FIX 4: Remove invalidateOnRefresh - causes pin freeze in production
+    // ✅ FIX: Conditional pinType based on device
+    // Mobile (transform) = better for touch, avoids Safari pinning issues
+    // Desktop (fixed) = stable, smooth scrolling
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: sectionRef.current,
@@ -113,9 +125,8 @@ useLayoutEffect(() => {
         scrub: 1.2,
         pin: true,
         pinSpacing: true,
-        // ✅ CRITICAL: Use "fixed" instead of default for production
-        pinType: "fixed",
-        // ✅ REMOVED: invalidateOnRefresh causes production hang
+        // ✅ CRITICAL: Use "transform" for mobile, "fixed" for desktop
+        pinType: isMobile ? "transform" : "fixed",
         anticipatePin: 1,
         fastScrollEnd: true,
         markers: false,
@@ -167,10 +178,11 @@ useLayoutEffect(() => {
       },
     });
 
-    // ✅ FIX 5: Longer delay for production render time, safer than aggressive refresh
+    // ✅ FIX: Longer delay for mobile render time
+    const refreshDelay = isMobile ? 2000 : 1500;
     setTimeout(() => {
       ScrollTrigger.refresh();
-    }, 1500);
+    }, refreshDelay);
 
     return () => {
       window.removeEventListener(
@@ -216,10 +228,6 @@ useLayoutEffect(() => {
     gsap.set("html", {
       clearProps: "all",
     });
-
-    // ✅ FIX 6: Don't force overflow - let browser restore naturally
-    // document.body.style.overflow = "auto";
-    // document.documentElement.style.overflow = "auto";
 
     ScrollTrigger.refresh();
   };
