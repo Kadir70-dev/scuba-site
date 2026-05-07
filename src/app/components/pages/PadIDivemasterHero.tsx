@@ -81,35 +81,74 @@ export function PadIDivemasterHero() {
           </p>
 
           {/* PRICE CARD */}
-          <div className="mt-16 bg-white/10 backdrop-blur-xl border border-white/20 rounded-3xl px-12 py-9 shadow-[0_20px_60px_rgba(0,0,0,0.35)]">
+          <div
+            className="
+    mt-16
 
+    bg-white/10
+    backdrop-blur-xl
+
+    border
+    border-white/20
+
+    rounded-3xl
+
+    px-12
+    py-9
+
+    shadow-[0_20px_60px_rgba(0,0,0,0.35)]
+  "
+          >
             {/* OLD PRICE */}
-            <p className="text-xs text-white/40 line-through mb-3 tracking-[2.2px]">
-
+            <p
+              className="
+      text-xs
+      text-white/40
+      line-through
+      mb-3
+      tracking-[2.2px]
+    "
+            >
               AED 4,999
-
             </p>
 
             {/* NEW PRICE */}
-            <h2 className="text-5xl font-bold tracking-[1.2px] leading-none">
-
-              3,499{" "}
-
-              <span className="text-cyan-400 text-lg tracking-[2.5px] font-medium">
-
+            <h2
+              className="
+      text-5xl
+      font-bold
+      tracking-[1.2px]
+      leading-none
+    "
+            >
+              <span
+                className="
+        text-cyan-400
+        text-lg
+        tracking-[2.5px]
+        font-medium
+        mr-2
+      "
+              >
                 AED
-
               </span>
 
+              3,499
             </h2>
 
             {/* SMALL TEXT */}
-            <p className="text-xs text-white/55 mt-5 tracking-[1.1px] leading-[1.9]">
-
-              Includes Training · Internship · Certification
-
+            <p
+              className="
+      text-xs
+      text-white/55
+      mt-5
+      tracking-[1.1px]
+      leading-[1.9]
+    "
+            >
+              Includes Training · Internship ·
+              Certification
             </p>
-
           </div>
 
           {/* BUTTONS */}
