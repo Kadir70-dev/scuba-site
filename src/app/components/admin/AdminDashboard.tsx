@@ -30,6 +30,7 @@ import GlobalPassportAdmin from "./GlobalPassportAdmin";
 import ChooseEnvironmentAdmin from "./ChooseEnvironmentAdmin";
 import AdvancedTrainingGoldAdmin from "./AdvancedTrainingGoldAdmin";
 import MasteryGapAdmin from "./MasteryGapAdmin";
+import PremiumFooterAdmin from "./PremiumFooterAdmin";
 
 export default function AdminDashboard() {
   const [hero, setHero] = useState<any>(null);
@@ -178,6 +179,10 @@ export default function AdminDashboard() {
     {
       name :  "Mastery Gap",
       component : <MasteryGapAdmin />
+    },
+    {
+      name: "Premium Footer",
+      component: <PremiumFooterAdmin/>
     },
   ];
 
