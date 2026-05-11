@@ -39,6 +39,13 @@ import DiveEnvironmentAdmin from "./DiveEnvironmentAdmin";
 import AdvancedTrainingGoldElitedAdmin from "./AdvancedTrainingGoldEliteAdmin";
 import TrainingComparisonAdmin from "./TrainingComparisonAdmin";
 import EliteFooterAdmin from "./EliteFooterAdmin";
+import DivemasterHeroAdmin from "./DivemasterHeroAdmin";
+import CommandOceanAdmin from "./CommandOceanAdmin";
+import ComparisonDiveAdmin from "./ComparisonDiveAdmin";
+import ProfessionalStatusAdmin from "./ProfessionalStatusAdmin";
+import CareerPathAdmin from "./CareerPathAdmin";
+import GoldStandardDiveAdmin from "./GoldStandardDiveAdmin";
+// import EnvironmentSectionAdmin from "./EnvironmentSectionAdmin";
 export default function AdminDashboard() {
   const [hero, setHero] = useState<any>(null);
   const [loading, setLoading] = useState(true);
@@ -222,7 +229,35 @@ export default function AdminDashboard() {
     {
       name :" Elite Footer",
       component:<EliteFooterAdmin />
-    }
+    },
+    {
+      name :" Divemaster Hero",
+      component:<DivemasterHeroAdmin />
+    },
+    {
+      name: "Command Ocean",
+      component: <CommandOceanAdmin />
+    }, 
+    {
+     name :"Comparison Dive",
+     component:<ComparisonDiveAdmin />
+    },
+    {
+      name :"Professional Status",
+      component:<ProfessionalStatusAdmin />
+    },
+    {
+      name :"Career Path",
+      component:<CareerPathAdmin />
+    },
+    {
+      name: "Gold Standard Dive",
+      component:<GoldStandardDiveAdmin />
+    },
+    // {
+    //   name :" Environment Section",
+    //   component :<EnvironmentSectionAdmin />
+    // }
   ];
 
   if (loading) {
