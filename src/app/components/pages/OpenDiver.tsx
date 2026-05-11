@@ -29,54 +29,23 @@ export function OpenDiver() {
      FETCH
   ========================================= */
 
-useEffect(() => {
+  useEffect(() => {
 
-  const fetchCourse = async () => {
+    const fetchCourse = async () => {
 
-    const response =
-      await getOpenDiverCourse();
+      const { data } =
+        await getOpenDiverCourse();
 
-    console.log(
-      "FULL RESPONSE =>",
-      response
-    );
+      setCourse(data);
 
-    console.log(
-      "DATA =>",
-      response.data
-    );
+      setLoading(false);
 
-    console.log(
-      "ERROR =>",
-      response.error
-    );
+    };
 
-    console.log(
-      "COURSE TITLE =>",
-      response.data?.title
-    );
+    fetchCourse();
 
-    console.log(
-      "SUPABASE URL =>",
-      import.meta.env
-        .VITE_SUPABASE_URL
-    );
+  }, []);
 
-    console.log(
-      "SUPABASE KEY =>",
-      import.meta.env
-        .VITE_SUPABASE_ANON_KEY
-    );
-
-    setCourse(response.data);
-
-    setLoading(false);
-
-  };
-
-  fetchCourse();
-
-}, []);
   /* =========================================
      LOADING
   ========================================= */
