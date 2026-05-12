@@ -48,6 +48,8 @@ import GoldStandardDiveAdmin from "./GoldStandardDiveAdmin";
 import RescueHeroAdmin from "./RescueHeroAdmin";
 import RescueCapabilitiesAdmin from "./RescueCapabilitiesAdmin";
 import RescueComparisonAdmin from "./RescueComparisonAdmin";
+import SimulationRealityAdmin from "./SimulationToRealityAdmin";
+import MasterScubaCTAAdmin from "./MasterScubaCTAAdmin";
 // import EnvironmentSectionAdmin from "./EnvironmentSectionAdmin";
 export default function AdminDashboard() {
   const [hero, setHero] = useState<any>(null);
@@ -273,7 +275,15 @@ export default function AdminDashboard() {
     {
       name :" Rescue Comparison",
       component:<RescueComparisonAdmin />
-    }
+    },
+    {
+      name :"Simulation to Reality",
+      component:<SimulationRealityAdmin />
+    },
+    {
+      name :"Master Scuba CTA",
+      component :<MasterScubaCTAAdmin />
+    },
   ];
 
   if (loading) {

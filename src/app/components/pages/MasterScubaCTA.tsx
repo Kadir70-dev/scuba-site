@@ -1,73 +1,269 @@
+// =========================================
+// MasterScubaCTA.tsx
+// DYNAMIC FRONTEND
+// =========================================
+
 "use client";
 
-import { FaWhatsapp } from "react-icons/fa";
-import { motion } from "framer-motion";
+import {
+
+  useEffect,
+
+  useState,
+
+} from "react";
+
+import {
+
+  FaWhatsapp,
+
+} from "react-icons/fa";
+
+import {
+
+  motion,
+
+} from "framer-motion";
+
+import {
+
+  getMasterScubaCTA,
+
+} from "@/services/MasterScubaCTAService";
 
 export function MasterScubaCTA() {
+
+  const [section, setSection] =
+    useState<any>(null);
+
+  /* =========================================
+     LOAD DATA
+  ========================================= */
+
+  useEffect(() => {
+
+    const load =
+      async () => {
+
+        const {
+
+          data,
+
+        } =
+          await getMasterScubaCTA();
+
+        console.log(
+          "MASTER SCUBA CTA =>",
+          data
+        );
+
+        setSection(data);
+
+      };
+
+    load();
+
+  }, []);
+
+  if (!section)
+    return null;
+
   return (
+
     <section
-      className="relative py-28 overflow-hidden bg-gradient-to-r from-[#081c2c] to-[#0d2f45] text-white"
-      style={{ fontFamily: "Harabara, sans-serif" }}
+      className="
+        relative
+        py-28
+        overflow-hidden
+        bg-gradient-to-r
+        from-[#081c2c]
+        to-[#0d2f45]
+        text-white
+      "
+      style={{
+        fontFamily:
+          "Harabara, sans-serif",
+      }}
     >
 
       {/* BACKGROUND GLOW */}
-      <div className="absolute top-0 left-0 w-72 h-72 bg-cyan-400/10 blur-[120px] rounded-full" />
+      <div className="
+        absolute
+        top-0
+        left-0
+        w-72
+        h-72
+        bg-cyan-400/10
+        blur-[120px]
+        rounded-full
+      " />
 
-      <div className="absolute bottom-0 right-0 w-72 h-72 bg-blue-500/10 blur-[120px] rounded-full" />
+      <div className="
+        absolute
+        bottom-0
+        right-0
+        w-72
+        h-72
+        bg-blue-500/10
+        blur-[120px]
+        rounded-full
+      " />
 
       {/* CONTENT */}
       <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-        className="relative z-10 max-w-[760px] mx-auto text-center px-6"
+
+        initial={{
+          opacity: 0,
+          y: 20,
+        }}
+
+        whileInView={{
+          opacity: 1,
+          y: 0,
+        }}
+
+        transition={{
+          duration: 0.5,
+        }}
+
+        className="
+          relative
+          z-10
+          max-w-[760px]
+          mx-auto
+          text-center
+          px-6
+        "
+
       >
 
         {/* SMALL TITLE */}
-        <p className="text-[11px] md:text-[12px] text-white/55 tracking-[3px] uppercase">
+        <p className="
+          text-[11px]
+          md:text-[12px]
+          text-white/55
+          tracking-[3px]
+          uppercase
+        ">
 
-          The "Black Belt" of Diving
+          {
+            section.top_text
+          }
 
         </p>
 
         {/* MAIN TITLE */}
-        <h2 className="text-3xl md:text-5xl font-semibold mt-6 leading-[1.18] tracking-[1px]">
+        <h2 className="
+          text-3xl
+          md:text-5xl
+          font-semibold
+          mt-6
+          leading-[1.18]
+          tracking-[1px]
+        ">
 
-          Master Scuba Diver
+          {
+            section.title
+          }
 
         </h2>
 
         {/* DESCRIPTION */}
-        <p className="text-[15px] md:text-[16px] text-white/60 mt-8 leading-[2] tracking-[0.45px] max-w-[620px] mx-auto">
+        <p className="
+          text-[15px]
+          md:text-[16px]
+          text-white/60
+          mt-8
+          leading-[2]
+          tracking-[0.45px]
+          max-w-[620px]
+          mx-auto
+        ">
 
-          Rescue Diver is the final core milestone.
-          You are now just five specialty certifications
-          away from earning the highest non-professional
-          distinction in recreational diving.
+          {
+            section.description
+          }
 
         </p>
 
         {/* BUTTONS */}
-        <div className="mt-12 flex items-center justify-center gap-4 flex-wrap">
+        <div className="
+          mt-12
+          flex
+          items-center
+          justify-center
+          gap-4
+          flex-wrap
+        ">
 
           {/* PRIMARY BUTTON */}
-          <button className="px-7 py-3.5 text-[12px] tracking-[1px] rounded-2xl bg-white text-[#0a0e27] font-medium hover:scale-[1.03] transition duration-300 shadow-lg">
+          <a
 
-            START YOUR JOURNEY
+            href={
+              section.primary_button_link
+            }
 
-          </button>
+            className="
+              px-7
+              py-3.5
+              text-[12px]
+              tracking-[1px]
+              rounded-2xl
+              bg-white
+              text-[#0a0e27]
+              font-medium
+              hover:scale-[1.03]
+              transition
+              duration-300
+              shadow-lg
+            "
+
+          >
+
+            {
+              section.primary_button_text
+            }
+
+          </a>
 
           {/* WHATSAPP BUTTON */}
           <a
-            href="https://wa.me/971XXXXXXXXX?text=Hi%20I%20want%20to%20plan%20my%20diving%20roadmap"
+
+            href={
+              section.whatsapp_link
+            }
+
             target="_blank"
+
             rel="noopener noreferrer"
-            className="flex items-center gap-2 px-7 py-3.5 text-[12px] tracking-[1px] rounded-2xl border border-green-400 text-green-400 hover:bg-green-400 hover:text-white transition duration-300"
+
+            className="
+              flex
+              items-center
+              gap-2
+              px-7
+              py-3.5
+              text-[12px]
+              tracking-[1px]
+              rounded-2xl
+              border
+              border-green-400
+              text-green-400
+              hover:bg-green-400
+              hover:text-white
+              transition
+              duration-300
+            "
+
           >
 
-            <FaWhatsapp className="text-sm" />
+            <FaWhatsapp className="
+              text-sm
+            " />
 
-            PLAN YOUR ROADMAP
+            {
+              section.whatsapp_button_text
+            }
 
           </a>
 
@@ -75,14 +271,8 @@ export function MasterScubaCTA() {
 
       </motion.div>
 
-      {/* FONT */}
-      <style jsx global>{`
-        @font-face {
-          font-family: 'Harabara';
-          src: url('/fonts/Harabara.woff') format('woff');
-        }
-      `}</style>
-
     </section>
+
   );
+
 }
