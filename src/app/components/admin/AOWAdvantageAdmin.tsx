@@ -1,40 +1,28 @@
 "use client";
 
-import { useEffect, useState } from "react";
-
-import { motion } from "framer-motion";
+import {
+  useEffect,
+  useState,
+} from "react";
 
 import {
+  motion,
+} from "framer-motion";
 
+import {
   Check,
-
-  Plus,
-
-  Trash2,
-
   Save,
-
 } from "lucide-react";
 
 import {
 
-  getAOWAdvantageSection,
+  getAOWAdvantage,
 
   updateAOWAdvantageSection,
 
-  getAOWAdvantagePoints,
-
-//   createAOWAdvantagePoint,
-
   updateAOWAdvantagePoint,
 
-//   deleteAOWAdvantagePoint,
-
 } from "@/services/AOWAdvantageService";
-
-/* =========================================
-   COMPONENT
-========================================= */
 
 export default function AOWAdvantageAdmin() {
 
@@ -44,649 +32,351 @@ export default function AOWAdvantageAdmin() {
   const [points, setPoints] =
     useState<any[]>([]);
 
-  const [loading, setLoading] =
-    useState(true);
-
   const [saving, setSaving] =
     useState(false);
 
-  /* =========================================
-     FETCH
-  ========================================= */
-
   useEffect(() => {
 
-    const fetchData = async () => {
+    const load = async () => {
 
-      const { data: sectionData } =
-        await getAOWAdvantageSection();
+      const res =
+        await getAOWAdvantage();
 
-      const { data: pointsData } =
-        await getAOWAdvantagePoints();
+      setSection(res.section);
 
-      setSection(sectionData);
-
-      setPoints(pointsData || []);
-
-      setLoading(false);
+      setPoints(res.points);
 
     };
 
-    fetchData();
+    load();
 
   }, []);
 
-  /* =========================================
-     SAVE SECTION
-  ========================================= */
+  /* SAVE SECTION */
+  const handleSave =
+    async () => {
 
-  const handleSave = async () => {
+      setSaving(true);
 
-    if (!section?.id) return;
+      await updateAOWAdvantageSection(
+        section.id,
+        section
+      );
 
-    setSaving(true);
-
-    await updateAOWAdvantageSection(
-      section.id,
-      section
-    );
-
-    setSaving(false);
-
-  };
-
-  /* =========================================
-     UPDATE POINT
-  ========================================= */
-
-  const handleUpdatePoint = async (
-    id: string,
-    payload: any
-  ) => {
-
-    await updateAOWAdvantagePoint(
-      id,
-      payload
-    );
-
-  };
-
-  /* =========================================
-     ADD POINT
-  ========================================= */
-
-  const handleAddPoint = async () => {
-
-    const payload = {
-
-      section_id: section?.id,
-
-      title: "New Point",
-
-      description:
-        "New description",
-
-      sort_order:
-        points.length + 1,
+      setSaving(false);
 
     };
 
-//     const { data } =
-//       await createAOWAdvantagePoint(
-//         payload
-//       );
+  /* UPDATE POINT */
+  const updatePoint =
+    async (
+      i: number,
+      field: string,
+      value: string
+    ) => {
 
-//     if (data) {
+      const updated =
+        [...points];
 
-//       setPoints([
-//         ...points,
-//         data,
-//       ]);
+      updated[i][field] =
+        value;
 
-//     }
+      setPoints(updated);
 
-//   };
+      await updateAOWAdvantagePoint(
+        updated[i].id,
+        updated[i]
+      );
 
-  /* =========================================
-     DELETE POINT
-  ========================================= */
+    };
 
-//   const handleDelete = async (
-//     id: string
-//   ) => {
-
-//     await deleteAOWAdvantagePoint(id);
-
-//     setPoints(
-//       points.filter(
-//         (item) => item.id !== id
-//       )
-//     );
-
-  };
-
-  /* =========================================
-     LOADING
-  ========================================= */
-
-  if (loading) {
-
-    return (
-
-      <div className="
-        min-h-screen
-        flex
-        items-center
-        justify-center
-        bg-[#03121c]
-        text-white
-      ">
-
-        Loading...
-
-      </div>
-
-    );
-
-  }
+  if (!section) return null;
 
   return (
 
-    <section
-      className="
-        py-32
-        bg-[#03121c]
-        text-white
-      "
-      style={{
-        fontFamily:
-          "Harabara, sans-serif",
-      }}
-    >
+    <section className="
+      py-20
+      bg-[#f4f7fb]
+      min-h-screen
+    ">
 
       <div className="
         max-w-7xl
         mx-auto
-        grid
-        lg:grid-cols-2
-        gap-20
         px-6
-        items-start
       ">
 
-        {/* LEFT IMAGE */}
-        <motion.div
-          initial={{
-            opacity: 0,
-            scale: 0.95,
-          }}
-          animate={{
-            opacity: 1,
-            scale: 1,
-          }}
-          transition={{
-            duration: 0.6,
-          }}
-          className="
-            flex
-            justify-center
-            sticky
-            top-10
-          "
-        >
+        {/* TOP */}
+        <div className="
+          flex
+          justify-between
+          items-center
+          mb-10
+        ">
 
-          <div className="
-            rounded-3xl
-            overflow-hidden
-            shadow-[0_20px_80px_rgba(0,0,0,0.6)]
-            max-w-[440px]
-            w-full
-            border
-            border-white/10
-            bg-white/5
-            backdrop-blur-xl
-            p-4
+          <h2 className="
+            text-4xl
+            font-bold
+            text-black
           ">
+            AOW Advantage
+          </h2>
 
-            <img
-              src={
-                section?.image_url ||
-                "/A59I9512.jpg"
-              }
-              alt="divers"
-              className="
-                w-full
-                h-full
-                object-cover
-                rounded-2xl
-              "
-            />
+          <button
+            onClick={handleSave}
+            className="
+              h-[54px]
+              px-7
+              rounded-2xl
+              bg-cyan-400
+              text-black
+              font-semibold
+              flex
+              items-center
+              gap-2
+            "
+          >
 
-            <input
-              value={
-                section?.image_url || ""
-              }
-              onChange={(e) =>
-                setSection({
-                  ...section,
-                  image_url:
-                    e.target.value,
-                })
-              }
-              placeholder="Image URL"
-              className="
-                mt-4
-                w-full
-                h-[54px]
-                rounded-2xl
-                bg-white/5
-                border
-                border-white/10
-                px-5
-                text-white
-                outline-none
-              "
-            />
+            <Save size={18} />
 
-          </div>
+            {saving
+              ? "Saving..."
+              : "Save"}
 
-        </motion.div>
+          </button>
 
-        {/* RIGHT CONTENT */}
-        <div>
+        </div>
 
-          {/* TOP */}
-          <div className="
-            flex
-            items-center
-            justify-between
-            gap-4
-            mb-10
-            flex-wrap
-          ">
+        {/* SECTION */}
+        <div className="
+          bg-white
+          border
+          border-gray-200
+          rounded-3xl
+          p-7
+          mb-12
+          grid
+          md:grid-cols-2
+          gap-5
+        ">
 
-            <div>
+          <input
+            value={section.top_label || ""}
+            onChange={(e) =>
+              setSection({
+                ...section,
+                top_label:
+                  e.target.value,
+              })
+            }
+            placeholder="Top Label"
+            className="
+              h-[56px]
+              rounded-2xl
+              border
+              border-gray-200
+              px-5
+              text-black
+              outline-none
+            "
+          />
 
-              <p className="
-                text-[10px]
-                tracking-[4px]
-                text-cyan-400
-                mb-3
-              ">
-                ADMIN PANEL
-              </p>
+          <input
+            value={section.image_url || ""}
+            onChange={(e) =>
+              setSection({
+                ...section,
+                image_url:
+                  e.target.value,
+              })
+            }
+            placeholder="Image URL"
+            className="
+              h-[56px]
+              rounded-2xl
+              border
+              border-gray-200
+              px-5
+              text-black
+              outline-none
+            "
+          />
 
-              <h2 className="
-                text-3xl
-                md:text-5xl
-                font-bold
-              ">
-                AOW Advantage
-              </h2>
+          <input
+            value={section.title || ""}
+            onChange={(e) =>
+              setSection({
+                ...section,
+                title:
+                  e.target.value,
+              })
+            }
+            placeholder="Title"
+            className="
+              h-[56px]
+              rounded-2xl
+              border
+              border-gray-200
+              px-5
+              text-black
+              outline-none
+            "
+          />
 
-            </div>
+          <input
+            value={
+              section.highlighted_title || ""
+            }
+            onChange={(e) =>
+              setSection({
+                ...section,
+                highlighted_title:
+                  e.target.value,
+              })
+            }
+            placeholder="Highlighted Title"
+            className="
+              h-[56px]
+              rounded-2xl
+              border
+              border-gray-200
+              px-5
+              text-black
+              outline-none
+            "
+          />
 
-            <motion.button
-              whileTap={{
-                scale: 0.95,
-              }}
-              onClick={handleSave}
-              className="
-                h-[56px]
-                px-7
-                rounded-2xl
-                bg-cyan-400
-                text-black
-                font-bold
-                flex
-                items-center
-                gap-3
-              "
-            >
+          <textarea
+            rows={5}
+            value={
+              section.description || ""
+            }
+            onChange={(e) =>
+              setSection({
+                ...section,
+                description:
+                  e.target.value,
+              })
+            }
+            placeholder="Description"
+            className="
+              md:col-span-2
+              rounded-2xl
+              border
+              border-gray-200
+              p-5
+              text-black
+              outline-none
+              resize-none
+            "
+          />
 
-              <Save size={18} />
+        </div>
 
-              {saving
-                ? "Saving..."
-                : "Save"}
+        {/* POINTS */}
+        <div className="
+          space-y-6
+        ">
 
-            </motion.button>
+          {points.map(
+            (item, i) => (
 
-          </div>
-
-          {/* FORM */}
-          <div className="
-            bg-white/5
-            border
-            border-white/10
-            rounded-3xl
-            p-7
-            backdrop-blur-xl
-            space-y-6
-          ">
-
-            {/* LABEL */}
-            <div>
-
-              <label className="
-                text-[11px]
-                tracking-[3px]
-                uppercase
-                text-white/50
-              ">
-                Top Label
-              </label>
-
-              <input
-                value={
-                  section?.top_label || ""
-                }
-                onChange={(e) =>
-                  setSection({
-                    ...section,
-                    top_label:
-                      e.target.value,
-                  })
-                }
+              <motion.div
+                key={item.id}
+                initial={{
+                  opacity: 0,
+                  y: 20,
+                }}
+                animate={{
+                  opacity: 1,
+                  y: 0,
+                }}
                 className="
-                  mt-3
-                  w-full
-                  h-[58px]
-                  rounded-2xl
-                  bg-white/5
+                  bg-white
                   border
-                  border-white/10
-                  px-5
-                  text-white
-                  outline-none
+                  border-gray-200
+                  rounded-3xl
+                  p-6
+                  flex
+                  gap-5
                 "
-              />
+              >
 
-            </div>
-
-            {/* TITLE */}
-            <div className="
-              grid
-              md:grid-cols-2
-              gap-5
-            ">
-
-              <div>
-
-                <label className="
-                  text-[11px]
-                  tracking-[3px]
-                  uppercase
-                  text-white/50
+                {/* ICON */}
+                <div className="
+                  w-10
+                  h-10
+                  rounded-full
+                  bg-cyan-100
+                  text-cyan-500
+                  flex
+                  items-center
+                  justify-center
+                  mt-1
                 ">
-                  Title
-                </label>
 
-                <input
-                  value={
-                    section?.title || ""
-                  }
-                  onChange={(e) =>
-                    setSection({
-                      ...section,
-                      title:
-                        e.target.value,
-                    })
-                  }
-                  className="
-                    mt-3
-                    w-full
-                    h-[58px]
-                    rounded-2xl
-                    bg-white/5
-                    border
-                    border-white/10
-                    px-5
-                    text-white
-                    outline-none
-                  "
-                />
+                  <Check size={16} />
 
-              </div>
+                </div>
 
-              <div>
-
-                <label className="
-                  text-[11px]
-                  tracking-[3px]
-                  uppercase
-                  text-white/50
+                {/* CONTENT */}
+                <div className="
+                  flex-1
+                  space-y-4
                 ">
-                  Highlight Title
-                </label>
 
-                <input
-                  value={
-                    section?.highlighted_title || ""
-                  }
-                  onChange={(e) =>
-                    setSection({
-                      ...section,
-                      highlighted_title:
-                        e.target.value,
-                    })
-                  }
-                  className="
-                    mt-3
-                    w-full
-                    h-[58px]
-                    rounded-2xl
-                    bg-white/5
-                    border
-                    border-white/10
-                    px-5
-                    text-cyan-300
-                    outline-none
-                  "
-                />
+                  <input
+                    value={item.title}
+                    onChange={(e) =>
+                      updatePoint(
+                        i,
+                        "title",
+                        e.target.value
+                      )
+                    }
+                    className="
+                      w-full
+                      h-[54px]
+                      rounded-2xl
+                      border
+                      border-gray-200
+                      px-5
+                      text-black
+                      outline-none
+                      font-semibold
+                    "
+                  />
 
-              </div>
+                  <textarea
+                    rows={4}
+                    value={
+                      item.description
+                    }
+                    onChange={(e) =>
+                      updatePoint(
+                        i,
+                        "description",
+                        e.target.value
+                      )
+                    }
+                    className="
+                      w-full
+                      rounded-2xl
+                      border
+                      border-gray-200
+                      p-5
+                      text-black
+                      outline-none
+                      resize-none
+                    "
+                  />
 
-            </div>
+                </div>
 
-            {/* DESCRIPTION */}
-            <div>
+              </motion.div>
 
-              <label className="
-                text-[11px]
-                tracking-[3px]
-                uppercase
-                text-white/50
-              ">
-                Description
-              </label>
-
-              <textarea
-                rows={5}
-                value={
-                  section?.description || ""
-                }
-                onChange={(e) =>
-                  setSection({
-                    ...section,
-                    description:
-                      e.target.value,
-                  })
-                }
-                className="
-                  mt-3
-                  w-full
-                  rounded-2xl
-                  bg-white/5
-                  border
-                  border-white/10
-                  p-5
-                  text-white
-                  outline-none
-                  resize-none
-                "
-              />
-
-            </div>
-
-          </div>
-
-          {/* POINTS HEADER */}
-          <div className="
-            mt-14
-            flex
-            items-center
-            justify-between
-            flex-wrap
-            gap-4
-            mb-8
-          ">
-
-            <h3 className="
-              text-2xl
-              font-bold
-            ">
-              Advantage Points
-            </h3>
-
-          </div>
-
-          {/* POINTS */}
-          <div className="
-            space-y-7
-          ">
-
-            {points.map(
-              (item, i) => (
-
-                <motion.div
-                  key={item.id}
-                  initial={{
-                    opacity: 0,
-                    x: 30,
-                  }}
-                  animate={{
-                    opacity: 1,
-                    x: 0,
-                  }}
-                  transition={{
-                    delay: i * 0.08,
-                  }}
-                  className="
-                    flex
-                    gap-5
-                    border-b
-                    border-white/10
-                    pb-7
-                  "
-                >
-
-                  {/* ICON */}
-                  <div className="
-                    mt-1
-                  ">
-
-                    <div className="
-                      w-7
-                      h-7
-                      flex
-                      items-center
-                      justify-center
-                      rounded-full
-                      bg-cyan-400/10
-                      text-cyan-400
-                    ">
-
-                      <Check
-                        size={14}
-                      />
-
-                    </div>
-
-                  </div>
-
-                  {/* TEXT */}
-                  <div className="
-                    flex-1
-                    space-y-4
-                  ">
-
-                    {/* TITLE */}
-                    <input
-                      value={item.title}
-                      onChange={(e) => {
-
-                        const updated =
-                          [...points];
-
-                        updated[i].title =
-                          e.target.value;
-
-                        setPoints(updated);
-
-                        handleUpdatePoint(
-                          item.id,
-                          updated[i]
-                        );
-
-                      }}
-                      className="
-                        w-full
-                        h-[54px]
-                        rounded-2xl
-                        bg-white/5
-                        border
-                        border-white/10
-                        px-5
-                        text-white
-                        outline-none
-                        font-semibold
-                      "
-                    />
-
-                    {/* DESCRIPTION */}
-                    <textarea
-                      rows={4}
-                      value={
-                        item.description
-                      }
-                      onChange={(e) => {
-
-                        const updated =
-                          [...points];
-
-                        updated[i].description =
-                          e.target.value;
-
-                        setPoints(updated);
-
-                        handleUpdatePoint(
-                          item.id,
-                          updated[i]
-                        );
-
-                      }}
-                      className="
-                        w-full
-                        rounded-2xl
-                        bg-white/5
-                        border
-                        border-white/10
-                        p-5
-                        text-white
-                        outline-none
-                        resize-none
-                      "
-                    />
-
-                  </div>
-
-                </motion.div>
-
-              )
-            )}
-
-          </div>
+            )
+          )}
 
         </div>
 
