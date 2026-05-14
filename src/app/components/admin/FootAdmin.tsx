@@ -1,7 +1,14 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
+import {
+  useEffect,
+  useState,
+} from "react";
+
+import {
+  Save,
+} from "lucide-react";
+
 import {
   getFooter,
   updateFooterSection,
@@ -10,217 +17,556 @@ import {
   updateFooterApp,
 } from "@/services/footService";
 
-export default function FootAdmin() {
-  const [section, setSection] = useState<any>(null);
-  const [links, setLinks] = useState<any[]>([]);
-  const [socials, setSocials] = useState<any[]>([]);
-  const [apps, setApps] = useState<any[]>([]);
-  const [saving, setSaving] = useState(false);
+export default function FooterAdmin() {
+  const [section, setSection] =
+    useState<any>(null);
 
-  /* ================= LOAD ================= */
+  const [links, setLinks] =
+    useState<any[]>([]);
+
+  const [socials, setSocials] =
+    useState<any[]>([]);
+
+  const [apps, setApps] =
+    useState<any[]>([]);
+
+  const [saving, setSaving] =
+    useState(false);
+
   useEffect(() => {
-    const load = async () => {
-      console.log("🚀 Loading footer...");
-
-      const { section, links, socials, apps } = await getFooter();
-
-      console.log("📦 SECTION:", section);
-      console.log("📦 LINKS:", links);
-      console.log("📦 SOCIALS:", socials);
-      console.log("📦 APPS:", apps);
-
-      setSection(section);
-      setLinks(links);
-      setSocials(socials);
-      setApps(apps);
-    };
-
     load();
   }, []);
 
-  /* ================= SAVE ================= */
-  const handleSave = async () => {
-    setSaving(true);
+  const load = async () => {
+    const res =
+      await getFooter();
 
-    console.log("💾 Saving footer...");
+    setSection(
+      res.section
+    );
 
-    await updateFooterSection(section);
-    await Promise.all(links.map(updateFooterLink));
-    await Promise.all(socials.map(updateFooterSocial));
-    await Promise.all(apps.map(updateFooterApp));
+    setLinks(
+      res.links || []
+    );
 
-    setSaving(false);
+    setSocials(
+      res.socials || []
+    );
 
-    console.log("✅ Footer saved");
+    setApps(
+      res.apps || []
+    );
   };
 
-  if (!section) {
-    return (
-      <div className="h-screen flex items-center justify-center bg-black text-white">
-        Loading...
-      </div>
-    );
-  }
+  const handleSave =
+    async () => {
+      setSaving(true);
+
+      await updateFooterSection(
+        section
+      );
+
+      await Promise.all(
+        links.map(
+          updateFooterLink
+        )
+      );
+
+      await Promise.all(
+        socials.map(
+          updateFooterSocial
+        )
+      );
+
+      await Promise.all(
+        apps.map(
+          updateFooterApp
+        )
+      );
+
+      setSaving(false);
+    };
+
+  if (!section)
+    return null;
 
   return (
-    <section className="py-20 bg-[#06141f] text-white">
+    <section className="min-h-screen py-24 bg-[#f4f7fb]">
 
-      <div className="max-w-7xl mx-auto px-6 space-y-10">
+      <div className="max-w-7xl mx-auto px-6">
 
-        {/* ================= SECTION ================= */}
-        <div className="bg-white/5 border border-white/10 rounded-2xl p-6 space-y-4">
+        {/* HEADER */}
+        <div className="mb-16">
 
-          <h2 className="text-xl font-semibold text-cyan-400">
-            Footer Section
-          </h2>
+          <h1 className="text-5xl font-bold text-black mb-3">
 
-          <input
-            value={section.whatsapp_text || ""}
-            onChange={(e) =>
-              setSection({ ...section, whatsapp_text: e.target.value })
-            }
-            placeholder="WhatsApp Text"
-            className="w-full bg-white/10 px-4 py-2 rounded-lg outline-none"
-          />
+            Footer CMS
 
-          <input
-            value={section.subscribe_placeholder || ""}
-            onChange={(e) =>
-              setSection({
-                ...section,
-                subscribe_placeholder: e.target.value,
-              })
-            }
-            placeholder="Subscribe Placeholder"
-            className="w-full bg-white/10 px-4 py-2 rounded-lg outline-none"
-          />
+          </h1>
 
-          <input
-            value={section.copyright || ""}
-            onChange={(e) =>
-              setSection({ ...section, copyright: e.target.value })
-            }
-            placeholder="Copyright Text"
-            className="w-full bg-white/10 px-4 py-2 rounded-lg outline-none"
-          />
+          <p className="text-black/60 text-lg">
+
+            Manage footer section, links, apps and socials.
+
+          </p>
+
         </div>
 
-        {/* ================= LINKS ================= */}
-        <div className="bg-white/5 border border-white/10 rounded-2xl p-6">
+        {/* GRID */}
+        <div className="grid lg:grid-cols-2 gap-10">
 
-          <h2 className="text-xl font-semibold text-cyan-400 mb-4">
-            Footer Links
-          </h2>
+          {/* LEFT SIDE */}
+          <div className="space-y-8">
 
-          <div className="grid md:grid-cols-3 gap-6">
-            {["info", "experiences", "courses"].map((cat) => (
-              <div key={cat}>
-                <h3 className="text-sm uppercase text-gray-400 mb-3">
-                  {cat}
-                </h3>
+            {/* SECTION */}
+            <div className="bg-white rounded-[30px] border border-gray-200 p-8 shadow-sm">
 
-                {links
-                  .filter((l) => l.category === cat)
-                  .map((item, i) => (
-                    <input
-                      key={item.id}
-                      value={item.label}
-                      onChange={(e) => {
-                        const updated = [...links];
-                        const index = updated.findIndex(
-                          (x) => x.id === item.id
-                        );
-                        updated[index].label = e.target.value;
-                        setLinks(updated);
-                      }}
-                      className="w-full mb-2 bg-white/10 px-3 py-2 rounded-lg outline-none text-sm"
-                    />
-                  ))}
+              <h2 className="text-2xl font-bold text-black mb-8">
+
+                Footer Section
+
+              </h2>
+
+              <div className="space-y-5">
+
+                <div>
+                  <label className="block mb-2 text-sm font-medium text-black">
+
+                    Whatsapp Text
+
+                  </label>
+
+                  <input
+                    value={
+                      section.whatsapp_text
+                    }
+                    onChange={(e) =>
+                      setSection({
+                        ...section,
+                        whatsapp_text:
+                          e.target
+                            .value,
+                      })
+                    }
+                    className="
+                      w-full
+                      px-5
+                      py-4
+                      rounded-2xl
+                      border
+                      border-gray-300
+                      text-black
+                      placeholder:text-gray-500
+                      outline-none
+                      focus:border-cyan-400
+                    "
+                    placeholder="Whatsapp Text"
+                  />
+                </div>
+
+                <div>
+                  <label className="block mb-2 text-sm font-medium text-black">
+
+                    Subscribe Placeholder
+
+                  </label>
+
+                  <input
+                    value={
+                      section.subscribe_placeholder
+                    }
+                    onChange={(e) =>
+                      setSection({
+                        ...section,
+                        subscribe_placeholder:
+                          e.target
+                            .value,
+                      })
+                    }
+                    className="
+                      w-full
+                      px-5
+                      py-4
+                      rounded-2xl
+                      border
+                      border-gray-300
+                      text-black
+                      placeholder:text-gray-500
+                      outline-none
+                      focus:border-cyan-400
+                    "
+                    placeholder="Subscribe Placeholder"
+                  />
+                </div>
+
+                <div>
+                  <label className="block mb-2 text-sm font-medium text-black">
+
+                    Copyright
+
+                  </label>
+
+                  <input
+                    value={
+                      section.copyright
+                    }
+                    onChange={(e) =>
+                      setSection({
+                        ...section,
+                        copyright:
+                          e.target
+                            .value,
+                      })
+                    }
+                    className="
+                      w-full
+                      px-5
+                      py-4
+                      rounded-2xl
+                      border
+                      border-gray-300
+                      text-black
+                      placeholder:text-gray-500
+                      outline-none
+                      focus:border-cyan-400
+                    "
+                    placeholder="Copyright"
+                  />
+                </div>
+
               </div>
-            ))}
+
+            </div>
+
+            {/* APPS */}
+            <div className="bg-white rounded-[30px] border border-gray-200 p-8 shadow-sm">
+
+              <h2 className="text-2xl font-bold text-black mb-8">
+
+                Footer Apps
+
+              </h2>
+
+              <div className="space-y-6">
+
+                {apps.map(
+                  (
+                    app,
+                    i
+                  ) => (
+                    <div
+                      key={app.id}
+                      className="p-5 rounded-2xl border border-gray-200 bg-gray-50"
+                    >
+
+                      <div className="space-y-4">
+
+                        <input
+                          value={
+                            app.name
+                          }
+                          onChange={(
+                            e
+                          ) => {
+                            const updated =
+                              [
+                                ...apps,
+                              ];
+
+                            updated[
+                              i
+                            ].name =
+                              e.target.value;
+
+                            setApps(
+                              updated
+                            );
+                          }}
+                          className="
+                            w-full
+                            px-5
+                            py-4
+                            rounded-2xl
+                            border
+                            border-gray-300
+                            text-black
+                          "
+                          placeholder="App Name"
+                        />
+
+                        <input
+                          value={
+                            app.link
+                          }
+                          onChange={(
+                            e
+                          ) => {
+                            const updated =
+                              [
+                                ...apps,
+                              ];
+
+                            updated[
+                              i
+                            ].link =
+                              e.target.value;
+
+                            setApps(
+                              updated
+                            );
+                          }}
+                          className="
+                            w-full
+                            px-5
+                            py-4
+                            rounded-2xl
+                            border
+                            border-gray-300
+                            text-black
+                          "
+                          placeholder="App Link"
+                        />
+
+                      </div>
+
+                    </div>
+                  )
+                )}
+
+              </div>
+
+            </div>
+
           </div>
-        </div>
 
-        {/* ================= SOCIAL ================= */}
-        <div className="bg-white/5 border border-white/10 rounded-2xl p-6">
+          {/* RIGHT SIDE */}
+          <div className="space-y-8">
 
-          <h2 className="text-xl font-semibold text-cyan-400 mb-4">
-            Social Links
-          </h2>
+            {/* LINKS */}
+            <div className="bg-white rounded-[30px] border border-gray-200 p-8 shadow-sm">
 
-          {socials.map((item, i) => (
-            <div key={item.id} className="flex gap-3 mb-3">
+              <h2 className="text-2xl font-bold text-black mb-8">
 
-              <input
-                value={item.platform}
-                onChange={(e) => {
-                  const updated = [...socials];
-                  updated[i].platform = e.target.value;
-                  setSocials(updated);
-                }}
-                className="w-1/3 bg-white/10 px-3 py-2 rounded-lg outline-none"
-              />
+                Footer Links
 
-              <input
-                value={item.url}
-                onChange={(e) => {
-                  const updated = [...socials];
-                  updated[i].url = e.target.value;
-                  setSocials(updated);
-                }}
-                className="w-full bg-white/10 px-3 py-2 rounded-lg outline-none"
-              />
+              </h2>
+
+              <div className="space-y-5">
+
+                {links.map(
+                  (
+                    item,
+                    i
+                  ) => (
+                    <div
+                      key={item.id}
+                      className="grid grid-cols-2 gap-4"
+                    >
+
+                      <input
+                        value={
+                          item.label
+                        }
+                        onChange={(
+                          e
+                        ) => {
+                          const updated =
+                            [
+                              ...links,
+                            ];
+
+                          updated[
+                            i
+                          ].label =
+                            e.target.value;
+
+                          setLinks(
+                            updated
+                          );
+                        }}
+                        className="
+                          px-5
+                          py-4
+                          rounded-2xl
+                          border
+                          border-gray-300
+                          text-black
+                        "
+                        placeholder="Label"
+                      />
+
+                      <input
+                        value={
+                          item.category
+                        }
+                        onChange={(
+                          e
+                        ) => {
+                          const updated =
+                            [
+                              ...links,
+                            ];
+
+                          updated[
+                            i
+                          ].category =
+                            e.target.value;
+
+                          setLinks(
+                            updated
+                          );
+                        }}
+                        className="
+                          px-5
+                          py-4
+                          rounded-2xl
+                          border
+                          border-gray-300
+                          text-black
+                        "
+                        placeholder="Category"
+                      />
+
+                    </div>
+                  )
+                )}
+
+              </div>
 
             </div>
-          ))}
-        </div>
 
-        {/* ================= APPS ================= */}
-        <div className="bg-white/5 border border-white/10 rounded-2xl p-6">
+            {/* SOCIALS */}
+            <div className="bg-white rounded-[30px] border border-gray-200 p-8 shadow-sm">
 
-          <h2 className="text-xl font-semibold text-cyan-400 mb-4">
-            App Links
-          </h2>
+              <h2 className="text-2xl font-bold text-black mb-8">
 
-          {apps.map((item, i) => (
-            <div key={item.id} className="flex gap-3 mb-3">
+                Social Links
 
-              <input
-                value={item.name}
-                onChange={(e) => {
-                  const updated = [...apps];
-                  updated[i].name = e.target.value;
-                  setApps(updated);
-                }}
-                className="w-1/3 bg-white/10 px-3 py-2 rounded-lg outline-none"
-              />
+              </h2>
 
-              <input
-                value={item.link}
-                onChange={(e) => {
-                  const updated = [...apps];
-                  updated[i].link = e.target.value;
-                  setApps(updated);
-                }}
-                className="w-full bg-white/10 px-3 py-2 rounded-lg outline-none"
-              />
+              <div className="space-y-5">
+
+                {socials.map(
+                  (
+                    item,
+                    i
+                  ) => (
+                    <div
+                      key={item.id}
+                      className="grid grid-cols-2 gap-4"
+                    >
+
+                      <input
+                        value={
+                          item.platform
+                        }
+                        onChange={(
+                          e
+                        ) => {
+                          const updated =
+                            [
+                              ...socials,
+                            ];
+
+                          updated[
+                            i
+                          ].platform =
+                            e.target.value;
+
+                          setSocials(
+                            updated
+                          );
+                        }}
+                        className="
+                          px-5
+                          py-4
+                          rounded-2xl
+                          border
+                          border-gray-300
+                          text-black
+                        "
+                        placeholder="Platform"
+                      />
+
+                      <input
+                        value={
+                          item.url
+                        }
+                        onChange={(
+                          e
+                        ) => {
+                          const updated =
+                            [
+                              ...socials,
+                            ];
+
+                          updated[
+                            i
+                          ].url =
+                            e.target.value;
+
+                          setSocials(
+                            updated
+                          );
+                        }}
+                        className="
+                          px-5
+                          py-4
+                          rounded-2xl
+                          border
+                          border-gray-300
+                          text-black
+                        "
+                        placeholder="URL"
+                      />
+
+                    </div>
+                  )
+                )}
+
+              </div>
 
             </div>
-          ))}
+
+          </div>
+
         </div>
 
-        {/* ================= SAVE ================= */}
-        <div className="text-center">
-          <motion.button
-            whileTap={{ scale: 0.95 }}
-            onClick={handleSave}
-            className="px-10 py-3 bg-cyan-400 text-black rounded-full font-semibold"
+        {/* SAVE BUTTON */}
+        <div className="fixed bottom-8 right-8 z-50">
+
+          <button
+            onClick={
+              handleSave
+            }
+            className="
+              flex
+              items-center
+              gap-3
+              px-8
+              py-4
+              rounded-2xl
+              bg-cyan-400
+              hover:bg-cyan-300
+              transition
+              text-black
+              font-bold
+              shadow-2xl
+            "
           >
-            {saving ? "Saving..." : "Save Changes"}
-          </motion.button>
+
+            <Save className="w-5 h-5" />
+
+            {saving
+              ? "Saving..."
+              : "Save Changes"}
+
+          </button>
+
         </div>
 
       </div>
+
     </section>
   );
 }
