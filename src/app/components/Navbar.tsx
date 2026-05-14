@@ -52,8 +52,8 @@ export function Navbar() {
     "PADI Open Water":
       "/padi-open-water",
 
-    "PADI Open Diver":
-      "/padi-open-diver",
+    "PADI SCUBA DRIVER":
+      "/padi-scuba-diver",
   };
 
   const menuItems = [
