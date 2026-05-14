@@ -11,12 +11,12 @@ export function CommunityFAQSection() {
   const [faqs, setFaqs] = useState<any[]>([]);
 
   const load = async () => {
-    console.log("🚀 Fetching FAQ...");
+    // console.log("🚀 Fetching FAQ...");
 
     const { section, items, error } = await getFAQ();
 
-    console.log("📦 SECTION:", section);
-    console.log("📦 FAQ ITEMS:", items);
+    // console.log("📦 SECTION:", section);
+    // console.log("📦 FAQ ITEMS:", items);
     console.log("❌ ERROR:", error);
 
     setSection(section);
