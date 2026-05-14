@@ -1,77 +1,112 @@
 import { supabase } from "@/lib/supabaseClient";
 
 /* ================= GET ================= */
-export const getGoldStandard = async () => {
-  const { data: section } = await supabase
-    .from("gold_standard_section")
-    .select("*")
-    .limit(1);
 
-  const { data: tags } = await supabase
-    .from("gold_standard_tags")
-    .select("*")
-    .order("created_at", { ascending: true });
+export const getGoldStandard =
+  async () => {
+    const {
+      data: section,
+    } = await supabase
+      .from(
+        "kadir_gold_standard_section"
+      )
+      .select("*")
+      .limit(1);
 
-  const { data: images } = await supabase
-    .from("gold_standard_images")
-    .select("*");
+    const { data: tags } =
+      await supabase
+        .from(
+          "kadir_gold_standard_tags"
+        )
+        .select("*")
+        .order("position", {
+          ascending: true,
+        });
 
-  console.log("SECTION:", section);
-  console.log("TAGS:", tags);
-  console.log("IMAGES:", images);
+    const {
+      data: images,
+    } = await supabase
+      .from(
+        "kadir_gold_standard_images"
+      )
+      .select("*");
 
-  return {
-    section: section?.[0] || null,
-    tags: tags || [],
-    images: images || [],
+    return {
+      section:
+        section?.[0] || null,
+
+      tags: tags || [],
+
+      images:
+        images || [],
+    };
   };
-};
-export const updateGoldTag = async (item: any) => {
-  const { data, error } = await supabase
-    .from("gold_standard_tags")
-    .update({
-      icon: item.icon,
-      text: item.text,
-    })
-    .eq("id", item.id)
-    .select();
 
-  console.log("UPDATE TAG:", data, error);
+/* ================= UPDATE TAG ================= */
 
-  return { data, error };
-};
-export const updateGoldImage = async (item: any) => {
-  const { data, error } = await supabase
-    .from("gold_standard_images")
-    .update({
-      image_url: item.image_url,
-    })
-    .eq("id", item.id)
-    .select();
+export const updateGoldTag =
+  async (item: any) => {
+    return await supabase
+      .from(
+        "kadir_gold_standard_tags"
+      )
+      .update({
+        icon: item.icon,
+        text: item.text,
+      })
+      .eq("id", item.id)
+      .select();
+  };
 
-  console.log("UPDATE IMAGE:", data, error);
+/* ================= UPDATE IMAGE ================= */
 
-  return { data, error };
-};
+export const updateGoldImage =
+  async (item: any) => {
+    return await supabase
+      .from(
+        "kadir_gold_standard_images"
+      )
+      .update({
+        image_url:
+          item.image_url,
+      })
+      .eq("id", item.id)
+      .select();
+  };
 
-export const updateGoldSection = async (section: any) => {
-  console.log("💾 Updating SECTION:", section);
+/* ================= UPDATE SECTION ================= */
 
-  const { data, error } = await supabase
-    .from("gold_standard_section")
-    .update({
-      badge: section.badge,
-      title: section.title,
-      highlight: section.highlight,
-      description: section.description,
-      card_title: section.card_title,
-      card_description: section.card_description,
-    })
-    .eq("id", String(section.id)) // 🔥 IMPORTANT
-    .select();
+export const updateGoldSection =
+  async (section: any) => {
+    return await supabase
+      .from(
+        "kadir_gold_standard_section"
+      )
+      .update({
+        badge:
+          section.badge,
 
-  console.log("📦 SECTION UPDATE:", data);
-  console.log("❌ SECTION ERROR:", error);
+        title:
+          section.title,
 
-  return { data, error };
-};
+        highlight:
+          section.highlight,
+
+        description:
+          section.description,
+
+        card_title:
+          section.card_title,
+
+        card_description:
+          section.card_description,
+
+        updated_at:
+          new Date().toISOString(),
+      })
+      .eq(
+        "id",
+        String(section.id)
+      )
+      .select();
+  };

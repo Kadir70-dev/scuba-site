@@ -1,7 +1,14 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Shield, Star, Award } from "lucide-react";
+
+import {
+  Shield,
+  Star,
+  Award,
+  Save,
+} from "lucide-react";
+
 import {
   getGoldStandard,
   updateGoldSection,
@@ -10,238 +17,294 @@ import {
 } from "@/services/goldStandardService";
 
 const iconMap: any = {
-  Star: <Star size={14} />,
-  Award: <Award size={14} />,
-  Shield: <Shield size={14} />,
+  Star: (
+    <Star size={14} />
+  ),
+
+  Award: (
+    <Award size={14} />
+  ),
+
+  Shield: (
+    <Shield size={14} />
+  ),
 };
 
 export default function GoldStandardAdmin() {
-  const [section, setSection] = useState<any>(null);
-  const [tags, setTags] = useState<any[]>([]);
-  const [images, setImages] = useState<any[]>([]);
-  const [editing, setEditing] = useState<string | null>(null);
-  const [saving, setSaving] = useState(false);
+  const [section, setSection] =
+    useState<any>(null);
+
+  const [tags, setTags] =
+    useState<any[]>([]);
+
+  const [images, setImages] =
+    useState<any[]>([]);
+
+  const [editing, setEditing] =
+    useState<string | null>(null);
+
+  const [saving, setSaving] =
+    useState(false);
 
   useEffect(() => {
-    const load = async () => {
-      const { section, tags, images } = await getGoldStandard();
-      setSection(section);
-      setTags(tags);
-      setImages(images);
-    };
     load();
   }, []);
 
-  const handleSave = async () => {
-    setSaving(true);
+  const load = async () => {
+    const {
+      section,
+      tags,
+      images,
+    } = await getGoldStandard();
 
-    await updateGoldSection(section);
-    await Promise.all(tags.map(updateGoldTag));
-    await Promise.all(images.map(updateGoldImage));
+    setSection(section);
 
-    setSaving(false);
-    console.log("✅ Saved");
+    setTags(tags);
+
+    setImages(images);
   };
+
+  const handleSave =
+    async () => {
+      setSaving(true);
+
+      await updateGoldSection(
+        section
+      );
+
+      await Promise.all(
+        tags.map(
+          updateGoldTag
+        )
+      );
+
+      await Promise.all(
+        images.map(
+          updateGoldImage
+        )
+      );
+
+      setSaving(false);
+    };
 
   if (!section) return null;
 
-  const getImage = (pos: string) =>
-    images.find((img) => img.position === pos);
+  const getImage = (
+    pos: string
+  ) =>
+    images.find(
+      (img) =>
+        img.position === pos
+    );
 
   return (
-    <section className="py-32 bg-gradient-to-b from-[#f5f7fa] to-[#eef2f6]">
+    <section className="py-32 bg-[#f5f7fa]">
 
       <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-16 px-6 items-center">
 
         {/* LEFT */}
         <div>
 
-          {/* BADGE */}
-          {editing === "badge" ? (
+          <input
+            value={section.badge}
+            onChange={(e) =>
+              setSection({
+                ...section,
+                badge:
+                  e.target.value,
+              })
+            }
+            className="mb-6 px-4 py-2 rounded-full border border-cyan-400/30 bg-white"
+          />
+
+          <div className="space-y-4 mb-6">
+
             <input
-              value={section.badge}
+              value={section.title}
               onChange={(e) =>
-                setSection({ ...section, badge: e.target.value })
+                setSection({
+                  ...section,
+                  title:
+                    e.target.value,
+                })
               }
-              onBlur={() => setEditing(null)}
-              className="bg-black/10 px-2 py-1 rounded"
+              className="w-full text-4xl font-bold bg-white p-4 rounded-2xl"
             />
-          ) : (
-            <div
-              onClick={() => setEditing("badge")}
-              className="inline-block px-4 py-2 text-[11px] tracking-[3px] rounded-full border border-cyan-400/30 text-cyan-500 mb-6 cursor-pointer"
-            >
-              {section.badge}
-            </div>
-          )}
 
-          {/* TITLE */}
-          <h2 className="text-4xl md:text-5xl font-bold text-[#0a0e27] mb-6">
-
-            {editing === "title" ? (
-              <input
-                value={section.title}
-                onChange={(e) =>
-                  setSection({ ...section, title: e.target.value })
-                }
-                onBlur={() => setEditing(null)}
-                className="bg-black/10 px-2"
-              />
-            ) : (
-              <span onClick={() => setEditing("title")}>
-                {section.title}
-              </span>
-            )}
-
-            {" "}
-
-            {editing === "highlight" ? (
-              <input
-                value={section.highlight}
-                onChange={(e) =>
-                  setSection({ ...section, highlight: e.target.value })
-                }
-                onBlur={() => setEditing(null)}
-                className="bg-black/10 px-2 text-cyan-400"
-              />
-            ) : (
-              <span
-                onClick={() => setEditing("highlight")}
-                className="text-cyan-400 cursor-pointer"
-              >
-                {section.highlight}
-              </span>
-            )}
-          </h2>
-
-          {/* DESC */}
-          {editing === "description" ? (
-            <textarea
-              value={section.description}
+            <input
+              value={
+                section.highlight
+              }
               onChange={(e) =>
-                setSection({ ...section, description: e.target.value })
+                setSection({
+                  ...section,
+                  highlight:
+                    e.target.value,
+                })
               }
-              onBlur={() => setEditing(null)}
-              className="bg-black/10 p-2 w-full"
+              className="w-full text-cyan-500 text-2xl bg-white p-4 rounded-2xl"
             />
-          ) : (
-            <p
-              onClick={() => setEditing("description")}
-              className="text-gray-500 mb-10 cursor-pointer"
-            >
-              {section.description}
-            </p>
-          )}
+
+          </div>
+
+          <textarea
+            value={
+              section.description
+            }
+            onChange={(e) =>
+              setSection({
+                ...section,
+                description:
+                  e.target.value,
+              })
+            }
+            className="w-full bg-white p-4 rounded-2xl mb-8"
+          />
 
           {/* CARD */}
-          <div className="relative p-6 rounded-2xl border border-yellow-300/40 bg-gradient-to-br from-[#fffdf7] to-[#fff7d6]">
+          <div className="bg-white p-8 rounded-3xl border border-yellow-200">
 
-            <div className="absolute -top-5 left-6 bg-white p-2 rounded-full">
-              <Shield className="text-yellow-500 w-5 h-5" />
-            </div>
+            <input
+              value={
+                section.card_title
+              }
+              onChange={(e) =>
+                setSection({
+                  ...section,
+                  card_title:
+                    e.target.value,
+                })
+              }
+              className="w-full text-xl font-bold mb-4"
+            />
 
-            {/* CARD TITLE */}
-            {editing === "card_title" ? (
-              <input
-                value={section.card_title}
-                onChange={(e) =>
-                  setSection({ ...section, card_title: e.target.value })
-                }
-                onBlur={() => setEditing(null)}
-                className="bg-black/10 px-2 w-full"
-              />
-            ) : (
-              <h3
-                onClick={() => setEditing("card_title")}
-                className="font-semibold mb-3 mt-3 cursor-pointer"
-              >
-                {section.card_title}
-              </h3>
-            )}
-
-            {/* CARD DESC */}
-            {editing === "card_desc" ? (
-              <textarea
-                value={section.card_description}
-                onChange={(e) =>
-                  setSection({
-                    ...section,
-                    card_description: e.target.value,
-                  })
-                }
-                onBlur={() => setEditing(null)}
-                className="bg-black/10 p-2 w-full"
-              />
-            ) : (
-              <p
-                onClick={() => setEditing("card_desc")}
-                className="text-sm text-gray-600 cursor-pointer"
-              >
-                {section.card_description}
-              </p>
-            )}
+            <textarea
+              value={
+                section.card_description
+              }
+              onChange={(e) =>
+                setSection({
+                  ...section,
+                  card_description:
+                    e.target.value,
+                })
+              }
+              className="w-full mb-6"
+            />
 
             {/* TAGS */}
-            <div className="flex flex-wrap gap-3 mt-6">
-              {tags.map((tag, i) => (
-                <div
-                  key={tag.id}
-                  className="px-4 py-2 text-xs flex items-center gap-2 border border-yellow-400/50 bg-yellow-50 text-yellow-600"
-                >
-                  {iconMap[tag.icon]}
+            <div className="space-y-4">
 
-                  {editing === `tag-${i}` ? (
+              {tags.map(
+                (
+                  tag,
+                  i
+                ) => (
+                  <div
+                    key={tag.id}
+                    className="flex items-center gap-3 bg-yellow-50 p-3 rounded-xl"
+                  >
+
+                    {
+                      iconMap[
+                        tag.icon
+                      ]
+                    }
+
                     <input
-                      value={tag.text}
-                      onChange={(e) => {
-                        const updated = [...tags];
-                        updated[i].text = e.target.value;
-                        setTags(updated);
+                      value={
+                        tag.text
+                      }
+                      onChange={(
+                        e
+                      ) => {
+                        const updated =
+                          [
+                            ...tags,
+                          ];
+
+                        updated[
+                          i
+                        ].text =
+                          e.target.value;
+
+                        setTags(
+                          updated
+                        );
                       }}
-                      onBlur={() => setEditing(null)}
-                      className="bg-transparent outline-none"
+                      className="bg-transparent flex-1 outline-none"
                     />
-                  ) : (
-                    <span onClick={() => setEditing(`tag-${i}`)}>
-                      {tag.text}
-                    </span>
-                  )}
-                </div>
-              ))}
+
+                  </div>
+                )
+              )}
+
             </div>
 
           </div>
 
         </div>
 
-        {/* RIGHT IMAGES */}
+        {/* RIGHT */}
         <div className="grid grid-cols-2 gap-6">
 
-          {["big", "small1", "small2"].map((pos, i) => {
-            const img = getImage(pos);
+          {[
+            "big",
+            "small1",
+            "small2",
+          ].map((pos, i) => {
+            const img =
+              getImage(pos);
+
             return (
-              <div key={pos} className={i === 0 ? "row-span-2" : ""}>
-                {editing === pos ? (
-                  <input
-                    value={img?.image_url}
-                    onChange={(e) => {
-                      const updated = images.map((im) =>
-                        im.position === pos
-                          ? { ...im, image_url: e.target.value }
-                          : im
+              <div
+                key={pos}
+                className={
+                  i === 0
+                    ? "row-span-2"
+                    : ""
+                }
+              >
+
+                <input
+                  value={
+                    img?.image_url ||
+                    ""
+                  }
+                  onChange={(
+                    e
+                  ) => {
+                    const updated =
+                      images.map(
+                        (
+                          im
+                        ) =>
+                          im.position ===
+                          pos
+                            ? {
+                                ...im,
+                                image_url:
+                                  e
+                                    .target
+                                    .value,
+                              }
+                            : im
                       );
-                      setImages(updated);
-                    }}
-                    onBlur={() => setEditing(null)}
-                    className="w-full bg-black/10 p-2"
-                  />
-                ) : (
-                  <img
-                    src={img?.image_url}
-                    onClick={() => setEditing(pos)}
-                    className="rounded-2xl cursor-pointer"
-                  />
-                )}
+
+                    setImages(
+                      updated
+                    );
+                  }}
+                  className="w-full mb-3 bg-white p-3 rounded-xl"
+                />
+
+                <img
+                  src={
+                    img?.image_url
+                  }
+                  className="rounded-2xl"
+                />
+
               </div>
             );
           })}
@@ -251,13 +314,21 @@ export default function GoldStandardAdmin() {
       </div>
 
       {/* SAVE */}
-      <div className="text-center mt-10">
+      <div className="fixed bottom-8 right-8">
+
         <button
           onClick={handleSave}
-          className="px-8 py-3 bg-cyan-400 text-black rounded-xl"
+          className="flex items-center gap-3 px-8 py-4 bg-cyan-400 text-black rounded-2xl font-semibold"
         >
-          {saving ? "Saving..." : "Save Changes"}
+
+          <Save className="w-5 h-5" />
+
+          {saving
+            ? "Saving..."
+            : "Save Changes"}
+
         </button>
+
       </div>
 
     </section>
