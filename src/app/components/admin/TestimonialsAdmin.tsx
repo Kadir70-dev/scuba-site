@@ -23,8 +23,8 @@ export function TestimonialsAdmin() {
 
     const response = await getTestimonials();
 
-    console.log("📦 FULL RESPONSE:", response);
-    console.log("📦 DATA:", response?.data);
+    // console.log("📦 FULL RESPONSE:", response);
+    // console.log("📦 DATA:", response?.data);
     console.log("❌ ERROR:", response?.error);
 
     if (response?.error) {
@@ -54,7 +54,7 @@ export function TestimonialsAdmin() {
 
     const response = await updateTestimonial(id, row);
 
-    console.log("📦 UPDATE RESPONSE:", response);
+    // console.log("📦 UPDATE RESPONSE:", response);
     console.log("❌ UPDATE ERROR:", response?.error);
 
     if (!response?.error) {
@@ -73,7 +73,7 @@ export function TestimonialsAdmin() {
         item.category?.toLowerCase() === category.toLowerCase()
     );
 
-    console.log("📊 FILTERED DATA:", filtered);
+    // console.log("📊 FILTERED DATA:", filtered);
 
     return (
       <div className="w-full overflow-x-auto flex justify-center font-habara">
@@ -203,8 +203,8 @@ export function TestimonialsAdmin() {
   };
 
   // ================= DEBUG =================
-  console.log("🎯 CURRENT DATA:", data);
-  console.log("🎯 ACTIVE TAB:", activeMainTab);
+  // console.log("🎯 CURRENT DATA:", data);
+  // console.log("🎯 ACTIVE TAB:", activeMainTab);
 
   // ================= UI =================
   return (
