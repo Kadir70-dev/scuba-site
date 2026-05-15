@@ -28,7 +28,7 @@ import {
 } from "@/services/DiveTrainingShowcaseService";
 
 export default function DiveTrainingShowcaseAdmin() {
-x``
+
   const [section, setSection] =
     useState<any>(null);
 
