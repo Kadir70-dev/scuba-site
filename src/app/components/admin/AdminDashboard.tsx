@@ -52,6 +52,7 @@ import MasterScubaCTAAdmin from "./MasterScubaCTAAdmin";
 import { StepsAdmin } from "./AdminSteps";
 import RescueFAQAdmin from "./RescueFAQAdmin";
 import DiveTrainingShowcaseAdmin from "./DiveTrainingShowcaseAdmin";
+import LocationFooterAdmin from "./LocationFooterAdmin";
 // import EnvironmentSectionAdmin from "./EnvironmentSectionAdmin";
 export default function AdminDashboard() {
   const [hero, setHero] = useState<any>(null);
@@ -294,7 +295,11 @@ export default function AdminDashboard() {
     {
       name : "Dive TrainingShowcase Admin",
       component : <DiveTrainingShowcaseAdmin />
-    }
+    },
+    {
+      name : "Location Footer Admin",
+      component : <LocationFooterAdmin />
+    },
   ];
 
   if (loading) {
