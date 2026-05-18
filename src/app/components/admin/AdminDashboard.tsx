@@ -53,6 +53,7 @@ import { StepsAdmin } from "./AdminSteps";
 import RescueFAQAdmin from "./RescueFAQAdmin";
 import DiveTrainingShowcaseAdmin from "./DiveTrainingShowcaseAdmin";
 import LocationFooterAdmin from "./LocationFooterAdmin";
+import DivetryAdmin from "./DivetryAdmin";
 // import EnvironmentSectionAdmin from "./EnvironmentSectionAdmin";
 export default function AdminDashboard() {
   const [hero, setHero] = useState<any>(null);
@@ -300,6 +301,11 @@ export default function AdminDashboard() {
       name : "Location Footer Admin",
       component : <LocationFooterAdmin />
     },
+    {
+      name :"Divetry Admin",
+      component: <DivetryAdmin />
+    },
+    
   ];
 
   if (loading) {
