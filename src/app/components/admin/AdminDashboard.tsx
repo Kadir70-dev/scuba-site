@@ -58,6 +58,8 @@ import FirstDiveStepsAdmin from "./FirstDiveStepsAdmin";
 import WeekendRoutineAdmin from "./WeekendRoutineAdmin";
 import DiveConfidenceFAQAdmin from "./DiveConfidenceFAQAdmin";
 import ChooseDiveSiteAdmin from "./ChooseDiveSiteAdmin";
+import ExpertHandsAdmin from "./ExpertHandsAdmin";
+import LegacyOfTrustAdmin from "./LegacyOfTrustAdmin";
 // import EnvironmentSectionAdmin from "./EnvironmentSectionAdmin";
 export default function AdminDashboard() {
   const [hero, setHero] = useState<any>(null);
@@ -325,7 +327,15 @@ export default function AdminDashboard() {
       name :"Choose DiveSite Admin",
       component : <ChooseDiveSiteAdmin />  
     },
-    
+    {
+      name :"ExpertHands Admin",
+      component:<ExpertHandsAdmin/>
+
+    },
+    {
+      name :"LegacyOfTrustAdmin",
+      component : <LegacyOfTrustAdmin />
+    },
 
     
   ];
