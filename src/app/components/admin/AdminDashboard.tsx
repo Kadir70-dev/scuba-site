@@ -60,6 +60,7 @@ import DiveConfidenceFAQAdmin from "./DiveConfidenceFAQAdmin";
 import ChooseDiveSiteAdmin from "./ChooseDiveSiteAdmin";
 import ExpertHandsAdmin from "./ExpertHandsAdmin";
 import LegacyOfTrustAdmin from "./LegacyOfTrustAdmin";
+import ContactLocationsAdmin from "./ContactLocationsAdmin";
 // import EnvironmentSectionAdmin from "./EnvironmentSectionAdmin";
 export default function AdminDashboard() {
   const [hero, setHero] = useState<any>(null);
@@ -335,6 +336,10 @@ export default function AdminDashboard() {
     {
       name :"LegacyOfTrustAdmin",
       component : <LegacyOfTrustAdmin />
+    },
+    {
+      name :"ContactLocationsAdmin",
+      component: <ContactLocationsAdmin />
     },
 
     
