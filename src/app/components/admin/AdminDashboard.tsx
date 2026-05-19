@@ -62,6 +62,7 @@ import ExpertHandsAdmin from "./ExpertHandsAdmin";
 import LegacyOfTrustAdmin from "./LegacyOfTrustAdmin";
 import ContactLocationsAdmin from "./ContactLocationsAdmin";
 import AdventureGalleryAdmin from "./AdventureGalleryAdmin";
+import TryDiveFooterAdmin from "./TryDiveFooterAdmin";
 // import EnvironmentSectionAdmin from "./EnvironmentSectionAdmin";
 export default function AdminDashboard() {
   const [hero, setHero] = useState<any>(null);
@@ -345,7 +346,11 @@ export default function AdminDashboard() {
     {
       name :"Adventure Gallery Admin",
       component:<AdventureGalleryAdmin />
-    }
+    },
+    {
+      name:"TryDiveFooterAdmin",
+      component: <TryDiveFooterAdmin />
+    },
 
     
   ];
